@@ -1,23 +1,18 @@
-package me.bam6561.aethelcomposite.events.player;
+package me.bam6561.aethelcomposite.events;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 /**
- * Called when a player interacts with an entity while sneaking.
- * <p>
- * May be cancelled without cancelling its source PlayerInteractEntityEvent.
+ * An event.
  *
  * @author Danny Nguyen
- * @version 1.0.5
- * @since 1.0.5
+ * @version 1.0.6
+ * @since 1.0.6
  */
-public class SneakInteractEntityEvent extends Event implements Cancellable {
+public class EventTemplate extends Event implements Cancellable {
   /**
    * Event handlers.
    */
@@ -29,27 +24,9 @@ public class SneakInteractEntityEvent extends Event implements Cancellable {
   private boolean isCancelled = false;
 
   /**
-   * Event source.
+   * No parameter constructor.
    */
-  private final PlayerInteractEntityEvent source;
-
-  /**
-   * Associates the event with its source.
-   *
-   * @param source player interact entity event
-   */
-  public SneakInteractEntityEvent(@NotNull PlayerInteractEntityEvent source) {
-    this.source = Objects.requireNonNull(source, "Null source");
-  }
-
-  /**
-   * Gets the source event.
-   *
-   * @return player interact entity event
-   */
-  @NotNull
-  public PlayerInteractEntityEvent getSource() {
-    return this.source;
+  public EventTemplate() {
   }
 
   /**

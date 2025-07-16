@@ -89,11 +89,11 @@ public class GUIOpenEvent extends Event implements Cancellable {
   /**
    * Sets the event's cancellation state.
    *
-   * @param b cancellation state
+   * @param cancelled cancellation state
    */
   @Override
-  public void setCancelled(boolean b) {
-    this.isCancelled = b;
+  public void setCancelled(boolean cancelled) {
+    this.isCancelled = cancelled;
   }
 
   /**
