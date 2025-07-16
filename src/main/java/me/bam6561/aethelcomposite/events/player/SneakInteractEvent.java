@@ -1,9 +1,10 @@
 package me.bam6561.aethelcomposite.events.player;
 
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -14,8 +15,8 @@ import java.util.Objects;
  * May be cancelled without cancelling its source PlayerInteractEvent.
  *
  * @author Danny Nguyen
- * @version 1.0.5
- * @since 1.0.5
+ * @version 1.0.9
+ * @since 1.0.9
  */
 public class SneakInteractEvent extends Event implements Cancellable {
   /**
@@ -29,27 +30,44 @@ public class SneakInteractEvent extends Event implements Cancellable {
   private boolean isCancelled = false;
 
   /**
-   * Event source.
+   * Interacting player.
    */
-  private final PlayerInteractEvent source;
+  private final Player player;
 
   /**
-   * Associates the event with its source.
-   *
-   * @param source player interact event
+   * Interacting block.
    */
-  public SneakInteractEvent(@NotNull PlayerInteractEvent source) {
-    this.source = Objects.requireNonNull(source, "Null source");
+  private final Block block;
+
+  /**
+   * Associates the event with its player and target.
+   *
+   * @param player interacting player
+   * @param block  interacting target
+   */
+  public SneakInteractEvent(@NotNull Player player, @NotNull Block block) {
+    this.player = Objects.requireNonNull(player, "Null player");
+    this.block = Objects.requireNonNull(block, "Null block");
   }
 
   /**
-   * Gets the source event.
+   * Gets the interacting player.
    *
-   * @return player interact event
+   * @return interacting player
    */
   @NotNull
-  public PlayerInteractEvent getSource() {
-    return this.source;
+  public Player getPlayer() {
+    return this.player;
+  }
+
+  /**
+   * Gets the interacting block.
+   *
+   * @return interacting block
+   */
+  @NotNull
+  public Block getBlock() {
+    return this.block;
   }
 
   /**

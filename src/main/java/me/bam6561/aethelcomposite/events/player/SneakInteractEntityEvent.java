@@ -1,9 +1,10 @@
 package me.bam6561.aethelcomposite.events.player;
 
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -14,8 +15,8 @@ import java.util.Objects;
  * May be cancelled without cancelling its source PlayerInteractEntityEvent.
  *
  * @author Danny Nguyen
- * @version 1.0.5
- * @since 1.0.5
+ * @version 1.0.9
+ * @since 1.0.9
  */
 public class SneakInteractEntityEvent extends Event implements Cancellable {
   /**
@@ -29,27 +30,44 @@ public class SneakInteractEntityEvent extends Event implements Cancellable {
   private boolean isCancelled = false;
 
   /**
-   * Event source.
+   * Interacting player.
    */
-  private final PlayerInteractEntityEvent source;
+  private final Player player;
 
   /**
-   * Associates the event with its source.
-   *
-   * @param source player interact entity event
+   * Interacting entity.
    */
-  public SneakInteractEntityEvent(@NotNull PlayerInteractEntityEvent source) {
-    this.source = Objects.requireNonNull(source, "Null source");
+  private final Entity entity;
+
+  /**
+   * Associates the event with its player and entity.
+   *
+   * @param player interacting player
+   * @param entity interacting entity
+   */
+  public SneakInteractEntityEvent(@NotNull Player player, @NotNull Entity entity) {
+    this.player = Objects.requireNonNull(player, "Null player");
+    this.entity = Objects.requireNonNull(entity, "Null entity");
   }
 
   /**
-   * Gets the source event.
+   * Gets the interacting player.
    *
-   * @return player interact entity event
+   * @return interacting player
    */
   @NotNull
-  public PlayerInteractEntityEvent getSource() {
-    return this.source;
+  public Player getPlayer() {
+    return this.player;
+  }
+
+  /**
+   * Gets the interacting entity.
+   *
+   * @return interacting entity.
+   */
+  @NotNull
+  public Entity getEntity() {
+    return this.entity;
   }
 
   /**

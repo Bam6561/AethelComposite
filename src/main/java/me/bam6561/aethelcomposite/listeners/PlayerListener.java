@@ -15,8 +15,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * Collection of player interaction listeners.
  *
  * @author Danny Nguyen
- * @version 1.0.7
- * @since 1.0.7
+ * @version 1.0.9
+ * @since 1.0.9
  */
 public class PlayerListener implements Listener {
   /**
@@ -34,7 +34,7 @@ public class PlayerListener implements Listener {
   private void onPlayerInteract(PlayerInteractEvent event) {
     Player player = event.getPlayer();
     if (player.isSneaking()) {
-      SneakInteractEvent sneakInteractEvent = new SneakInteractEvent(event);
+      SneakInteractEvent sneakInteractEvent = new SneakInteractEvent(event.getPlayer(), event.getClickedBlock());
       Bukkit.getPluginManager().callEvent(sneakInteractEvent);
       if (sneakInteractEvent.isCancelled()) {
         return;
@@ -52,7 +52,7 @@ public class PlayerListener implements Listener {
   private void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
     Player player = event.getPlayer();
     if (player.isSneaking()) {
-      SneakInteractEntityEvent sneakEntityInteract = new SneakInteractEntityEvent(event);
+      SneakInteractEntityEvent sneakEntityInteract = new SneakInteractEntityEvent(event.getPlayer(), event.getRightClicked());
       Bukkit.getPluginManager().callEvent(sneakEntityInteract);
       if (sneakEntityInteract.isCancelled()) {
         return;
