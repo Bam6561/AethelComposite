@@ -2,6 +2,8 @@ package me.bam6561.aethelcomposite.listeners;
 
 import me.bam6561.aethelcomposite.events.player.SneakInteractEntityEvent;
 import me.bam6561.aethelcomposite.events.player.SneakInteractEvent;
+import me.bam6561.aethelcomposite.listeners.interactions.SneakEntityInteraction;
+import me.bam6561.aethelcomposite.listeners.interactions.SneakInteraction;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
