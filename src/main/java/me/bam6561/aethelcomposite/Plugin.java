@@ -1,6 +1,7 @@
 package me.bam6561.aethelcomposite;
 
 import me.bam6561.aethelcomposite.listeners.GUIListener;
+import me.bam6561.aethelcomposite.listeners.PlayerListener;
 import me.bam6561.aethelcomposite.managers.GUIManager;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
  * </p>
  *
  * @author Danny Nguyen
- * @version 1.0.13
+ * @version 1.0.14
  * @since 1.0.0
  */
 
@@ -58,6 +59,7 @@ public class Plugin extends JavaPlugin {
   private void registerEventListeners() {
     PluginManager manager = getServer().getPluginManager();
     manager.registerEvents(new GUIListener(), this);
+    manager.registerEvents(new PlayerListener(), this);
   }
 
   /**
