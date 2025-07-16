@@ -40,7 +40,7 @@ public class SneakInteractEvent extends Event implements Cancellable {
   private final Block block;
 
   /**
-   * Associates the event with its player and target.
+   * Associates the event with its player and block.
    *
    * @param player interacting player
    * @param block  interacting target

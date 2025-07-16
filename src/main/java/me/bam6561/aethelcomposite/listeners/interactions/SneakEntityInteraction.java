@@ -2,6 +2,9 @@ package me.bam6561.aethelcomposite.listeners.interactions;
 
 import me.bam6561.aethelcomposite.events.player.SneakInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 /**
  * {@link SneakInteractEntityEvent} interaction.
@@ -21,8 +24,8 @@ public class SneakEntityInteraction {
    *
    * @param event player interact entity event
    */
-  public SneakEntityInteraction(PlayerInteractEntityEvent event) {
-    this.event = event;
+  public SneakEntityInteraction(@NotNull PlayerInteractEntityEvent event) {
+    this.event = Objects.requireNonNull(event, "Null event");
   }
 
   /**

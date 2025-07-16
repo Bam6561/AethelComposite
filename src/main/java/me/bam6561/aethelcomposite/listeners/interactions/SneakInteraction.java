@@ -9,6 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 /**
  * {@link SneakInteractEvent} interaction.
@@ -28,12 +31,12 @@ public class SneakInteraction {
    *
    * @param event player interact event
    */
-  public SneakInteraction(PlayerInteractEvent event) {
-    this.event = event;
+  public SneakInteraction(@NotNull PlayerInteractEvent event) {
+    this.event = Objects.requireNonNull(event, "Null event");
   }
 
   /**
-   * Opens a {@link Workstation} when the player's hand is empty.
+   * Opens a {@link Workstation} when the player's hand is empty while interacting with a block.
    */
   public void interpretAction() {
     switch (event.getAction()) {
