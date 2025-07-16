@@ -1,5 +1,7 @@
 package me.bam6561.aethelcomposite;
 
+import me.bam6561.aethelcomposite.listeners.ActionListener;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -24,11 +26,12 @@ public class Plugin extends JavaPlugin {
   /**
    * On enable:
    * <ul>
-   *   <li>
+   *   <li>{@link #registerEventListeners() Registers} event listeners.
    * </ul>
    */
   @Override
   public void onEnable() {
+    registerEventListeners();
   }
 
   /**
@@ -39,5 +42,16 @@ public class Plugin extends JavaPlugin {
    */
   @Override
   public void onDisable() {
+  }
+
+  /**
+   * Registers the plugin's event listeners.
+   * <ul>
+   *   <li>{@link ActionListener}
+   * </ul>
+   */
+  private void registerEventListeners() {
+    PluginManager manager = getServer().getPluginManager();
+    manager.registerEvents(new ActionListener(), this);
   }
 }
