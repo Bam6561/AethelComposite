@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * @author Danny Nguyen
  * @version 1.0.9
- * @since 1.0.9
+ * @since 1.0.5
  */
 public class SneakInteractEvent extends Event implements Cancellable {
   /**
