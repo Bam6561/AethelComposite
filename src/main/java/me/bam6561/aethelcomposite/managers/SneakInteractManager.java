@@ -9,61 +9,52 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 /**
  * Manages {@link SneakInteractEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.19
+ * @version 1.0.20
  * @since 1.0.8
  */
 public class SneakInteractManager {
   /**
-   * Player interact event.
+   * No parameter constructor.
    */
-  private final PlayerInteractEvent event;
-
-  /**
-   * Associates the interaction with its source.
-   *
-   * @param event player interact event
-   */
-  public SneakInteractManager(@NotNull PlayerInteractEvent event) {
-    this.event = Objects.requireNonNull(event, "Null event");
+  public SneakInteractManager() {
   }
 
   /**
-   * Opens a {@link Workstation} when the player's hand is empty while interacting with a block.
+   * On interaction:
+   * <ul>
+   *   <li> Opens a {@link Workstation}.
+   * </ul>
    */
-  public void interpretAction() {
+  public void interpretAction(PlayerInteractEvent event) {
     switch (event.getAction()) {
       case RIGHT_CLICK_BLOCK -> {
         if (event.isBlockInHand()) {
           return;
         }
-        openWorkstation(event.getClickedBlock());
+        openWorkstation(event.getPlayer(), event.getClickedBlock());
       }
     }
   }
 
   /**
-   * Opens the {@link Workstation} associated with the block type.
+   * Opens the {@link Workstation} associated with the block type if it exists.
    *
-   * @param block interacting block
+   * @param player interacting player
+   * @param block  interacting block
    */
-  private void openWorkstation(Block block) {
+  private void openWorkstation(Player player, Block block) {
     switch (block.getType()) {
       case CRAFTING_TABLE -> {
-        Player player = event.getPlayer();
         GUIOpenEvent guiOpen = new GUIOpenEvent(player, GUIOpenEvent.Cause.INTERACTION);
         Bukkit.getPluginManager().callEvent(guiOpen);
         if (guiOpen.isCancelled()) {
           return;
         }
-        event.setCancelled(true);
         Plugin.getGUIManager().openGUI(player, new CraftingTableGUI());
       }
     }

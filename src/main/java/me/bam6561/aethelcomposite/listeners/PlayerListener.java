@@ -2,7 +2,7 @@ package me.bam6561.aethelcomposite.listeners;
 
 import me.bam6561.aethelcomposite.events.player.SneakInteractEntityEvent;
 import me.bam6561.aethelcomposite.events.player.SneakInteractEvent;
-import me.bam6561.aethelcomposite.managers.SneakEntityInteractManager;
+import me.bam6561.aethelcomposite.managers.SneakInteractEntityManager;
 import me.bam6561.aethelcomposite.managers.SneakInteractManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -15,10 +15,20 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * Collection of player interaction listeners.
  *
  * @author Danny Nguyen
- * @version 1.0.9
+ * @version 1.0.20
  * @since 1.0.7
  */
 public class PlayerListener implements Listener {
+  /**
+   * {@link SneakInteractManager}
+   */
+  private final SneakInteractManager sneakInteractManager = new SneakInteractManager();
+
+  /**
+   * {@link SneakInteractEntityManager}
+   */
+  private final SneakInteractEntityManager sneakInteractEntityManager = new SneakInteractEntityManager();
+
   /**
    * No parameter constructor.
    */
@@ -39,7 +49,7 @@ public class PlayerListener implements Listener {
       if (sneakInteractEvent.isCancelled()) {
         return;
       }
-      new SneakInteractManager(event).interpretAction();
+      sneakInteractManager.interpretAction(event);
     }
   }
 
@@ -57,7 +67,7 @@ public class PlayerListener implements Listener {
       if (sneakEntityInteract.isCancelled()) {
         return;
       }
-      new SneakEntityInteractManager(event).interpretAction();
+      sneakInteractEntityManager.interpretAction(event);
     }
   }
 }
