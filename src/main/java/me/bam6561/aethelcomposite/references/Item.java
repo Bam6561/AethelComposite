@@ -133,40 +133,4 @@ public class Item {
       return null;
     }
   }
-
-  /**
-   * Custom items.
-   *
-   * @author Danny Nguyen
-   * @version 1.0.17
-   * @since 1.0.17
-   */
-  public enum Plugin implements ItemStackValue {
-    ;
-
-    /**
-     * Custom item.
-     */
-    private final ItemStack item;
-
-    /**
-     * Associates the entry with an item.
-     *
-     * @param item item
-     */
-    Plugin(ItemStack item) {
-      this.item = item;
-    }
-
-    /**
-     * Gets the item.
-     *
-     * @return item
-     */
-    @Override
-    @NotNull
-    public ItemStack asItem() {
-      return this.item;
-    }
-  }
 }
