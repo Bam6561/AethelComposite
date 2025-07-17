@@ -3,8 +3,8 @@ package me.bam6561.aethelcomposite.references;
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.references.markers.ItemStackValue;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -95,7 +95,7 @@ public class Item {
         head.setItemMeta(meta);
         return head;
       } else {
-        return ItemUtils.Create.createItem(Material.BARRIER, org.bukkit.ChatColor.RED + "[!] Error", List.of(ChatColor.RED + "Invalid texture."));
+        return ItemUtils.Create.createItem(Material.BARRIER, ChatColor.RED + "[!] Error", List.of(ChatColor.RED + "Invalid texture."));
       }
     }
 
