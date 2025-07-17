@@ -143,7 +143,7 @@ public class Item {
    */
   public enum Plugin implements ItemStackValue {
     ;
-    
+
     /**
      * Custom item.
      */

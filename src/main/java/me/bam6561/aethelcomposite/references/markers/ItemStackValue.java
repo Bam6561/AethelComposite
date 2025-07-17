@@ -4,7 +4,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * References used primarily as ItemStacks.
+ * References usable as ItemStacks.
  *
  * @author Danny Nguyen
  * @version 1.0.15
