@@ -1,6 +1,5 @@
 package me.bam6561.aethelcomposite.references;
 
-import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.references.markers.ItemStackValue;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;
@@ -132,6 +131,42 @@ public class Item {
         return profile;
       }
       return null;
+    }
+  }
+
+  /**
+   * Custom items.
+   *
+   * @author Danny Nguyen
+   * @version 1.0.17
+   * @since 1.0.17
+   */
+  public enum Plugin implements ItemStackValue {
+    ;
+    
+    /**
+     * Custom item.
+     */
+    private final ItemStack item;
+
+    /**
+     * Associates the entry with an item.
+     *
+     * @param item item
+     */
+    Plugin(ItemStack item) {
+      this.item = item;
+    }
+
+    /**
+     * Gets the item.
+     *
+     * @return item
+     */
+    @Override
+    @NotNull
+    public ItemStack asItem() {
+      return this.item;
     }
   }
 }
