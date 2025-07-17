@@ -1,11 +1,12 @@
 package me.bam6561.aethelcomposite.guis;
 
+import me.bam6561.aethelcomposite.Plugin;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * {@link me.bam6561.aethelcomposite.Plugin} managed inventory.
+ * {@link Plugin} managed inventory.
  *
  * @author Danny Nguyen
  * @version 1.0.1

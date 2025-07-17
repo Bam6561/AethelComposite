@@ -9,12 +9,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 /**
  * Manages {@link SneakInteractEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.20
+ * @version 1.0.22
  * @since 1.0.8
  */
 public class SneakInteractManager {
@@ -30,7 +33,8 @@ public class SneakInteractManager {
    *   <li> Opens a {@link Workstation}.
    * </ul>
    */
-  public void interpretAction(PlayerInteractEvent event) {
+  public void interpretAction(@NotNull PlayerInteractEvent event) {
+    Objects.requireNonNull(event, "Null event");
     switch (event.getAction()) {
       case RIGHT_CLICK_BLOCK -> {
         if (event.isBlockInHand()) {
