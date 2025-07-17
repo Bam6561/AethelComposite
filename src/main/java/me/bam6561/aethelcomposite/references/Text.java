@@ -22,13 +22,14 @@ public class Text {
    * Information type colors.
    *
    * @author Danny Nguyen
-   * @version 1.0.18
+   * @version 1.0.23
    * @since 1.0.18
    */
   public enum Label {
     VALID(ChatColor.GREEN),
     INVALID(ChatColor.RED),
     FUNCTION(ChatColor.YELLOW),
+    ACTION(ChatColor.LIGHT_PURPLE),
     DETAILS(ChatColor.GRAY);
 
     /**
