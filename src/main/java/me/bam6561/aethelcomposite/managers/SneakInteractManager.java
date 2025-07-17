@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.listeners.interactions;
+package me.bam6561.aethelcomposite.managers;
 
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.events.gui.GUIOpenEvent;
@@ -14,13 +14,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 /**
- * {@link SneakInteractEvent} interaction.
+ * Manages {@link SneakInteractEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.8
+ * @version 1.0.19
  * @since 1.0.8
  */
-public class SneakInteraction {
+public class SneakInteractManager {
   /**
    * Player interact event.
    */
@@ -31,7 +31,7 @@ public class SneakInteraction {
    *
    * @param event player interact event
    */
-  public SneakInteraction(@NotNull PlayerInteractEvent event) {
+  public SneakInteractManager(@NotNull PlayerInteractEvent event) {
     this.event = Objects.requireNonNull(event, "Null event");
   }
 

@@ -2,8 +2,8 @@ package me.bam6561.aethelcomposite.listeners;
 
 import me.bam6561.aethelcomposite.events.player.SneakInteractEntityEvent;
 import me.bam6561.aethelcomposite.events.player.SneakInteractEvent;
-import me.bam6561.aethelcomposite.listeners.interactions.SneakEntityInteraction;
-import me.bam6561.aethelcomposite.listeners.interactions.SneakInteraction;
+import me.bam6561.aethelcomposite.managers.SneakEntityInteractManager;
+import me.bam6561.aethelcomposite.managers.SneakInteractManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -39,7 +39,7 @@ public class PlayerListener implements Listener {
       if (sneakInteractEvent.isCancelled()) {
         return;
       }
-      new SneakInteraction(event).interpretAction();
+      new SneakInteractManager(event).interpretAction();
     }
   }
 
@@ -57,7 +57,7 @@ public class PlayerListener implements Listener {
       if (sneakEntityInteract.isCancelled()) {
         return;
       }
-      new SneakEntityInteraction(event).interpretAction();
+      new SneakEntityInteractManager(event).interpretAction();
     }
   }
 }

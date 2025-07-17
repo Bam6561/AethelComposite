@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.listeners.interactions;
+package me.bam6561.aethelcomposite.managers;
 
 import me.bam6561.aethelcomposite.events.player.SneakInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -7,13 +7,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 /**
- * {@link SneakInteractEntityEvent} interaction.
+ * Manages {@link SneakInteractEntityEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.8
+ * @version 1.0.19
  * @since 1.0.8
  */
-public class SneakEntityInteraction {
+public class SneakEntityInteractManager {
   /**
    * Player interact entity event.
    */
@@ -24,7 +24,7 @@ public class SneakEntityInteraction {
    *
    * @param event player interact entity event
    */
-  public SneakEntityInteraction(@NotNull PlayerInteractEntityEvent event) {
+  public SneakEntityInteractManager(@NotNull PlayerInteractEntityEvent event) {
     this.event = Objects.requireNonNull(event, "Null event");
   }
 
