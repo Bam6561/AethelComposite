@@ -1,5 +1,6 @@
 package me.bam6561.aethelcomposite.listeners;
 
+import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.events.player.SneakInteractEntityEvent;
 import me.bam6561.aethelcomposite.events.player.SneakInteractEvent;
 import me.bam6561.aethelcomposite.managers.SneakInteractEntityManager;
@@ -15,19 +16,19 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * Collection of player interaction listeners.
  *
  * @author Danny Nguyen
- * @version 1.0.20
+ * @version 1.0.24
  * @since 1.0.7
  */
 public class PlayerListener implements Listener {
   /**
    * {@link SneakInteractManager}
    */
-  private final SneakInteractManager sneakInteractManager = new SneakInteractManager();
+  private final SneakInteractManager sneakInteractManager = Plugin.getSneakInteractManager();
 
   /**
    * {@link SneakInteractEntityManager}
    */
-  private final SneakInteractEntityManager sneakInteractEntityManager = new SneakInteractEntityManager();
+  private final SneakInteractEntityManager sneakInteractEntityManager = Plugin.getSneakInteractEntityManager();
 
   /**
    * No parameter constructor.
@@ -62,9 +63,9 @@ public class PlayerListener implements Listener {
   private void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
     Player player = event.getPlayer();
     if (player.isSneaking()) {
-      SneakInteractEntityEvent sneakEntityInteract = new SneakInteractEntityEvent(event.getPlayer(), event.getRightClicked());
-      Bukkit.getPluginManager().callEvent(sneakEntityInteract);
-      if (sneakEntityInteract.isCancelled()) {
+      SneakInteractEntityEvent sneakInteractEntity = new SneakInteractEntityEvent(event.getPlayer(), event.getRightClicked());
+      Bukkit.getPluginManager().callEvent(sneakInteractEntity);
+      if (sneakInteractEntity.isCancelled()) {
         return;
       }
       sneakInteractEntityManager.interpretAction(event);

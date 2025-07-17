@@ -6,7 +6,6 @@ import me.bam6561.aethelcomposite.events.player.SneakInteractEvent;
 import me.bam6561.aethelcomposite.guis.blocks.CraftingTableGUI;
 import me.bam6561.aethelcomposite.guis.blocks.markers.Workstation;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +16,7 @@ import java.util.Objects;
  * Manages {@link SneakInteractEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.22
+ * @version 1.0.24
  * @since 1.0.8
  */
 public class SneakInteractManager {
@@ -32,6 +31,8 @@ public class SneakInteractManager {
    * <ul>
    *   <li> Opens a {@link Workstation}.
    * </ul>
+   *
+   * @param event player interact event
    */
   public void interpretAction(@NotNull PlayerInteractEvent event) {
     Objects.requireNonNull(event, "Null event");
@@ -40,7 +41,7 @@ public class SneakInteractManager {
         if (event.isBlockInHand()) {
           return;
         }
-        openWorkstation(event.getPlayer(), event.getClickedBlock());
+        openWorkstation(event);
       }
     }
   }
@@ -48,17 +49,18 @@ public class SneakInteractManager {
   /**
    * Opens the {@link Workstation} associated with the block type if it exists.
    *
-   * @param player interacting player
-   * @param block  interacting block
+   * @param event player interact event
    */
-  private void openWorkstation(Player player, Block block) {
-    switch (block.getType()) {
+  private void openWorkstation(PlayerInteractEvent event) {
+    switch (event.getClickedBlock().getType()) {
       case CRAFTING_TABLE -> {
+        Player player = event.getPlayer();
         GUIOpenEvent guiOpen = new GUIOpenEvent(player, GUIOpenEvent.Cause.INTERACTION);
         Bukkit.getPluginManager().callEvent(guiOpen);
         if (guiOpen.isCancelled()) {
           return;
         }
+        event.setCancelled(true);
         Plugin.getGUIManager().openGUI(player, new CraftingTableGUI());
       }
     }

@@ -25,6 +25,8 @@ public class SneakInteractEntityManager {
    * <ul>
    *   <li>
    * </ul>
+   *
+   * @param event player interact entity event
    */
   public void interpretAction(@NotNull PlayerInteractEntityEvent event) {
     Objects.requireNonNull(event, "Null event");

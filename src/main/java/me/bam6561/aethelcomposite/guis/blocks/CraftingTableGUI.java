@@ -3,6 +3,7 @@ package me.bam6561.aethelcomposite.guis.blocks;
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.guis.GUI;
 import me.bam6561.aethelcomposite.guis.blocks.markers.Workstation;
+import me.bam6561.aethelcomposite.references.Module;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
@@ -14,7 +15,7 @@ import java.util.Objects;
  * Crafting table {@link GUI}.
  *
  * @author Danny Nguyen
- * @version 1.0.7
+ * @version 1.0.24
  * @since 1.0.3
  */
 public class CraftingTableGUI extends GUI implements Workstation {
@@ -40,6 +41,11 @@ public class CraftingTableGUI extends GUI implements Workstation {
    */
   @Override
   protected void addButtons() {
+    Inventory inv = getInventory();
+    inv.setItem(0, Module.Lasso.IRON.asItem());
+    inv.setItem(1, Module.Lasso.GOLD.asItem());
+    inv.setItem(2, Module.Lasso.DIAMOND.asItem());
+    inv.setItem(3, Module.Lasso.EMERALD.asItem());
   }
 
   /**

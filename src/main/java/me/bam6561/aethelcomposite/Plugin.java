@@ -3,6 +3,8 @@ package me.bam6561.aethelcomposite;
 import me.bam6561.aethelcomposite.listeners.GUIListener;
 import me.bam6561.aethelcomposite.listeners.PlayerListener;
 import me.bam6561.aethelcomposite.managers.GUIManager;
+import me.bam6561.aethelcomposite.managers.SneakInteractEntityManager;
+import me.bam6561.aethelcomposite.managers.SneakInteractManager;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
  * </p>
  *
  * @author Danny Nguyen
- * @version 1.0.14
+ * @version 1.0.24
  * @since 1.0.0
  */
 
@@ -25,6 +27,15 @@ public class Plugin extends JavaPlugin {
    */
   public static final GUIManager GUI_MANAGER = new GUIManager();
 
+  /**
+   * {@link SneakInteractManager}
+   */
+  public static final SneakInteractManager SNEAK_INTERACT_MANAGER = new SneakInteractManager();
+
+  /**
+   * {@link SneakInteractEntityManager}
+   */
+  public static final SneakInteractEntityManager SNEAK_INTERACT_ENTITY_MANAGER = new SneakInteractEntityManager();
 
   /**
    * No parameter constructor.
@@ -80,5 +91,25 @@ public class Plugin extends JavaPlugin {
   @NotNull
   public static GUIManager getGUIManager() {
     return GUI_MANAGER;
+  }
+
+  /**
+   * Gets the {@link SneakInteractManager}.
+   *
+   * @return {@link SneakInteractManager}
+   */
+  @NotNull
+  public static SneakInteractManager getSneakInteractManager() {
+    return SNEAK_INTERACT_MANAGER;
+  }
+
+  /**
+   * Gets the {@link SneakInteractEntityManager}.
+   *
+   * @return {@link SneakInteractEntityManager}
+   */
+  @NotNull
+  public static SneakInteractEntityManager getSneakInteractEntityManager() {
+    return SNEAK_INTERACT_ENTITY_MANAGER;
   }
 }
