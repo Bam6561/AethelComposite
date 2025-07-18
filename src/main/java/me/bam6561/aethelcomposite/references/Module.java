@@ -8,6 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 /**
  * {@link Plugin} modules.
  * <p>
@@ -25,19 +27,19 @@ public class Module {
   }
 
   /**
-   * List of modules.
+   * Module names.
    *
    * @author Danny Nguyen
    * @version 1.0.26
    * @since 1.0.26
    */
-  public enum List {
+  public enum Name {
     LASSO;
 
     /**
      * No parameter constructor.
      */
-    List() {
+    Name() {
     }
   }
 
