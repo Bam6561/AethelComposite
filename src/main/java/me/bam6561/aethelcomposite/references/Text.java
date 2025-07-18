@@ -1,6 +1,7 @@
 package me.bam6561.aethelcomposite.references;
 
 import me.bam6561.aethelcomposite.Plugin;
+import me.bam6561.aethelcomposite.references.markers.StringValue;
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
@@ -54,6 +55,48 @@ public class Text {
     @NotNull
     public ChatColor asColor() {
       return this.color;
+    }
+  }
+
+  /**
+   * Reserved namespaced key headers.
+   *
+   * @author Danny Nguyen
+   * @version 1.0.28
+   * @since 1.0.28
+   */
+  public enum KeyHeader implements StringValue {
+    /**
+     * {@link Plugin}
+     */
+    AETHEL("aethel."),
+
+    /**
+     * Tags describing an item's meta.
+     */
+    ITEM(AETHEL.asString() + "item.");
+
+    /**
+     * Key header.
+     */
+    private final String header;
+
+    /**
+     * Associates the entry with the key header.
+     *
+     * @param header key header
+     */
+    KeyHeader(String header) {
+      this.header = header;
+    }
+
+    /**
+     * Gets the key header.
+     *
+     * @return key header
+     */
+    public String asString() {
+      return this.header;
     }
   }
 }

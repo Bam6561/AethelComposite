@@ -1,6 +1,5 @@
 package me.bam6561.aethelcomposite.utils;
 
-import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.references.Item;
 import me.bam6561.aethelcomposite.references.Item.PlayerHead;
 import net.md_5.bungee.api.ChatColor;
@@ -42,7 +41,7 @@ public class ItemUtils {
    * Creates and serializes ItemStacks with metadata.
    *
    * @author Danny Nguyen
-   * @version 1.0.27
+   * @version 1.0.28
    * @since 1.0.16
    */
   public static class Create {
@@ -142,12 +141,12 @@ public class ItemUtils {
      * @param material item material
      * @param name     item name
      * @param lore     item lore
-     * @param key      item key
+     * @param key      key
      * @param value    key value
      * @return named item with lore and a key string value
      */
     @NotNull
-    public static ItemStack createItem(@NotNull Material material, @NotNull String name, @NotNull List<String> lore, @NotNull String key, @NotNull String value) {
+    public static ItemStack createItem(@NotNull Material material, @NotNull String name, @NotNull List<String> lore, @NotNull NamespacedKey key, @NotNull String value) {
       Objects.requireNonNull(material, "Null material");
       Objects.requireNonNull(name, "Null name");
       Objects.requireNonNull(lore, "Null lore");
@@ -157,7 +156,7 @@ public class ItemUtils {
       ItemMeta meta = item.getItemMeta();
       meta.setDisplayName(name);
       meta.setLore(lore);
-      meta.getPersistentDataContainer().set(new NamespacedKey(Plugin.getInstance(), key), PersistentDataType.STRING, value);
+      meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, value);
       item.setItemMeta(meta);
       return item;
     }
