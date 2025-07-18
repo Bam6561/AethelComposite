@@ -2,6 +2,7 @@ package me.bam6561.aethelcomposite.references;
 
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.references.markers.ItemStackValue;
+import me.bam6561.aethelcomposite.references.markers.StringValue;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -30,19 +31,38 @@ public class Module {
    * Module names.
    *
    * @author Danny Nguyen
-   * @version 1.0.26
+   * @version 1.0.31
    * @since 1.0.26
    */
-  public enum Name {
+  public enum Name implements StringValue {
     /**
      * {@link Lasso}
      */
-    LASSO;
+    LASSO("lasso");
 
     /**
-     * No parameter constructor.
+     * Module name.
      */
-    Name() {
+    private final String name;
+
+    /**
+     * Associates the module with its name.
+     *
+     * @param name module name
+     */
+    Name(String name) {
+      this.name = name;
+    }
+
+    /**
+     * Gets the module's name.
+     *
+     * @return module name
+     */
+    @Override
+    @NotNull
+    public String asString() {
+      return this.name;
     }
   }
 

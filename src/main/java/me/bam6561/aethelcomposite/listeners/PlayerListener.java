@@ -14,6 +14,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 /**
  * Collection of player interaction listeners.
+ * <p>
+ * Plugin-monitored player behavior is managed through:
+ * <ul>
+ *   <li>{@link SneakInteractManager}
+ *   <li>{@link SneakInteractEntityManager}
+ * </ul>
  *
  * @author Danny Nguyen
  * @version 1.0.24
