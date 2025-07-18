@@ -1,6 +1,8 @@
 package me.bam6561.aethelcomposite.references;
 
 import me.bam6561.aethelcomposite.Plugin;
+import me.bam6561.aethelcomposite.references.markers.ChatColorValue;
+import me.bam6561.aethelcomposite.references.markers.NamespacedKeyValue;
 import me.bam6561.aethelcomposite.references.markers.StringValue;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.NamespacedKey;
@@ -24,10 +26,10 @@ public class Text {
    * Information type colors.
    *
    * @author Danny Nguyen
-   * @version 1.0.32
+   * @version 1.0.34
    * @since 1.0.18
    */
-  public enum Label implements StringValue {
+  public enum Label implements ChatColorValue, StringValue {
     VALID(ChatColor.GREEN, "green"),
     INVALID(ChatColor.RED, "red"),
     TIP(ChatColor.YELLOW, "yellow"),
@@ -60,6 +62,7 @@ public class Text {
      *
      * @return color
      */
+    @Override
     @NotNull
     public ChatColor asColor() {
       return this.color;
@@ -129,10 +132,10 @@ public class Text {
    * Reserved namespaced keys.
    *
    * @author Danny Nguyen
-   * @version 1.0.32
+   * @version 1.0.34
    * @since 1.0.29
    */
-  public enum Key implements StringValue {
+  public enum Key implements NamespacedKeyValue, StringValue {
     /**
      * Item ID.
      * <p>
