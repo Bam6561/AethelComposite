@@ -24,15 +24,15 @@ public class Text {
    * Information type colors.
    *
    * @author Danny Nguyen
-   * @version 1.0.25
+   * @version 1.0.32
    * @since 1.0.18
    */
-  public enum Label {
-    VALID(ChatColor.GREEN),
-    INVALID(ChatColor.RED),
-    TIP(ChatColor.YELLOW),
-    ACTION(ChatColor.AQUA),
-    DETAILS(ChatColor.GRAY);
+  public enum Label implements StringValue {
+    VALID(ChatColor.GREEN, "green"),
+    INVALID(ChatColor.RED, "red"),
+    TIP(ChatColor.YELLOW, "yellow"),
+    ACTION(ChatColor.AQUA, "aqua"),
+    DETAILS(ChatColor.GRAY, "gray");
 
     /**
      * Color.
@@ -40,22 +40,41 @@ public class Text {
     private final ChatColor color;
 
     /**
-     * Associates a label with its color.
-     *
-     * @param color color
+     * Color name.
      */
-    Label(ChatColor color) {
+    private final String colorName;
+
+    /**
+     * Associates a label with its color and color name.
+     *
+     * @param color     color
+     * @param colorName color name
+     */
+    Label(ChatColor color, String colorName) {
       this.color = color;
+      this.colorName = colorName;
     }
 
     /**
      * Gets the color.
      *
-     * @return color.
+     * @return color
      */
     @NotNull
     public ChatColor asColor() {
       return this.color;
+    }
+
+
+    /**
+     * Gets the color name.
+     *
+     * @return color name
+     */
+    @Override
+    @NotNull
+    public String asString() {
+      return this.colorName;
     }
   }
 
@@ -108,14 +127,14 @@ public class Text {
    * Reserved namespaced keys.
    *
    * @author Danny Nguyen
-   * @version 1.0.30
+   * @version 1.0.32
    * @since 1.0.29
    */
-  public enum Key {
+  public enum Key implements StringValue {
     /**
      * Item ID.
      */
-    ITEM_ID(new NamespacedKey(Plugin.getInstance(), KeyHeader.ITEM.asString() + "id"));
+    ITEM_ID(new NamespacedKey(Plugin.getInstance(), KeyHeader.ITEM.asString() + "id"), KeyHeader.ITEM.asString() + "id");
 
     /**
      * Namespaced key.
@@ -123,12 +142,19 @@ public class Text {
     private final NamespacedKey key;
 
     /**
-     * Associates the entry with the namespaced key.
-     *
-     * @param key namespaced key
+     * Namespaced key string.
      */
-    Key(NamespacedKey key) {
+    private final String keyString;
+
+    /**
+     * Associates the entry with the namespaced key and namespaced key string.
+     *
+     * @param key       namespaced key
+     * @param keyString namespaced key string
+     */
+    Key(NamespacedKey key, String keyString) {
       this.key = key;
+      this.keyString = keyString;
     }
 
     /**
@@ -139,6 +165,17 @@ public class Text {
     @NotNull
     public NamespacedKey asKey() {
       return this.key;
+    }
+
+    /**
+     * Gets the namespaced key string.
+     *
+     * @return namespaced key string
+     */
+    @Override
+    @NotNull
+    public String asString() {
+      return this.keyString;
     }
   }
 }
