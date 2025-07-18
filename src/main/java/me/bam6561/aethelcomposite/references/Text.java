@@ -108,14 +108,14 @@ public class Text {
    * Reserved namespaced keys.
    *
    * @author Danny Nguyen
-   * @version 1.0.29
+   * @version 1.0.30
    * @since 1.0.29
    */
   public enum Key {
     /**
      * Item ID.
      */
-    ITEM(new NamespacedKey(Plugin.getInstance(), KeyHeader.ITEM.asString() + "id"));
+    ITEM_ID(new NamespacedKey(Plugin.getInstance(), KeyHeader.ITEM.asString() + "id"));
 
     /**
      * Namespaced key.
