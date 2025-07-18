@@ -95,6 +95,8 @@ public class Text {
      *
      * @return key header
      */
+    @Override
+    @NotNull
     public String asString() {
       return this.header;
     }

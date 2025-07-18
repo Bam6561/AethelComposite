@@ -34,6 +34,9 @@ public class Module {
    * @since 1.0.26
    */
   public enum Name {
+    /**
+     * {@link Lasso}
+     */
     LASSO;
 
     /**
@@ -52,18 +55,33 @@ public class Module {
    * @since 1.0.21
    */
   public enum Lasso implements ItemStackValue {
+    /**
+     * Iron lasso. Captures farms animals.
+     */
     IRON(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Iron Lasso", List.of(
         Text.Label.TIP.asColor() + "[Sneak-Interact] " + Text.Label.ACTION.asColor() + "Capture",
         Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
         Text.Label.DETAILS.asColor() + "{Chicken, Cow, Pig, Sheep}"))),
+
+    /**
+     * Golden lasso. Captures iron tier and all animals.
+     */
     GOLD(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Golden Lasso", List.of(
         Text.Label.TIP.asColor() + "[Sneak-Interact] " + Text.Label.ACTION.asColor() + "Capture",
         Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
         Text.Label.DETAILS.asColor() + "{Iron Lasso + Animals}"))),
+
+    /**
+     * Diamond lasso. Captures golden tier and non-boss hostile mobs.
+     */
     DIAMOND(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Diamond Lasso", List.of(
         Text.Label.TIP.asColor() + "[Sneak-Interact] " + Text.Label.ACTION.asColor() + "Capture",
         Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
         Text.Label.DETAILS.asColor() + "{Golden Lasso + Non-Boss Hostile Mobs}"))),
+
+    /**
+     * Emerald lasso. Captures diamond tier and villagers.
+     */
     EMERALD(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Emerald Lasso", List.of(
         Text.Label.TIP.asColor() + "[Sneak-Interact] " + Text.Label.ACTION.asColor() + "Capture",
         Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
