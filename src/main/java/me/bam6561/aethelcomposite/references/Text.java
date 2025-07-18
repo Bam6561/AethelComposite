@@ -3,6 +3,7 @@ package me.bam6561.aethelcomposite.references;
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.references.markers.StringValue;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -99,6 +100,45 @@ public class Text {
     @NotNull
     public String asString() {
       return this.header;
+    }
+  }
+
+
+  /**
+   * Reserved namespaced keys.
+   *
+   * @author Danny Nguyen
+   * @version 1.0.29
+   * @since 1.0.29
+   */
+  public enum Key {
+    /**
+     * Item ID.
+     */
+    ITEM(new NamespacedKey(Plugin.getInstance(), KeyHeader.ITEM.asString() + "id"));
+
+    /**
+     * Namespaced key.
+     */
+    private final NamespacedKey key;
+
+    /**
+     * Associates the entry with the namespaced key.
+     *
+     * @param key namespaced key
+     */
+    Key(NamespacedKey key) {
+      this.key = key;
+    }
+
+    /**
+     * Gets the namespaced key.
+     *
+     * @return namespaced key
+     */
+    @NotNull
+    public NamespacedKey asKey() {
+      return this.key;
     }
   }
 }
