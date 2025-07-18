@@ -80,6 +80,8 @@ public class Text {
 
   /**
    * Reserved namespaced key headers.
+   * <p>
+   * Key headers are divided into categories by period characters for parsing.
    *
    * @author Danny Nguyen
    * @version 1.0.28
@@ -133,6 +135,8 @@ public class Text {
   public enum Key implements StringValue {
     /**
      * Item ID.
+     * <p>
+     * Spaces are replaced with underscores.
      */
     ITEM_ID(new NamespacedKey(Plugin.getInstance(), KeyHeader.ITEM.asString() + "id"), KeyHeader.ITEM.asString() + "id");
 
