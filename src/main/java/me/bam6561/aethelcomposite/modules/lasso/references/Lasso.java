@@ -3,6 +3,7 @@ package me.bam6561.aethelcomposite.modules.lasso.references;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.references.markers.ItemStackValue;
+import me.bam6561.aethelcomposite.modules.core.references.markers.ListItemStackValue;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -96,6 +97,60 @@ public class Lasso {
     @NotNull
     public ItemStack asItem() {
       return this.item.clone();
+    }
+  }
+
+  /**
+   * Lasso {@link Item} recipes.
+   *
+   * @author Danny Nguyen
+   * @version 1.0.40
+   * @since 1.0.40
+   */
+  public enum Recipe implements ListItemStackValue {
+    /**
+     * {@link Item#IRON_LASSO}
+     */
+    IRON_LASSO(List.of(new ItemStack(Material.LEAD, 1), new ItemStack(Material.IRON_INGOT, 2))),
+
+    /**
+     * {@link Item#GOLDEN_LASSO}
+     */
+    GOLDEN_LASSO(List.of(new ItemStack(Material.LEAD, 1), new ItemStack(Material.GOLD_INGOT, 2))),
+
+    /**
+     * {@link Item#DIAMOND_LASSO}
+     */
+    DIAMOND_LASSO(List.of(new ItemStack(Material.LEAD, 1), new ItemStack(Material.DIAMOND, 2))),
+
+    /**
+     * {@link Item#EMERALD_LASSO}
+     */
+    EMERALD_LASSO(List.of(new ItemStack(Material.LEAD, 1), new ItemStack(Material.EMERALD, 8)));
+
+    /**
+     * Item recipe.
+     */
+    private final List<ItemStack> recipe;
+
+    /**
+     * Associates the item with a recipe.
+     *
+     * @param recipe item recipe
+     */
+    Recipe(List<ItemStack> recipe) {
+      this.recipe = recipe;
+    }
+
+    /**
+     * Gets the item recipe.
+     *
+     * @return item recipe
+     */
+    @Override
+    @NotNull
+    public List<ItemStack> asList() {
+      return List.of();
     }
   }
 }

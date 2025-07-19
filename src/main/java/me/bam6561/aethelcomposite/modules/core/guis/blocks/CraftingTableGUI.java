@@ -3,7 +3,7 @@ package me.bam6561.aethelcomposite.modules.core.guis.blocks;
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.guis.GUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
-import me.bam6561.aethelcomposite.modules.core.references.Module;
+import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
@@ -15,7 +15,7 @@ import java.util.Objects;
  * Crafting table {@link GUI}.
  *
  * @author Danny Nguyen
- * @version 1.0.35
+ * @version 1.0.40
  * @since 1.0.3
  */
 public class CraftingTableGUI extends GUI implements Workstation {
@@ -42,10 +42,10 @@ public class CraftingTableGUI extends GUI implements Workstation {
   @Override
   protected void addButtons() {
     Inventory inv = getInventory();
-    inv.setItem(0, Module.Lasso.Item.IRON.asItem());
-    inv.setItem(1, Module.Lasso.Item.GOLD.asItem());
-    inv.setItem(2, Module.Lasso.Item.DIAMOND.asItem());
-    inv.setItem(3, Module.Lasso.Item.EMERALD.asItem());
+    inv.setItem(0, Lasso.Item.IRON_LASSO.asItem());
+    inv.setItem(1, Lasso.Item.GOLDEN_LASSO.asItem());
+    inv.setItem(2, Lasso.Item.DIAMOND_LASSO.asItem());
+    inv.setItem(3, Lasso.Item.EMERALD_LASSO.asItem());
   }
 
   /**
