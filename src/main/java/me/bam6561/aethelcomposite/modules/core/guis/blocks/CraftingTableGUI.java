@@ -3,19 +3,26 @@ package me.bam6561.aethelcomposite.modules.core.guis.blocks;
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.guis.GUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
+import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
+import me.bam6561.aethelcomposite.utils.ItemUtils;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Crafting table {@link GUI}.
  *
  * @author Danny Nguyen
- * @version 1.0.40
+ * @version 1.0.41
  * @since 1.0.3
  */
 public class CraftingTableGUI extends GUI implements Workstation {
@@ -42,10 +49,28 @@ public class CraftingTableGUI extends GUI implements Workstation {
   @Override
   protected void addButtons() {
     Inventory inv = getInventory();
-    inv.setItem(0, Lasso.Item.IRON_LASSO.asItem());
-    inv.setItem(1, Lasso.Item.GOLDEN_LASSO.asItem());
-    inv.setItem(2, Lasso.Item.DIAMOND_LASSO.asItem());
-    inv.setItem(3, Lasso.Item.EMERALD_LASSO.asItem());
+
+    Lasso.Item[] items = Lasso.Item.values();
+    Lasso.Recipe[] recipes = Lasso.Recipe.values();
+
+    for (int i = 0; i < items.length; i++) {
+      ItemStack item = items[i].asItem();
+      ItemMeta meta = item.getItemMeta();
+      List<String> lore = meta.getLore();
+
+      List<ItemStack> recipe = recipes[i].asList();
+      List<String> recipeList = new ArrayList<>(List.of("", ChatColor.WHITE + "Recipe"));
+
+      for (int j = 0; j < recipe.size(); j++) {
+        ItemStack ingredient = recipe.get(j);
+        recipeList.add(Text.Label.DETAILS.asColor() + "- x" + ingredient.getAmount() + " " + ItemUtils.Read.getEffectiveName(ingredient));
+      }
+      lore.addAll(recipeList);
+
+      meta.setLore(lore);
+      item.setItemMeta(meta);
+      inv.setItem(i, item);
+    }
   }
 
   /**

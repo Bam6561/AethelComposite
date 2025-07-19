@@ -28,10 +28,29 @@ public class Text {
    * @since 1.0.18
    */
   public enum Label implements ChatColorValue, StringValue {
+    /**
+     * Approval or confirmation.
+     */
     VALID(ChatColor.GREEN, "green"),
+
+    /**
+     * Rejection or denial.
+     */
     INVALID(ChatColor.RED, "red"),
+
+    /**
+     * Advice or instruction.
+     */
     TIP(ChatColor.YELLOW, "yellow"),
+
+    /**
+     * Ability or skill.
+     */
     ACTION(ChatColor.AQUA, "aqua"),
+
+    /**
+     * Data or notes.
+     */
     DETAILS(ChatColor.GRAY, "gray");
 
     /**

@@ -116,17 +116,17 @@ public class Lasso {
     /**
      * {@link Item#GOLDEN_LASSO}
      */
-    GOLDEN_LASSO(List.of(new ItemStack(Material.LEAD, 1), new ItemStack(Material.GOLD_INGOT, 2))),
+    GOLDEN_LASSO(List.of(Item.IRON_LASSO.asItem(), new ItemStack(Material.GOLD_INGOT, 2))),
 
     /**
      * {@link Item#DIAMOND_LASSO}
      */
-    DIAMOND_LASSO(List.of(new ItemStack(Material.LEAD, 1), new ItemStack(Material.DIAMOND, 2))),
+    DIAMOND_LASSO(List.of(Item.GOLDEN_LASSO.asItem(), new ItemStack(Material.DIAMOND, 2))),
 
     /**
      * {@link Item#EMERALD_LASSO}
      */
-    EMERALD_LASSO(List.of(new ItemStack(Material.LEAD, 1), new ItemStack(Material.EMERALD, 8)));
+    EMERALD_LASSO(List.of(Item.DIAMOND_LASSO.asItem(), new ItemStack(Material.EMERALD, 8)));
 
     /**
      * Item recipe.
@@ -150,7 +150,7 @@ public class Lasso {
     @Override
     @NotNull
     public List<ItemStack> asList() {
-      return List.of();
+      return this.recipe;
     }
   }
 }
