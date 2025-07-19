@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * Modules are defined as add-ons that function independently and can be toggled on or off separately.
  *
  * @author Danny Nguyen
- * @version 1.0.21
+ * @version 1.0.37
  * @since 1.0.21
  */
 public class Module {
@@ -29,7 +29,7 @@ public class Module {
    */
   public enum Name implements StringValue {
     /**
-     * {@link Lasso}
+     * Lassos.
      */
     LASSO("lasso");
 

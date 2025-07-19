@@ -13,11 +13,11 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.0.38
  * @since 1.0.38
  */
-public class Namespace {
+public class Namespaced {
   /**
    * Enum usage only.
    */
-  private Namespace() {
+  private Namespaced() {
   }
 
   /**
