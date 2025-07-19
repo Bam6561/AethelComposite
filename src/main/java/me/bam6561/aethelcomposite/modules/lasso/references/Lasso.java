@@ -30,7 +30,7 @@ public class Lasso {
    * Lasso items.
    *
    * @author Danny Nguyen
-   * @version 1.0.35
+   * @version 1.0.42
    * @since 1.0.21
    */
   public enum Item implements ItemStackValue {
@@ -41,7 +41,7 @@ public class Lasso {
             Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Chicken, Cow, Pig, Sheep}",
-            Text.Label.DETAILS.asColor() + "ID: Iron Lasso"),
+            Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Iron Lasso"),
         Namespaced.Key.ITEM_ID.asKey(), "iron_lasso")),
 
     /**
@@ -51,7 +51,7 @@ public class Lasso {
             Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Iron Lasso + Animals}",
-            Text.Label.DETAILS.asColor() + "ID: Golden Lasso"),
+            Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Golden Lasso"),
         Namespaced.Key.ITEM_ID.asKey(), "golden_lasso")),
 
     /**
@@ -61,7 +61,7 @@ public class Lasso {
             Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Golden Lasso + Non-Boss Hostile Mobs}",
-            Text.Label.DETAILS.asColor() + "ID: Diamond Lasso"),
+            Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Diamond Lasso"),
         Namespaced.Key.ITEM_ID.asKey(), "diamond_lasso")),
 
     /**
@@ -71,7 +71,7 @@ public class Lasso {
             Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Diamond Lasso + Villagers}",
-            Text.Label.DETAILS.asColor() + "ID: Emerald Lasso"),
+            Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Emerald Lasso"),
         Namespaced.Key.ITEM_ID.asKey(), "emerald_lasso"));
 
     /**
