@@ -9,7 +9,7 @@ import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * {@link Plugin} text.
+ * {@link Plugin} text and internal keys.
  *
  * @author Danny Nguyen
  * @version 1.0.18

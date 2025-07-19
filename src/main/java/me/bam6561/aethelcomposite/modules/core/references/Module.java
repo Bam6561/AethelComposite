@@ -84,7 +84,7 @@ public class Module {
      * {@link Lasso} items.
      *
      * @author Danny Nguyen
-     * @version 1.0.35
+     * @version 1.0.36
      * @since 1.0.21
      */
     public enum Item implements ItemStackValue {
@@ -144,14 +144,14 @@ public class Module {
       }
 
       /**
-       * Gets the item.
+       * Gets a copy of the item.
        *
        * @return item
        */
       @Override
       @NotNull
       public ItemStack asItem() {
-        return this.item;
+        return this.item.clone();
       }
     }
   }

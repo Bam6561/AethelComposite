@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * {@link Plugin} items.
+ * {@link Plugin} internal items.
  *
  * @author Danny Nguyen
  * @version 1.0.15
@@ -36,7 +36,7 @@ public class Item {
    * Player head textures.
    *
    * @author Danny Nguyen
-   * @version 1.0.15
+   * @version 1.0.36
    * @since 1.0.15
    */
   public enum PlayerHead implements ItemStackValue {
@@ -70,14 +70,14 @@ public class Item {
     }
 
     /**
-     * Gets the player head.
+     * Gets a copy of the player head.
      *
      * @return player head
      */
     @Override
     @NotNull
     public ItemStack asItem() {
-      return this.item;
+      return this.item.clone();
     }
 
     /**

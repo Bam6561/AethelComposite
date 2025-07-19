@@ -4,7 +4,7 @@ import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * References used as NamespacedKeys.
+ * References usable as NamespacedKeys.
  *
  * @author Danny Nguyen
  * @version 1.0.34

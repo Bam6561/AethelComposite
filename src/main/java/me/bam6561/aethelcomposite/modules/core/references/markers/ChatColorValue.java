@@ -4,7 +4,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * References used as ChatColors.
+ * References usable as ChatColors.
  *
  * @author Danny Nguyen
  * @version 1.0.34
