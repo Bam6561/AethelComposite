@@ -1,7 +1,7 @@
 package me.bam6561.aethelcomposite.utils;
 
-import me.bam6561.aethelcomposite.references.Item;
-import me.bam6561.aethelcomposite.references.Item.PlayerHead;
+import me.bam6561.aethelcomposite.modules.core.references.Item;
+import me.bam6561.aethelcomposite.modules.core.references.Item.PlayerHead;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

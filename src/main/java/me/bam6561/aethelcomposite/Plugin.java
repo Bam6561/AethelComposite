@@ -1,10 +1,10 @@
 package me.bam6561.aethelcomposite;
 
-import me.bam6561.aethelcomposite.listeners.GUIListener;
-import me.bam6561.aethelcomposite.listeners.PlayerListener;
-import me.bam6561.aethelcomposite.managers.GUIManager;
-import me.bam6561.aethelcomposite.managers.SneakInteractEntityManager;
-import me.bam6561.aethelcomposite.managers.SneakInteractManager;
+import me.bam6561.aethelcomposite.modules.core.listeners.GUIListener;
+import me.bam6561.aethelcomposite.modules.core.listeners.PlayerListener;
+import me.bam6561.aethelcomposite.modules.core.managers.GUIManager;
+import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractEntityManager;
+import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractManager;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
