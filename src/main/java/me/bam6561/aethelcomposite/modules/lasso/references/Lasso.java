@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 /**
- * PLACEHOLDER TEXT
+ * Lasso module-related references.
  *
  * @author Danny Nguyen
  * @version 1.0.39
@@ -34,7 +34,7 @@ public class Lasso {
    */
   public enum Item implements ItemStackValue {
     /**
-     * Iron lasso. Captures farms animals.
+     * Captures farms animals.
      */
     IRON_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Iron Lasso", List.of(
             Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
@@ -44,7 +44,7 @@ public class Lasso {
         Namespaced.Key.ITEM_ID.asKey(), "iron_lasso")),
 
     /**
-     * Golden lasso. Captures iron tier lasso-able and all animals.
+     * Captures iron tier lasso-able and all animals.
      */
     GOLDEN_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Golden Lasso", List.of(
             Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
@@ -54,7 +54,7 @@ public class Lasso {
         Namespaced.Key.ITEM_ID.asKey(), "golden_lasso")),
 
     /**
-     * Diamond lasso. Captures golden tier lasso-able and non-boss hostile mobs.
+     * Captures golden tier lasso-able and non-boss hostile mobs.
      */
     DIAMOND_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Diamond Lasso", List.of(
             Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
@@ -64,7 +64,7 @@ public class Lasso {
         Namespaced.Key.ITEM_ID.asKey(), "diamond_lasso")),
 
     /**
-     * Emerald lasso. Captures diamond tier lasso-able and villagers.
+     * Captures diamond tier lasso-able and villagers.
      */
     EMERALD_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Emerald Lasso", List.of(
             Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
