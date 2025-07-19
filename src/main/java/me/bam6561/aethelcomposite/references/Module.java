@@ -70,74 +70,89 @@ public class Module {
    * Lasso module.
    *
    * @author Danny Nguyen
-   * @version 1.0.33
-   * @since 1.0.21
+   * @version 1.0.35
+   * @since 1.0.35
    */
-  public enum Lasso implements ItemStackValue {
+  public static class Lasso {
     /**
-     * Iron lasso. Captures farms animals.
+     * Enum usage only.
      */
-    IRON(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Iron Lasso", List.of(
-            Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
-            Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
-            Text.Label.DETAILS.asColor() + "{Chicken, Cow, Pig, Sheep}",
-            Text.Label.DETAILS.asColor() + "ID: Iron Lasso"),
-        Text.Key.ITEM_ID.asKey(), "iron_lasso")),
-
-    /**
-     * Golden lasso. Captures iron tier lasso-able and all animals.
-     */
-    GOLD(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Golden Lasso", List.of(
-            Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
-            Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
-            Text.Label.DETAILS.asColor() + "{Iron Lasso + Animals}",
-            Text.Label.DETAILS.asColor() + "ID: Golden Lasso"),
-        Text.Key.ITEM_ID.asKey(), "golden_lasso")),
-
-
-    /**
-     * Diamond lasso. Captures golden tier lasso-able and non-boss hostile mobs.
-     */
-    DIAMOND(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Diamond Lasso", List.of(
-            Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
-            Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
-            Text.Label.DETAILS.asColor() + "{Golden Lasso + Non-Boss Hostile Mobs}",
-            Text.Label.DETAILS.asColor() + "ID: Diamond Lasso"),
-        Text.Key.ITEM_ID.asKey(), "diamond_lasso")),
-
-    /**
-     * Emerald lasso. Captures diamond tier lasso-able and villagers.
-     */
-    EMERALD(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Emerald Lasso", List.of(
-            Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
-            Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
-            Text.Label.DETAILS.asColor() + "{Diamond Lasso + Villagers}",
-            Text.Label.DETAILS.asColor() + "ID: Emerald Lasso"),
-        Text.Key.ITEM_ID.asKey(), "emerald_lasso"));
-
-    /**
-     * Item.
-     */
-    private final ItemStack item;
-
-    /**
-     * Associates the entry with an item.
-     *
-     * @param item item
-     */
-    Lasso(ItemStack item) {
-      this.item = item;
+    private Lasso() {
     }
 
     /**
-     * Gets the item.
+     * {@link Lasso} items.
      *
-     * @return item
+     * @author Danny Nguyen
+     * @version 1.0.35
+     * @since 1.0.21
      */
-    @Override
-    @NotNull
-    public ItemStack asItem() {
-      return this.item;
+    public enum Item implements ItemStackValue {
+      /**
+       * Iron lasso. Captures farms animals.
+       */
+      IRON(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Iron Lasso", List.of(
+              Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
+              Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
+              Text.Label.DETAILS.asColor() + "{Chicken, Cow, Pig, Sheep}",
+              Text.Label.DETAILS.asColor() + "ID: Iron Lasso"),
+          Text.Key.ITEM_ID.asKey(), "iron_lasso")),
+
+      /**
+       * Golden lasso. Captures iron tier lasso-able and all animals.
+       */
+      GOLD(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Golden Lasso", List.of(
+              Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
+              Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
+              Text.Label.DETAILS.asColor() + "{Iron Lasso + Animals}",
+              Text.Label.DETAILS.asColor() + "ID: Golden Lasso"),
+          Text.Key.ITEM_ID.asKey(), "golden_lasso")),
+
+
+      /**
+       * Diamond lasso. Captures golden tier lasso-able and non-boss hostile mobs.
+       */
+      DIAMOND(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Diamond Lasso", List.of(
+              Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
+              Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
+              Text.Label.DETAILS.asColor() + "{Golden Lasso + Non-Boss Hostile Mobs}",
+              Text.Label.DETAILS.asColor() + "ID: Diamond Lasso"),
+          Text.Key.ITEM_ID.asKey(), "diamond_lasso")),
+
+      /**
+       * Emerald lasso. Captures diamond tier lasso-able and villagers.
+       */
+      EMERALD(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Emerald Lasso", List.of(
+              Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
+              Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
+              Text.Label.DETAILS.asColor() + "{Diamond Lasso + Villagers}",
+              Text.Label.DETAILS.asColor() + "ID: Emerald Lasso"),
+          Text.Key.ITEM_ID.asKey(), "emerald_lasso"));
+
+      /**
+       * Item.
+       */
+      private final ItemStack item;
+
+      /**
+       * Associates the entry with an item.
+       *
+       * @param item item
+       */
+      Item(ItemStack item) {
+        this.item = item;
+      }
+
+      /**
+       * Gets the item.
+       *
+       * @return item
+       */
+      @Override
+      @NotNull
+      public ItemStack asItem() {
+        return this.item;
+      }
     }
   }
 }
