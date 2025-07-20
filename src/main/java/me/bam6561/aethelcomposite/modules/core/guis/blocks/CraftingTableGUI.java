@@ -23,7 +23,7 @@ import java.util.Objects;
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.43
+ * @version 1.0.45
  * @since 1.0.3
  */
 public class CraftingTableGUI extends GUI implements Workstation, CachedInventory {
@@ -47,14 +47,13 @@ public class CraftingTableGUI extends GUI implements Workstation, CachedInventor
     Inventory inv = Bukkit.createInventory(null, 54, "Workbench");
 
     Lasso.Item[] items = Lasso.Item.values();
-    Lasso.Recipe[] recipes = Lasso.Recipe.values();
 
     for (int invSlot = 0; invSlot < items.length; invSlot++) {
       ItemStack item = items[invSlot].asItem();
       ItemMeta meta = item.getItemMeta();
       List<String> lore = meta.getLore();
 
-      List<ItemStack> recipe = recipes[invSlot].asList();
+      List<ItemStack> recipe = items[invSlot].asRecipe();
       List<String> recipeLore = new ArrayList<>(List.of("", ChatColor.WHITE + "Recipe"));
 
       for (ItemStack ingredient : recipe) {
