@@ -3,6 +3,7 @@ package me.bam6561.aethelcomposite.modules.core.guis.blocks;
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.guis.GUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
+import me.bam6561.aethelcomposite.modules.core.guis.markers.CachedInventory;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
@@ -19,17 +20,53 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Crafting table {@link GUI}.
+ * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.41
+ * @version 1.0.43
  * @since 1.0.3
  */
-public class CraftingTableGUI extends GUI implements Workstation {
+public class CraftingTableGUI extends GUI implements Workstation, CachedInventory {
+  /**
+   * {@link CachedInventory}
+   */
+  private static final Inventory cachedInventory = initializeCachedInventory();
+
   /**
    * No parameter constructor.
    */
   public CraftingTableGUI() {
+  }
+
+  /**
+   * Initializes the {@link CachedInventory}.
+   *
+   * @return {@link CachedInventory}
+   */
+  private static Inventory initializeCachedInventory() {
+    Inventory inv = Bukkit.createInventory(null, 54, "Workbench");
+
+    Lasso.Item[] items = Lasso.Item.values();
+    Lasso.Recipe[] recipes = Lasso.Recipe.values();
+
+    for (int invSlot = 0; invSlot < items.length; invSlot++) {
+      ItemStack item = items[invSlot].asItem();
+      ItemMeta meta = item.getItemMeta();
+      List<String> lore = meta.getLore();
+
+      List<ItemStack> recipe = recipes[invSlot].asList();
+      List<String> recipeLore = new ArrayList<>(List.of("", ChatColor.WHITE + "Recipe"));
+
+      for (ItemStack ingredient : recipe) {
+        recipeLore.add(Text.Label.DETAILS.asColor() + "- x" + ingredient.getAmount() + " " + ItemUtils.Read.getEffectiveName(ingredient));
+      }
+      lore.addAll(recipeLore);
+      meta.setLore(lore);
+
+      item.setItemMeta(meta);
+      inv.setItem(invSlot, item);
+    }
+    return inv;
   }
 
   /**
@@ -40,37 +77,15 @@ public class CraftingTableGUI extends GUI implements Workstation {
   @NotNull
   @Override
   protected Inventory createInventory() {
-    return Bukkit.createInventory(null, 54, "Crafting Table");
+    return Bukkit.createInventory(null, 54, "Workbench");
   }
 
   /**
-   * Currently does nothing.
+   * Retrieves the {@link CachedInventory}.
    */
   @Override
   protected void addButtons() {
-    Inventory inv = getInventory();
-
-    Lasso.Item[] items = Lasso.Item.values();
-    Lasso.Recipe[] recipes = Lasso.Recipe.values();
-
-    for (int i = 0; i < items.length; i++) {
-      ItemStack item = items[i].asItem();
-      ItemMeta meta = item.getItemMeta();
-      List<String> lore = meta.getLore();
-
-      List<ItemStack> recipe = recipes[i].asList();
-      List<String> recipeList = new ArrayList<>(List.of("", ChatColor.WHITE + "Recipe"));
-
-      for (int j = 0; j < recipe.size(); j++) {
-        ItemStack ingredient = recipe.get(j);
-        recipeList.add(Text.Label.DETAILS.asColor() + "- x" + ingredient.getAmount() + " " + ItemUtils.Read.getEffectiveName(ingredient));
-      }
-      lore.addAll(recipeList);
-
-      meta.setLore(lore);
-      item.setItemMeta(meta);
-      inv.setItem(i, item);
-    }
+    getInventory().setContents(cachedInventory.getContents());
   }
 
   /**
