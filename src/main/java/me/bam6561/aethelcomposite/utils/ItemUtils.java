@@ -41,7 +41,7 @@ public class ItemUtils {
    * Creates and serializes ItemStacks with metadata.
    *
    * @author Danny Nguyen
-   * @version 1.0.28
+   * @version 1.0.44
    * @since 1.0.16
    */
   public static class Create {
@@ -209,7 +209,7 @@ public class ItemUtils {
     public static ItemStack createPluginPlayerHead(@NotNull Item.PlayerHead head, @NotNull String name) {
       Objects.requireNonNull(head, "Null head");
       Objects.requireNonNull(name, "Null name");
-      ItemStack item = head.asItem().clone();
+      ItemStack item = head.asItem();
       ItemMeta meta = item.getItemMeta();
       meta.setDisplayName(name);
       item.setItemMeta(meta);
