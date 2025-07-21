@@ -29,7 +29,7 @@ import java.util.Objects;
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.50
+ * @version 1.0.54
  * @since 1.0.3
  */
 public class CraftingTableGUI extends GUI implements Workstation, CachedInventory {
@@ -138,7 +138,7 @@ public class CraftingTableGUI extends GUI implements Workstation, CachedInventor
       return;
     }
 
-    Lasso.Item itemEnum = Lasso.Item.valueOf(TextUtils.Format.asEnum(clicked.getItemMeta().getPersistentDataContainer().get(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING)));
+    Lasso.Item itemEnum = Lasso.Item.valueOf(TextUtils.Format.asEnum(ItemUtils.Read.getItemID(clicked)));
     RecipeCraftOperation recipeCraftOperation = new RecipeCraftOperation(player.getInventory(), List.of(itemEnum.asItem()), itemEnum.asRecipe(), 1);
 
     if (!recipeCraftOperation.craft()) {

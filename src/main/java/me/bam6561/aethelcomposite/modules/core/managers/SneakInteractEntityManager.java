@@ -16,7 +16,7 @@ import java.util.Objects;
  * Manages {@link SneakInteractEntityEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.52
+ * @version 1.0.54
  * @since 1.0.8
  */
 public class SneakInteractEntityManager {
@@ -41,7 +41,7 @@ public class SneakInteractEntityManager {
 
     ItemStack mainHandItem = inv.getItemInMainHand();
     if (ItemUtils.Read.isNotNullOrAir(mainHandItem)) {
-      String itemID = mainHandItem.getItemMeta().getPersistentDataContainer().get(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING);
+      String itemID = ItemUtils.Read.getItemID(mainHandItem);
       switch (itemID) {
         case "iron_lasso" -> {
 
