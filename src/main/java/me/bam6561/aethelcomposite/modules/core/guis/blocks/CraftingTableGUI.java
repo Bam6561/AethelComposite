@@ -1,6 +1,7 @@
 package me.bam6561.aethelcomposite.modules.core.guis.blocks;
 
 import me.bam6561.aethelcomposite.Plugin;
+import me.bam6561.aethelcomposite.modules.core.events.RecipeCraftEvent;
 import me.bam6561.aethelcomposite.modules.core.guis.GUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
 import me.bam6561.aethelcomposite.modules.core.guis.markers.CachedInventory;
@@ -28,7 +29,7 @@ import java.util.Objects;
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.49
+ * @version 1.0.50
  * @since 1.0.3
  */
 public class CraftingTableGUI extends GUI implements Workstation, CachedInventory {
@@ -131,6 +132,12 @@ public class CraftingTableGUI extends GUI implements Workstation, CachedInventor
     }
 
     Player player = (Player) event.getWhoClicked();
+    RecipeCraftEvent recipeCraft = new RecipeCraftEvent(RecipeCraftEvent.InventorySource.PLAYER, player);
+    Bukkit.getPluginManager().callEvent(recipeCraft);
+    if (recipeCraft.isCancelled()) {
+      return;
+    }
+
     Lasso.Item itemEnum = Lasso.Item.valueOf(TextUtils.Format.asEnum(clicked.getItemMeta().getPersistentDataContainer().get(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING)));
     RecipeCraftOperation recipeCraftOperation = new RecipeCraftOperation(player.getInventory(), List.of(itemEnum.asItem()), itemEnum.asRecipe(), 1);
 
