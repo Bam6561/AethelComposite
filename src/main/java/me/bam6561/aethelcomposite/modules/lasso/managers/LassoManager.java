@@ -1,21 +1,32 @@
 package me.bam6561.aethelcomposite.modules.lasso.managers;
 
+import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
+import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
+import me.bam6561.aethelcomposite.utils.EntityUtils;
+import me.bam6561.aethelcomposite.utils.ItemUtils;
+import me.bam6561.aethelcomposite.utils.TextUtils;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Set;
 
 /**
  * Manages {@link Lasso.Item} interactions.
  *
  * @author Danny nguyen
- * @version 1.0.56
+ * @version 1.0.63
  * @since 1.0.55
  */
 public class LassoManager {
@@ -29,24 +40,14 @@ public class LassoManager {
    * <p>
    * Chain previous tiers together to get a full set of captureable entity types.
    */
-  private static Set<EntityType> goldenLassoCaptureable = Set.of(EntityType.ALLAY, EntityType.ARMADILLO, EntityType.AXOLOTL, EntityType.BAT,
-      EntityType.BEE, EntityType.CAMEL, EntityType.CAT, EntityType.COD, EntityType.DOLPHIN, EntityType.DONKEY, EntityType.FOX, EntityType.FROG,
-      EntityType.GLOW_SQUID, EntityType.GOAT, EntityType.HAPPY_GHAST, EntityType.HORSE, EntityType.LLAMA, EntityType.MOOSHROOM, EntityType.MULE,
-      EntityType.OCELOT, EntityType.PANDA, EntityType.PARROT, EntityType.POLAR_BEAR, EntityType.PUFFERFISH, EntityType.RABBIT, EntityType.SALMON,
-      EntityType.SHEEP, EntityType.SKELETON_HORSE, EntityType.SNIFFER, EntityType.SNOW_GOLEM, EntityType.SQUID, EntityType.STRIDER,
-      EntityType.TADPOLE, EntityType.TRADER_LLAMA, EntityType.TROPICAL_FISH, EntityType.TURTLE, EntityType.WOLF, EntityType.ZOMBIE_HORSE);
+  private static Set<EntityType> goldenLassoCaptureable = Set.of(EntityType.ALLAY, EntityType.ARMADILLO, EntityType.AXOLOTL, EntityType.BAT, EntityType.BEE, EntityType.CAMEL, EntityType.CAT, EntityType.COD, EntityType.DOLPHIN, EntityType.DONKEY, EntityType.FOX, EntityType.FROG, EntityType.GLOW_SQUID, EntityType.GOAT, EntityType.HAPPY_GHAST, EntityType.HORSE, EntityType.LLAMA, EntityType.MOOSHROOM, EntityType.MULE, EntityType.OCELOT, EntityType.PANDA, EntityType.PARROT, EntityType.POLAR_BEAR, EntityType.PUFFERFISH, EntityType.RABBIT, EntityType.SALMON, EntityType.SHEEP, EntityType.SKELETON_HORSE, EntityType.SNIFFER, EntityType.SNOW_GOLEM, EntityType.SQUID, EntityType.STRIDER, EntityType.TADPOLE, EntityType.TRADER_LLAMA, EntityType.TROPICAL_FISH, EntityType.TURTLE, EntityType.WOLF, EntityType.ZOMBIE_HORSE);
 
   /**
    * New entity types an {@link Lasso.Item#DIAMOND_LASSO} can capture.
    * <p>
    * Chain previous tiers together to get a full set of captureable entity types.
    */
-  private static Set<EntityType> diamondLassoCaptureable = Set.of(EntityType.BLAZE, EntityType.BOGGED, EntityType.BREEZE, EntityType.CAVE_SPIDER,
-      EntityType.CREAKING, EntityType.CREEPER, EntityType.DROWNED, EntityType.ELDER_GUARDIAN, EntityType.ENDERMAN, EntityType.ENDERMITE,
-      EntityType.EVOKER, EntityType.GHAST, EntityType.GUARDIAN, EntityType.HOGLIN, EntityType.HUSK, EntityType.IRON_GOLEM, EntityType.MAGMA_CUBE,
-      EntityType.PHANTOM, EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.PILLAGER, EntityType.RAVAGER, EntityType.SHULKER,
-      EntityType.SILVERFISH, EntityType.SKELETON, EntityType.SLIME, EntityType.SPIDER, EntityType.STRAY, EntityType.VEX, EntityType.VINDICATOR,
-      EntityType.WITCH, EntityType.WITHER_SKELETON, EntityType.ZOGLIN, EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.ZOMBIFIED_PIGLIN);
+  private static Set<EntityType> diamondLassoCaptureable = Set.of(EntityType.BLAZE, EntityType.BOGGED, EntityType.BREEZE, EntityType.CAVE_SPIDER, EntityType.CREAKING, EntityType.CREEPER, EntityType.DROWNED, EntityType.ELDER_GUARDIAN, EntityType.ENDERMAN, EntityType.ENDERMITE, EntityType.EVOKER, EntityType.GHAST, EntityType.GUARDIAN, EntityType.HOGLIN, EntityType.HUSK, EntityType.IRON_GOLEM, EntityType.MAGMA_CUBE, EntityType.PHANTOM, EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.PILLAGER, EntityType.RAVAGER, EntityType.SHULKER, EntityType.SILVERFISH, EntityType.SKELETON, EntityType.SLIME, EntityType.SPIDER, EntityType.STRAY, EntityType.VEX, EntityType.VINDICATOR, EntityType.WITCH, EntityType.WITHER_SKELETON, EntityType.ZOGLIN, EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.ZOMBIFIED_PIGLIN);
 
   /**
    * New entity types an {@link Lasso.Item#EMERALD_LASSO} can capture.
@@ -77,22 +78,22 @@ public class LassoManager {
     switch (tier) {
       case IRON_LASSO -> {
         if (ironLassoCaptureable.contains(entityType)) {
-          
+          storeEntityAsData(player, inv, entity);
         }
       }
       case GOLDEN_LASSO -> {
         if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType)) {
-
+          storeEntityAsData(player, inv, entity);
         }
       }
       case DIAMOND_LASSO -> {
         if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType) || diamondLassoCaptureable.contains(entityType)) {
-
+          storeEntityAsData(player, inv, entity);
         }
       }
       case EMERALD_LASSO -> {
         if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType) || diamondLassoCaptureable.contains(entityType) || emeraldLassoCaptureable.contains(entityType)) {
-
+          storeEntityAsData(player, inv, entity);
         }
       }
     }
@@ -105,5 +106,41 @@ public class LassoManager {
    */
   public void releaseEntity(@NotNull PlayerInteractEvent event) {
 
+  }
+
+  /**
+   * Stores the entity into the {@link Lasso.Item} and removes it from the world.
+   *
+   * @param player interacting player
+   * @param inv    player inventory
+   * @param entity interacting entity
+   */
+  private void storeEntityAsData(Player player, PlayerInventory inv, Entity entity) {
+    ItemStack mainHandItemStack = inv.getItemInMainHand();
+    ItemStack lasso = mainHandItemStack.clone();
+    ItemMeta meta = lasso.getItemMeta();
+    PersistentDataContainer lassoData = meta.getPersistentDataContainer();
+    String newItemID = ItemUtils.Read.getItemID(lasso) + "'d";
+
+    lasso.setAmount(1);
+    lassoData.set(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING, newItemID);
+    lassoData.set(Lasso.Key.LASSO_ENTITY_DATA.asKey(), PersistentDataType.STRING, EntityUtils.Data.encodeEntityString(entity));
+    meta.setLore(List.of(
+        Text.Label.ACTION.asColor() + "Release " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
+        Text.Label.DETAILS.asColor() + "Releases the stored creature.",
+        Text.Label.DETAILS.asColor() + entity.getName() + " [" + TextUtils.Format.asTitle(entity.getType().name()) + "]",
+        Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + newItemID));
+    lasso.setItemMeta(meta);
+
+    mainHandItemStack.setAmount(mainHandItemStack.getAmount() - 1);
+    inv.setItemInMainHand(mainHandItemStack);
+
+    if (inv.firstEmpty() != -1) {
+      inv.addItem(lasso);
+    } else {
+      player.getWorld().dropItem(player.getLocation(), lasso);
+    }
+
+    entity.remove();
   }
 }
