@@ -6,7 +6,7 @@ import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
 import me.bam6561.aethelcomposite.modules.core.guis.markers.CachedInventory;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
-import me.bam6561.aethelcomposite.modules.core.utils.RecipeCraft;
+import me.bam6561.aethelcomposite.modules.core.utils.RecipeCraftOperation;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import me.bam6561.aethelcomposite.utils.TextUtils;
@@ -28,7 +28,7 @@ import java.util.Objects;
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.47
+ * @version 1.0.49
  * @since 1.0.3
  */
 public class CraftingTableGUI extends GUI implements Workstation, CachedInventory {
@@ -113,7 +113,7 @@ public class CraftingTableGUI extends GUI implements Workstation, CachedInventor
   }
 
   /**
-   * Currently does nothing.
+   * Crafts an item if the interacting player has enough recipe ingredients.
    *
    * @param event inventory click event
    */
@@ -132,9 +132,9 @@ public class CraftingTableGUI extends GUI implements Workstation, CachedInventor
 
     Player player = (Player) event.getWhoClicked();
     Lasso.Item itemEnum = Lasso.Item.valueOf(TextUtils.Format.asEnum(clicked.getItemMeta().getPersistentDataContainer().get(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING)));
-    RecipeCraft recipeCraft = new RecipeCraft(player.getInventory(), List.of(itemEnum.asItem()), itemEnum.asRecipe(), 1);
+    RecipeCraftOperation recipeCraftOperation = new RecipeCraftOperation(player.getInventory(), List.of(itemEnum.asItem()), itemEnum.asRecipe(), 1);
 
-    if (!recipeCraft.craftRecipe()) {
+    if (!recipeCraftOperation.craft()) {
       player.sendMessage(Text.Label.INVALID.asColor() + "[!] Insufficient ingredients.");
     }
   }

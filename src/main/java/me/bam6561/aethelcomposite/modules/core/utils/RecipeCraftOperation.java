@@ -26,10 +26,10 @@ import java.util.*;
  * Only removes items from the inventory if there are enough ingredients to craft the recipe.
  *
  * @author Danny Nguyen
- * @version 1.0.47
+ * @version 1.0.49
  * @since 1.0.46
  */
-public class RecipeCraft {
+public class RecipeCraftOperation {
   /**
    * {@link me.bam6561.aethelcomposite.modules.core.references.Namespaced.Key#ITEM_ID}
    */
@@ -73,7 +73,7 @@ public class RecipeCraft {
    * @param ingredients recipe ingredients
    * @param craftAmount amount of crafts done at once
    */
-  public RecipeCraft(@NotNull Inventory inv, @NotNull List<ItemStack> results, @NotNull List<ItemStack> ingredients, int craftAmount) {
+  public RecipeCraftOperation(@NotNull Inventory inv, @NotNull List<ItemStack> results, @NotNull List<ItemStack> ingredients, int craftAmount) {
     this.inv = Objects.requireNonNull(inv, "Null inventory");
     this.results = Objects.requireNonNull(results, "Null results");
     this.ingredients = Objects.requireNonNull(ingredients, "Null ingredients");
@@ -113,7 +113,7 @@ public class RecipeCraft {
    *
    * @return if the recipe craft was successful
    */
-  public boolean craftRecipe() {
+  public boolean craft() {
     if (hasEnoughOfAllIngredients()) {
       for (SlotItemStack invSlot : postCraft) {
         ItemStack item = invSlot.getItem();
