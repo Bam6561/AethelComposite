@@ -181,7 +181,7 @@ public class RecipeCraft {
             }
           }
           default -> {
-            if (hasEnoughIngredients(requiredMaterial, requiredAmount)) {
+            if (!hasEnoughIngredients(requiredMaterial, requiredAmount)) {
               return false;
             }
           }
