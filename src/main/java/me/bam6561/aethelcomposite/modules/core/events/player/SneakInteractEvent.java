@@ -6,6 +6,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
  * May be cancelled without cancelling its source PlayerInteractEvent.
  *
  * @author Danny Nguyen
- * @version 1.0.9
+ * @version 1.0.65
  * @since 1.0.5
  */
 public class SneakInteractEvent extends Event implements Cancellable {
@@ -45,9 +46,9 @@ public class SneakInteractEvent extends Event implements Cancellable {
    * @param player interacting player
    * @param block  interacting target
    */
-  public SneakInteractEvent(@NotNull Player player, @NotNull Block block) {
+  public SneakInteractEvent(@NotNull Player player, @Nullable Block block) {
     this.player = Objects.requireNonNull(player, "Null player");
-    this.block = Objects.requireNonNull(block, "Null block");
+    this.block = block;
   }
 
   /**
@@ -65,7 +66,7 @@ public class SneakInteractEvent extends Event implements Cancellable {
    *
    * @return interacting block
    */
-  @NotNull
+  @Nullable
   public Block getBlock() {
     return this.block;
   }

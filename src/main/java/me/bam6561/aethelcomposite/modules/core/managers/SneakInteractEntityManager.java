@@ -17,7 +17,7 @@ import java.util.Objects;
  * Manages {@link SneakInteractEntityEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.55
+ * @version 1.0.65
  * @since 1.0.8
  */
 public class SneakInteractEntityManager {
@@ -41,7 +41,7 @@ public class SneakInteractEntityManager {
     PlayerInventory inv = player.getInventory();
     ItemStack mainHandItem = inv.getItemInMainHand();
 
-    if (ItemUtils.Read.isNotNullOrAir(mainHandItem)) {
+    if (ItemUtils.Read.isNullOrAir(mainHandItem)) {
       return;
     }
 
