@@ -4,15 +4,20 @@ import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.guis.GUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
 import me.bam6561.aethelcomposite.modules.core.guis.markers.CachedInventory;
+import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
+import me.bam6561.aethelcomposite.modules.core.utils.RecipeCraft;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
+import me.bam6561.aethelcomposite.utils.TextUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -23,7 +28,7 @@ import java.util.Objects;
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.45
+ * @version 1.0.47
  * @since 1.0.3
  */
 public class CraftingTableGUI extends GUI implements Workstation, CachedInventory {
@@ -119,6 +124,19 @@ public class CraftingTableGUI extends GUI implements Workstation, CachedInventor
       return;
     }
     event.setCancelled(true);
+
+    ItemStack clicked = event.getCurrentItem();
+    if (ItemUtils.Read.isNullOrAir(clicked)) {
+      return;
+    }
+
+    Player player = (Player) event.getWhoClicked();
+    Lasso.Item itemEnum = Lasso.Item.valueOf(TextUtils.Format.asEnum(clicked.getItemMeta().getPersistentDataContainer().get(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING)));
+    RecipeCraft recipeCraft = new RecipeCraft(player.getInventory(), List.of(itemEnum.asItem()), itemEnum.asRecipe(), 1);
+
+    if (!recipeCraft.craftRecipe()) {
+      player.sendMessage(Text.Label.INVALID.asColor() + "[!] Insufficient ingredients.");
+    }
   }
 
   /**
