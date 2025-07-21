@@ -26,7 +26,7 @@ import java.util.*;
  * Only removes items from the inventory if there are enough ingredients to craft the recipe.
  *
  * @author Danny Nguyen
- * @version 1.0.49
+ * @version 1.0.58
  * @since 1.0.46
  */
 public class RecipeCraftOperation {
@@ -51,9 +51,9 @@ public class RecipeCraftOperation {
   private final List<ItemStack> ingredients;
 
   /**
-   * Amounts of crafts done at once.
+   * Number of crafts done at once.
    */
-  private final int craftAmount;
+  private final int crafts;
 
   /**
    * Map of the inventory by material.
@@ -71,13 +71,13 @@ public class RecipeCraftOperation {
    * @param inv         inventory used to craft the recipe
    * @param results     recipe results
    * @param ingredients recipe ingredients
-   * @param craftAmount amount of crafts done at once
+   * @param crafts      number of crafts done at once
    */
-  public RecipeCraftOperation(@NotNull Inventory inv, @NotNull List<ItemStack> results, @NotNull List<ItemStack> ingredients, int craftAmount) {
+  public RecipeCraftOperation(@NotNull Inventory inv, @NotNull List<ItemStack> results, @NotNull List<ItemStack> ingredients, int crafts) {
     this.inv = Objects.requireNonNull(inv, "Null inventory");
     this.results = Objects.requireNonNull(results, "Null results");
     this.ingredients = Objects.requireNonNull(ingredients, "Null ingredients");
-    this.craftAmount = craftAmount;
+    this.crafts = crafts;
     this.invMap = mapInventoryMaterials();
   }
 
@@ -121,7 +121,7 @@ public class RecipeCraftOperation {
         inv.setItem(invSlot.getSlot(), item);
       }
 
-      for (int i = 0; i < craftAmount; i++) {
+      for (int i = 0; i < crafts; i++) {
         for (ItemStack item : results) {
           if (inv.firstEmpty() != -1) {
             inv.addItem(item);
@@ -154,7 +154,7 @@ public class RecipeCraftOperation {
         return false;
       }
 
-      int requiredAmount = item.getAmount() * craftAmount;
+      int requiredAmount = item.getAmount() * crafts;
       PersistentDataContainer itemTags = item.getItemMeta().getPersistentDataContainer();
       boolean hasItemID = itemTags.has(itemID, PersistentDataType.STRING);
 
@@ -200,16 +200,16 @@ public class RecipeCraftOperation {
    * If the inventory has enough of the required ingredient by matching material type.
    *
    * @param requiredMaterial required material
-   * @param requiredAmount   required amount
+   * @param requiredNumber   required number
    * @return has enough ingredients
    */
-  private boolean hasEnoughIngredients(Material requiredMaterial, int requiredAmount) {
+  private boolean hasEnoughIngredients(Material requiredMaterial, int requiredNumber) {
     for (SlotItemStack invSlot : invMap.get(requiredMaterial)) {
       PersistentDataContainer itemTags = invSlot.getItem().getItemMeta().getPersistentDataContainer();
       if (!itemTags.has(itemID, PersistentDataType.STRING)) { // Don't use unique items for crafting
         if (invSlot.getAmount() > 0) {
-          requiredAmount -= invSlot.getAmount();
-          if (hasRequiredAmount(invSlot, requiredAmount)) {
+          requiredNumber -= invSlot.getAmount();
+          if (hasRequiredNumber(invSlot, requiredNumber)) {
             return true;
           }
         }
@@ -223,17 +223,17 @@ public class RecipeCraftOperation {
    * and {@link me.bam6561.aethelcomposite.modules.core.references.Namespaced.Key#ITEM_ID}.
    *
    * @param requiredMaterial required material
-   * @param requiredAmount   required amount
+   * @param requiredNumber   required number
    * @param requiredItemID   required item ID
    * @return has enough ingredients
    */
-  private boolean hasEnoughIngredientsWithIDs(Material requiredMaterial, int requiredAmount, String requiredItemID) {
+  private boolean hasEnoughIngredientsWithIDs(Material requiredMaterial, int requiredNumber, String requiredItemID) {
     for (SlotItemStack invSlot : invMap.get(requiredMaterial)) {
       PersistentDataContainer itemTags = invSlot.getItem().getItemMeta().getPersistentDataContainer();
       if (itemTags.has(itemID, PersistentDataType.STRING) && itemTags.get(itemID, PersistentDataType.STRING).equals(requiredItemID)) {
         if (invSlot.getAmount() > 0) {
-          requiredAmount -= invSlot.getAmount();
-          if (hasRequiredAmount(invSlot, requiredAmount)) {
+          requiredNumber -= invSlot.getAmount();
+          if (hasRequiredNumber(invSlot, requiredNumber)) {
             return true;
           }
         }
@@ -246,18 +246,18 @@ public class RecipeCraftOperation {
    * If the inventory has enough of the required enchanted books by matching enchantments.
    *
    * @param enchantmentMeta enchantment meta
-   * @param requiredAmount  required amount
+   * @param requiredNumber  required number
    * @return has enough enchanted book ingredients
    */
-  private boolean hasEnoughEnchantedBookIngredients(EnchantmentStorageMeta enchantmentMeta, int requiredAmount) {
+  private boolean hasEnoughEnchantedBookIngredients(EnchantmentStorageMeta enchantmentMeta, int requiredNumber) {
     for (SlotItemStack invSlot : invMap.get(Material.ENCHANTED_BOOK)) {
       ItemMeta meta = invSlot.getItem().getItemMeta();
       PersistentDataContainer itemTags = meta.getPersistentDataContainer();
       if (!itemTags.has(itemID, PersistentDataType.STRING)) { // Don't use unique items for crafting
         EnchantmentStorageMeta enchantmentMeta2 = (EnchantmentStorageMeta) meta;
         if (invSlot.getAmount() > 0 && enchantmentMeta.getStoredEnchants().equals(enchantmentMeta2.getStoredEnchants())) {
-          requiredAmount -= invSlot.getAmount();
-          if (hasRequiredAmount(invSlot, requiredAmount)) {
+          requiredNumber -= invSlot.getAmount();
+          if (hasRequiredNumber(invSlot, requiredNumber)) {
             return true;
           }
         }
@@ -271,10 +271,10 @@ public class RecipeCraftOperation {
    *
    * @param material       material
    * @param potionMeta     potion meta
-   * @param requiredAmount required amount
+   * @param requiredNumber required number
    * @return has enough potion ingredients
    */
-  private boolean hasEnoughPotionIngredients(Material material, PotionMeta potionMeta, int requiredAmount) {
+  private boolean hasEnoughPotionIngredients(Material material, PotionMeta potionMeta, int requiredNumber) {
     for (SlotItemStack invSlot : invMap.get(material)) {
       ItemMeta meta = invSlot.getItem().getItemMeta();
       PersistentDataContainer itemTags = meta.getPersistentDataContainer();
@@ -288,8 +288,8 @@ public class RecipeCraftOperation {
           List<PotionEffect> customPotionEffects2 = potionMeta2.getCustomEffects();
 
           if (basePotionEffects.equals(basePotionEffects2) && customPotionEffects.equals(customPotionEffects2)) {
-            requiredAmount -= invSlot.getAmount();
-            if (hasRequiredAmount(invSlot, requiredAmount)) {
+            requiredNumber -= invSlot.getAmount();
+            if (hasRequiredNumber(invSlot, requiredNumber)) {
               return true;
             }
           }
@@ -300,19 +300,19 @@ public class RecipeCraftOperation {
   }
 
   /**
-   * If the required amount of ingredients was satisfied.
+   * If the required number of ingredients was satisfied.
    *
    * @param invSlot        tracked post-craft inventory slot
-   * @param requiredAmount required amount
+   * @param requiredNumber required number
    * @return has enough ingredients
    */
-  private boolean hasRequiredAmount(SlotItemStack invSlot, int requiredAmount) {
-    if (requiredAmount > 0 || requiredAmount == 0) {
+  private boolean hasRequiredNumber(SlotItemStack invSlot, int requiredNumber) {
+    if (requiredNumber > 0 || requiredNumber == 0) {
       invSlot.setAmount(0);
       postCraft.add(new SlotItemStack(invSlot.getSlot(), invSlot.getItem(), 0));
-      return requiredAmount == 0;
+      return requiredNumber == 0;
     } else {
-      int difference = Math.abs(requiredAmount);
+      int difference = Math.abs(requiredNumber);
       invSlot.setAmount(difference);
       postCraft.add(new SlotItemStack(invSlot.getSlot(), invSlot.getItem(), difference));
       return true;

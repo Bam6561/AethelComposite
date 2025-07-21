@@ -36,7 +36,7 @@ public class EntityUtils {
      *
      * @param location     location
      * @param entityType   entity type
-     * @param spawns       number to spawn
+     * @param spawns       number of spawns
      * @param isRandomized natural randomization
      */
     public void spawnEntity(Location location, EntityType entityType, int spawns, boolean isRandomized) {
