@@ -5,6 +5,7 @@ import me.bam6561.aethelcomposite.modules.core.listeners.PlayerListener;
 import me.bam6561.aethelcomposite.modules.core.managers.GUIManager;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractEntityManager;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractManager;
+import me.bam6561.aethelcomposite.modules.lasso.managers.LassoManager;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  * </p>
  *
  * @author Danny Nguyen
- * @version 1.0.24
+ * @version 1.0.55
  * @since 1.0.0
  */
 
@@ -36,6 +37,11 @@ public class Plugin extends JavaPlugin {
    * {@link SneakInteractEntityManager}
    */
   public static final SneakInteractEntityManager SNEAK_INTERACT_ENTITY_MANAGER = new SneakInteractEntityManager();
+
+  /**
+   * {@link LassoManager
+   */
+  public static final LassoManager LASSO_MANAGER = new LassoManager();
 
   /**
    * No parameter constructor.
@@ -111,5 +117,15 @@ public class Plugin extends JavaPlugin {
   @NotNull
   public static SneakInteractEntityManager getSneakInteractEntityManager() {
     return SNEAK_INTERACT_ENTITY_MANAGER;
+  }
+
+  /**
+   * Gets the {@link LassoManager}.
+   *
+   * @return {@link LassoManager}
+   */
+  @NotNull
+  public static LassoManager getLassoManager() {
+    return LASSO_MANAGER;
   }
 }
