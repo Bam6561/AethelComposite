@@ -2,6 +2,7 @@ package me.bam6561.aethelcomposite.utils;
 
 import me.bam6561.aethelcomposite.modules.core.references.Item;
 import me.bam6561.aethelcomposite.modules.core.references.Item.PlayerHead;
+import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -262,7 +263,7 @@ public class ItemUtils {
    * Reads and decodes ItemStacks with metadata.
    *
    * @author Danny Nguyen
-   * @version 1.0.16
+   * @version 1.0.53
    * @since 1.0.16
    */
   public static class Read {
@@ -309,6 +310,21 @@ public class ItemUtils {
         return TextUtils.Format.asTitle(item.getType().name());
       }
       return meta.getDisplayName();
+    }
+
+    /**
+     * Gets the item's {@link Namespaced.Key#ITEM_ID}, if it exists.
+     *
+     * @param item interacting item
+     * @return item's {@link Namespaced.Key#ITEM_ID}
+     */
+    @Nullable
+    public static String getItemID(@NotNull ItemStack item) {
+      Objects.requireNonNull(item, "Null item");
+      if (!item.hasItemMeta()) {
+        return null;
+      }
+      return item.getItemMeta().getPersistentDataContainer().get(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING);
     }
 
     /**
