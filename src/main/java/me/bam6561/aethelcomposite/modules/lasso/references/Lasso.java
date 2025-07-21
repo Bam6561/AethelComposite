@@ -1,12 +1,16 @@
 package me.bam6561.aethelcomposite.modules.lasso.references;
 
+import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.references.markers.ItemStackValue;
+import me.bam6561.aethelcomposite.modules.core.references.markers.NamespacedKeyValue;
 import me.bam6561.aethelcomposite.modules.core.references.markers.RecipeValue;
+import me.bam6561.aethelcomposite.modules.core.references.markers.StringValue;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -121,6 +125,63 @@ public class Lasso {
     @Nullable
     public List<ItemStack> asRecipe() {
       return new ArrayList<>(this.recipe);
+    }
+
+    /**
+     * Reserved namespaced keys.
+     *
+     * @author Danny Nguyen
+     * @version 1.0.61
+     * @since 1.0.61
+     */
+    public enum Key implements NamespacedKeyValue, StringValue {
+      /**
+       * Captured entity data.
+       */
+      LASSO_ENTITY_DATA(new NamespacedKey(Plugin.getInstance(), Namespaced.Header.ITEM.asString() + "lasso_entity_data"), Namespaced.Header.ITEM.asString() + "lasso_entity_data");
+
+      /**
+       * Namespaced key.
+       */
+      private final NamespacedKey key;
+
+      /**
+       * Namespaced key string.
+       */
+      private final String keyString;
+
+      /**
+       * Associates the entry with the namespaced key and namespaced key string.
+       *
+       * @param key       namespaced key
+       * @param keyString namespaced key string
+       */
+      Key(NamespacedKey key, String keyString) {
+        this.key = key;
+        this.keyString = keyString;
+      }
+
+      /**
+       * Gets the namespaced key.
+       *
+       * @return namespaced key
+       */
+      @Override
+      @NotNull
+      public NamespacedKey asKey() {
+        return this.key;
+      }
+
+      /**
+       * Gets the namespaced key string.
+       *
+       * @return namespaced key string
+       */
+      @Override
+      @NotNull
+      public String asString() {
+        return this.keyString;
+      }
     }
   }
 }

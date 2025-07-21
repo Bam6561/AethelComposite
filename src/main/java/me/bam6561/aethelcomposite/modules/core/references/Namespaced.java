@@ -70,7 +70,7 @@ public class Namespaced {
    * Reserved namespaced keys.
    *
    * @author Danny Nguyen
-   * @version 1.0.34
+   * @version 1.0.61
    * @since 1.0.29
    */
   public enum Key implements NamespacedKeyValue, StringValue {
@@ -107,6 +107,7 @@ public class Namespaced {
      *
      * @return namespaced key
      */
+    @Override
     @NotNull
     public NamespacedKey asKey() {
       return this.key;
