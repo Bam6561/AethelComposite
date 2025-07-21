@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * References usable as Recipes.
  * <p>
- * Recipes are lists of materials required to craft an item, but a recipe may not exist for every item.
+ * Recipes are lists of ingredients required to craft an item, but a recipe may not exist for every item.
  * <p>
  * Recipes are represented as Lists of ItemStacks.
  *
