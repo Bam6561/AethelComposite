@@ -22,7 +22,7 @@ import java.util.List;
  * Lasso module-related references.
  *
  * @author Danny Nguyen
- * @version 1.0.44
+ * @version 1.0.62
  * @since 1.0.39
  */
 public class Lasso {
@@ -126,62 +126,62 @@ public class Lasso {
     public List<ItemStack> asRecipe() {
       return new ArrayList<>(this.recipe);
     }
+  }
+
+  /**
+   * Reserved namespaced keys.
+   *
+   * @author Danny Nguyen
+   * @version 1.0.61
+   * @since 1.0.61
+   */
+  public enum Key implements NamespacedKeyValue, StringValue {
+    /**
+     * Captured entity data.
+     */
+    LASSO_ENTITY_DATA(new NamespacedKey(Plugin.getInstance(), Namespaced.Header.ITEM.asString() + "lasso_entity_data"), Namespaced.Header.ITEM.asString() + "lasso_entity_data");
 
     /**
-     * Reserved namespaced keys.
-     *
-     * @author Danny Nguyen
-     * @version 1.0.61
-     * @since 1.0.61
+     * Namespaced key.
      */
-    public enum Key implements NamespacedKeyValue, StringValue {
-      /**
-       * Captured entity data.
-       */
-      LASSO_ENTITY_DATA(new NamespacedKey(Plugin.getInstance(), Namespaced.Header.ITEM.asString() + "lasso_entity_data"), Namespaced.Header.ITEM.asString() + "lasso_entity_data");
+    private final NamespacedKey key;
 
-      /**
-       * Namespaced key.
-       */
-      private final NamespacedKey key;
+    /**
+     * Namespaced key string.
+     */
+    private final String keyString;
 
-      /**
-       * Namespaced key string.
-       */
-      private final String keyString;
+    /**
+     * Associates the entry with the namespaced key and namespaced key string.
+     *
+     * @param key       namespaced key
+     * @param keyString namespaced key string
+     */
+    Key(NamespacedKey key, String keyString) {
+      this.key = key;
+      this.keyString = keyString;
+    }
 
-      /**
-       * Associates the entry with the namespaced key and namespaced key string.
-       *
-       * @param key       namespaced key
-       * @param keyString namespaced key string
-       */
-      Key(NamespacedKey key, String keyString) {
-        this.key = key;
-        this.keyString = keyString;
-      }
+    /**
+     * Gets the namespaced key.
+     *
+     * @return namespaced key
+     */
+    @Override
+    @NotNull
+    public NamespacedKey asKey() {
+      return this.key;
+    }
 
-      /**
-       * Gets the namespaced key.
-       *
-       * @return namespaced key
-       */
-      @Override
-      @NotNull
-      public NamespacedKey asKey() {
-        return this.key;
-      }
-
-      /**
-       * Gets the namespaced key string.
-       *
-       * @return namespaced key string
-       */
-      @Override
-      @NotNull
-      public String asString() {
-        return this.keyString;
-      }
+    /**
+     * Gets the namespaced key string.
+     *
+     * @return namespaced key string
+     */
+    @Override
+    @NotNull
+    public String asString() {
+      return this.keyString;
     }
   }
 }
