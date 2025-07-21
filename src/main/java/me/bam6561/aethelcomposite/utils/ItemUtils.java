@@ -28,7 +28,7 @@ import java.util.Objects;
  * Utilities for ItemStacks.
  *
  * @author Danny Nguyen
- * @version 1.0.16
+ * @version 1.0.60
  * @since 1.0.16
  */
 public class ItemUtils {
@@ -237,26 +237,6 @@ public class ItemUtils {
       item.setItemMeta(meta);
       return item;
     }
-
-    /**
-     * Encodes an item into bytes.
-     *
-     * @param item item to encode
-     * @return encoded item string
-     */
-    @Nullable
-    public static String encodeItem(@NotNull ItemStack item) {
-      Objects.requireNonNull(item, "Null item");
-      try {
-        ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-        BukkitObjectOutputStream bukkitObjectOutput = new BukkitObjectOutputStream(byteOutput);
-        bukkitObjectOutput.writeObject(item);
-        bukkitObjectOutput.flush();
-        return Base64.getEncoder().encodeToString(byteOutput.toByteArray());
-      } catch (IOException ex) {
-        return null;
-      }
-    }
   }
 
   /**
@@ -326,15 +306,50 @@ public class ItemUtils {
       }
       return item.getItemMeta().getPersistentDataContainer().get(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING);
     }
+  }
+
+  /**
+   * Serializes and deserializes ItemStacks.
+   *
+   * @author Danny Nguyen
+   * @version 1.0.60
+   * @since 1.0.60
+   */
+  public static class Data {
+    /**
+     * Utility methods only.
+     */
+    private Data() {
+    }
 
     /**
-     * Deserializes an ItemStack.
+     * Serializes an item into a String of bytes.
      *
-     * @param data serialized item string
-     * @return item
+     * @param item item to encode
+     * @return serialized item string
      */
     @Nullable
-    public static ItemStack decodeItem(@NotNull String data) {
+    public static String encodeItemString(@NotNull ItemStack item) {
+      Objects.requireNonNull(item, "Null item");
+      try {
+        ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
+        BukkitObjectOutputStream bukkitObjectOutput = new BukkitObjectOutputStream(byteOutput);
+        bukkitObjectOutput.writeObject(item);
+        bukkitObjectOutput.flush();
+        return Base64.getEncoder().encodeToString(byteOutput.toByteArray());
+      } catch (IOException ex) {
+        return null;
+      }
+    }
+
+    /**
+     * Deserializes an item byte String.
+     *
+     * @param data serialized item string
+     * @return decoded item
+     */
+    @Nullable
+    public static ItemStack decodeItemString(@NotNull String data) {
       Objects.requireNonNull(data, "Null data");
       try {
         ByteArrayInputStream byteInput = new ByteArrayInputStream(Base64.getDecoder().decode(data));

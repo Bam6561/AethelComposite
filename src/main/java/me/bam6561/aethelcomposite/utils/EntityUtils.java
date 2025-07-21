@@ -58,7 +58,7 @@ public class EntityUtils {
   }
 
   /**
-   * Serializes and deserializes entities.
+   * Serializes and deserializes Entities.
    *
    * @author Danny Nguyen
    * @version 1.0.59
@@ -72,7 +72,7 @@ public class EntityUtils {
     }
 
     /**
-     * Serializes an entity into a byte string.
+     * Serializes an entity into a String of bytes.
      *
      * @param entity entity to encode
      * @return serialized entity string
@@ -92,7 +92,7 @@ public class EntityUtils {
     }
 
     /**
-     * Deserializes an entity byte string.
+     * Deserializes an entity byte String.
      *
      * @param data serialized entity string
      * @return decoded entity
