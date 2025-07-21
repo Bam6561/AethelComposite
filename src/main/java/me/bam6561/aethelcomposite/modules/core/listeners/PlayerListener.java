@@ -22,7 +22,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * </ul>
  *
  * @author Danny Nguyen
- * @version 1.0.24
+ * @version 1.0.51
  * @since 1.0.7
  */
 public class PlayerListener implements Listener {
@@ -69,9 +69,9 @@ public class PlayerListener implements Listener {
   private void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
     Player player = event.getPlayer();
     if (player.isSneaking()) {
-      SneakInteractEntityEvent sneakInteractEntity = new SneakInteractEntityEvent(event.getPlayer(), event.getRightClicked());
-      Bukkit.getPluginManager().callEvent(sneakInteractEntity);
-      if (sneakInteractEntity.isCancelled()) {
+      SneakInteractEntityEvent sneakInteractEntityEvent = new SneakInteractEntityEvent(event.getPlayer(), event.getRightClicked());
+      Bukkit.getPluginManager().callEvent(sneakInteractEntityEvent);
+      if (sneakInteractEntityEvent.isCancelled()) {
         return;
       }
       sneakInteractEntityManager.interpretAction(event);

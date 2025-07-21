@@ -16,7 +16,7 @@ import java.util.Objects;
  * Manages {@link SneakInteractEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.24
+ * @version 1.0.51
  * @since 1.0.8
  */
 public class SneakInteractManager {
@@ -55,9 +55,9 @@ public class SneakInteractManager {
     switch (event.getClickedBlock().getType()) {
       case CRAFTING_TABLE -> {
         Player player = event.getPlayer();
-        GUIOpenEvent guiOpen = new GUIOpenEvent(player, GUIOpenEvent.Cause.INTERACTION);
-        Bukkit.getPluginManager().callEvent(guiOpen);
-        if (guiOpen.isCancelled()) {
+        GUIOpenEvent guiOpenEvent = new GUIOpenEvent(player, GUIOpenEvent.Cause.INTERACTION);
+        Bukkit.getPluginManager().callEvent(guiOpenEvent);
+        if (guiOpenEvent.isCancelled()) {
           return;
         }
         event.setCancelled(true);
