@@ -26,7 +26,7 @@ import java.util.*;
  * Only removes items from the inventory if there are enough ingredients to craft the recipe.
  *
  * @author Danny Nguyen
- * @version 1.0.58
+ * @version 1.0.64
  * @since 1.0.46
  */
 public class RecipeCraftOperation {
@@ -155,8 +155,8 @@ public class RecipeCraftOperation {
       }
 
       int requiredAmount = item.getAmount() * crafts;
-      PersistentDataContainer itemTags = item.getItemMeta().getPersistentDataContainer();
-      boolean hasItemID = itemTags.has(itemID, PersistentDataType.STRING);
+      PersistentDataContainer itemData = item.getItemMeta().getPersistentDataContainer();
+      boolean hasItemID = itemData.has(itemID, PersistentDataType.STRING);
 
       if (!hasItemID) {
         switch (requiredMaterial) {
@@ -187,7 +187,7 @@ public class RecipeCraftOperation {
           }
         }
       } else {
-        String requiredID = itemTags.get(itemID, PersistentDataType.STRING);
+        String requiredID = itemData.get(itemID, PersistentDataType.STRING);
         if (!hasEnoughIngredientsWithIDs(requiredMaterial, requiredAmount, requiredID)) {
           return false;
         }
@@ -205,8 +205,8 @@ public class RecipeCraftOperation {
    */
   private boolean hasEnoughIngredients(Material requiredMaterial, int requiredNumber) {
     for (SlotItemStack invSlot : invMap.get(requiredMaterial)) {
-      PersistentDataContainer itemTags = invSlot.getItem().getItemMeta().getPersistentDataContainer();
-      if (!itemTags.has(itemID, PersistentDataType.STRING)) { // Don't use unique items for crafting
+      PersistentDataContainer itemData = invSlot.getItem().getItemMeta().getPersistentDataContainer();
+      if (!itemData.has(itemID, PersistentDataType.STRING)) { // Don't use unique items for crafting
         if (invSlot.getAmount() > 0) {
           requiredNumber -= invSlot.getAmount();
           if (hasRequiredNumber(invSlot, requiredNumber)) {
@@ -229,8 +229,8 @@ public class RecipeCraftOperation {
    */
   private boolean hasEnoughIngredientsWithIDs(Material requiredMaterial, int requiredNumber, String requiredItemID) {
     for (SlotItemStack invSlot : invMap.get(requiredMaterial)) {
-      PersistentDataContainer itemTags = invSlot.getItem().getItemMeta().getPersistentDataContainer();
-      if (itemTags.has(itemID, PersistentDataType.STRING) && itemTags.get(itemID, PersistentDataType.STRING).equals(requiredItemID)) {
+      PersistentDataContainer itemData = invSlot.getItem().getItemMeta().getPersistentDataContainer();
+      if (itemData.has(itemID, PersistentDataType.STRING) && itemData.get(itemID, PersistentDataType.STRING).equals(requiredItemID)) {
         if (invSlot.getAmount() > 0) {
           requiredNumber -= invSlot.getAmount();
           if (hasRequiredNumber(invSlot, requiredNumber)) {
@@ -252,8 +252,8 @@ public class RecipeCraftOperation {
   private boolean hasEnoughEnchantedBookIngredients(EnchantmentStorageMeta enchantmentMeta, int requiredNumber) {
     for (SlotItemStack invSlot : invMap.get(Material.ENCHANTED_BOOK)) {
       ItemMeta meta = invSlot.getItem().getItemMeta();
-      PersistentDataContainer itemTags = meta.getPersistentDataContainer();
-      if (!itemTags.has(itemID, PersistentDataType.STRING)) { // Don't use unique items for crafting
+      PersistentDataContainer itemData = meta.getPersistentDataContainer();
+      if (!itemData.has(itemID, PersistentDataType.STRING)) { // Don't use unique items for crafting
         EnchantmentStorageMeta enchantmentMeta2 = (EnchantmentStorageMeta) meta;
         if (invSlot.getAmount() > 0 && enchantmentMeta.getStoredEnchants().equals(enchantmentMeta2.getStoredEnchants())) {
           requiredNumber -= invSlot.getAmount();
@@ -277,8 +277,8 @@ public class RecipeCraftOperation {
   private boolean hasEnoughPotionIngredients(Material material, PotionMeta potionMeta, int requiredNumber) {
     for (SlotItemStack invSlot : invMap.get(material)) {
       ItemMeta meta = invSlot.getItem().getItemMeta();
-      PersistentDataContainer itemTags = meta.getPersistentDataContainer();
-      if (!itemTags.has(itemID, PersistentDataType.STRING)) { // Don't use unique items for crafting
+      PersistentDataContainer itemData = meta.getPersistentDataContainer();
+      if (!itemData.has(itemID, PersistentDataType.STRING)) { // Don't use unique items for crafting
         if (invSlot.getAmount() > 0) {
           List<PotionEffect> basePotionEffects = potionMeta.getBasePotionType().getPotionEffects();
           List<PotionEffect> customPotionEffects = potionMeta.getCustomEffects();
