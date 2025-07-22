@@ -25,8 +25,8 @@ import java.util.Set;
 /**
  * Manages {@link Lasso.Item} interactions.
  *
- * @author Danny nguyen
- * @version 1.0.63
+ * @author Danny Nguyen
+ * @version 1.0.67
  * @since 1.0.55
  */
 public class LassoManager {
@@ -78,21 +78,25 @@ public class LassoManager {
     switch (tier) {
       case IRON_LASSO -> {
         if (ironLassoCaptureable.contains(entityType)) {
+          event.setCancelled(true);
           storeEntityAsData(player, inv, entity);
         }
       }
       case GOLDEN_LASSO -> {
         if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType)) {
+          event.setCancelled(true);
           storeEntityAsData(player, inv, entity);
         }
       }
       case DIAMOND_LASSO -> {
         if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType) || diamondLassoCaptureable.contains(entityType)) {
+          event.setCancelled(true);
           storeEntityAsData(player, inv, entity);
         }
       }
       case EMERALD_LASSO -> {
         if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType) || diamondLassoCaptureable.contains(entityType) || emeraldLassoCaptureable.contains(entityType)) {
+          event.setCancelled(true);
           storeEntityAsData(player, inv, entity);
         }
       }
@@ -116,8 +120,8 @@ public class LassoManager {
    * @param entity interacting entity
    */
   private void storeEntityAsData(Player player, PlayerInventory inv, Entity entity) {
-    ItemStack mainHandItemStack = inv.getItemInMainHand();
-    ItemStack lasso = mainHandItemStack.clone();
+    ItemStack mainHandItem = inv.getItemInMainHand();
+    ItemStack lasso = mainHandItem.clone();
     ItemMeta meta = lasso.getItemMeta();
     PersistentDataContainer lassoData = meta.getPersistentDataContainer();
     String newItemID = ItemUtils.Read.getItemID(lasso) + "'d";
@@ -129,11 +133,11 @@ public class LassoManager {
         Text.Label.ACTION.asColor() + "Release " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
         Text.Label.DETAILS.asColor() + "Releases the stored creature.",
         Text.Label.DETAILS.asColor() + entity.getName() + " [" + TextUtils.Format.asTitle(entity.getType().name()) + "]",
-        Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + newItemID));
+        Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + TextUtils.Format.asTitle(newItemID)));
     lasso.setItemMeta(meta);
 
-    mainHandItemStack.setAmount(mainHandItemStack.getAmount() - 1);
-    inv.setItemInMainHand(mainHandItemStack);
+    mainHandItem.setAmount(mainHandItem.getAmount() - 1);
+    inv.setItemInMainHand(mainHandItem);
 
     if (inv.firstEmpty() != -1) {
       inv.addItem(lasso);
