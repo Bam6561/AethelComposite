@@ -27,7 +27,7 @@ import java.util.Objects;
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.70
+ * @version 1.0.76
  * @since 1.0.3
  */
 public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
@@ -130,7 +130,7 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
     }
 
     Player player = (Player) event.getWhoClicked();
-    RecipeCraftEvent recipeCraft = new RecipeCraftEvent(RecipeCraftEvent.InventorySource.PLAYER, player);
+    RecipeCraftEvent recipeCraft = new RecipeCraftEvent(player.getInventory(), player);
     Bukkit.getPluginManager().callEvent(recipeCraft);
     if (recipeCraft.isCancelled()) {
       return;

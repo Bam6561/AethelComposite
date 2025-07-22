@@ -2,12 +2,17 @@ package me.bam6561.aethelcomposite.modules.core.events;
 
 import me.bam6561.aethelcomposite.modules.core.references.Module;
 import me.bam6561.aethelcomposite.modules.core.utils.RecipeCraftOperation;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 /**
  * Called before crafting any {@link Module Module's} recipe.
@@ -15,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
  * Cancellation prevents the {@link RecipeCraftOperation} from occurring.
  *
  * @author Danny Nguyen
- * @version 1.0.50
+ * @version 1.0.76
  * @since 1.0.50
  */
 public class RecipeCraftEvent extends Event implements Cancellable {
@@ -32,31 +37,81 @@ public class RecipeCraftEvent extends Event implements Cancellable {
   /**
    * {@link InventorySource}
    */
-  private final InventorySource inventorySource;
+  private InventorySource invSource = InventorySource.NULL;
 
   /**
-   * If applicable, interacting player.
+   * Inventory being used to craft the recipe.
    */
-  public Player player = null;
+  private final Inventory inv;
 
   /**
-   * Associates the event with its {@link InventorySource} without player interaction.
+   * Interacting entity.
+   */
+  private Entity entity = null;
+
+  /**
+   * Interacting block.
+   */
+  private Block block = null;
+
+  /**
+   * If a player caused the event.
+   */
+  private boolean isCausedByPlayer = false;
+
+  /**
+   * Associates the event with its {@link InventorySource} without any entity or block interaction.
    *
-   * @param inventorySource {@link InventorySource}
+   * @param inv inventory being used to craft the recipe
    */
-  public RecipeCraftEvent(@NotNull InventorySource inventorySource) {
-    this.inventorySource = inventorySource;
+  public RecipeCraftEvent(@NotNull Inventory inv) {
+    this.inv = Objects.requireNonNull(inv, "Null inventory");
   }
 
   /**
-   * Associates the event with its {@link InventorySource} and interacting player.
+   * Associates the event with its {@link InventorySource}, inventory, and interacting entity.
    *
-   * @param inventorySource {@link InventorySource}
-   * @param player          interacting player
+   * @param inv    inventory being used to craft the recipe
+   * @param entity interacting entity
    */
-  public RecipeCraftEvent(@NotNull InventorySource inventorySource, @NotNull Player player) {
-    this.inventorySource = inventorySource;
-    this.player = player;
+  public RecipeCraftEvent(@NotNull Inventory inv, @NotNull Entity entity) {
+    this.invSource = InventorySource.ENTITY;
+    this.inv = Objects.requireNonNull(inv, "Null inventory");
+    this.entity = Objects.requireNonNull(entity, "Null entity");
+    if (entity instanceof Player) {
+      this.isCausedByPlayer = true;
+    }
+  }
+
+  /**
+   * Associates the event with its {@link InventorySource}, inventory, and interacting block.
+   *
+   * @param inv   inventory being used to craft the recipe
+   * @param block interacting block
+   */
+  public RecipeCraftEvent(@NotNull Inventory inv, @NotNull Block block) {
+    this.invSource = InventorySource.BLOCK;
+    this.inv = Objects.requireNonNull(inv, "Null inventory");
+    this.block = Objects.requireNonNull(block, "Null block");
+  }
+
+  /**
+   * Associates the event with its {@link InventorySource}, inventory, interacting entity, and interacting block.
+   * <p>
+   * This constructor sets the {@link InventorySource} to {@link InventorySource#ENTITY}.
+   *
+   * @param inv    inventory being used to craft the recipe
+   * @param entity interacting entity
+   * @param block  interacting block
+   */
+  public RecipeCraftEvent(@NotNull Inventory inv, @NotNull Entity entity, @NotNull Block block) {
+    this.invSource = InventorySource.ENTITY;
+    this.inv = Objects.requireNonNull(inv, "Null inventory");
+    this.entity = Objects.requireNonNull(entity, "Null entity");
+    this.block = Objects.requireNonNull(block, "Null block");
+    if (entity instanceof Player) {
+      this.isCausedByPlayer = true;
+    }
   }
 
   /**
@@ -65,23 +120,48 @@ public class RecipeCraftEvent extends Event implements Cancellable {
    * @return {@link InventorySource}
    */
   @NotNull
-  public InventorySource getInventorySource() {
-    return this.getInventorySource();
+  public InventorySource getInvSource() {
+    return this.invSource;
   }
 
   /**
-   * Gets the interacting player.
-   * <p>
-   * Not all {@link RecipeCraftOperation RecipeCraftOperations}
-   * may be triggered by a player, so this may return null.
+   * Gets the inventory being used to craft the recipe.
    *
-   * @return interacting player
+   * @return inventory being used to craft the recipe
    */
-  @Nullable
-  public Player getPlayer() {
-    return this.player;
+  @NotNull
+  public Inventory getInventory() {
+    return this.inv;
   }
 
+  /**
+   * Gets the interacting entity.
+   *
+   * @return interacting entity
+   */
+  @Nullable
+  public Entity getEntity() {
+    return this.entity;
+  }
+
+  /**
+   * Gets the interacting block.
+   *
+   * @return interacting block
+   */
+  @Nullable
+  public Block getBlock() {
+    return this.block;
+  }
+
+  /**
+   * If a player caused the event.
+   *
+   * @return if a player caused the event
+   */
+  public boolean isCausedByPlayer() {
+    return this.isCausedByPlayer;
+  }
 
   /**
    * If the event is cancelled.
@@ -128,7 +208,7 @@ public class RecipeCraftEvent extends Event implements Cancellable {
    * {@link RecipeCraftOperation RecipeCraftOperation's} inventory source.
    *
    * @author Danny Nguyen
-   * @version 1.0.50
+   * @version 1.0.76
    * @since 1.0.50
    */
   public enum InventorySource {
@@ -138,14 +218,9 @@ public class RecipeCraftEvent extends Event implements Cancellable {
     BLOCK,
 
     /**
-     * Non-player entity.
+     * Entity.
      */
-    NONPLAYER,
-
-    /**
-     * Player.
-     */
-    PLAYER,
+    ENTITY,
 
     /**
      * Indeterminate.
