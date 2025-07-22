@@ -21,6 +21,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ import java.util.Set;
  * Manages {@link Lasso.Item} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.69
+ * @version 1.0.73
  * @since 1.0.55
  */
 public class LassoManager {
@@ -95,7 +96,49 @@ public class LassoManager {
    * @param event player interact event
    */
   public void releaseEntity(@NotNull PlayerInteractEvent event) {
+    Player player = event.getPlayer();
+    PlayerInventory inv = player.getInventory();
 
+    event.setCancelled(true);
+
+    ItemStack mainHandItem = inv.getItemInMainHand();
+    ItemStack lasso = mainHandItem.clone();
+    ItemMeta meta = lasso.getItemMeta();
+    PersistentDataContainer lassoData = meta.getPersistentDataContainer();
+    String itemID = ItemUtils.Read.getItemID(lasso);
+    String newItemID = itemID.substring(0, itemID.length() - 2);
+    String entityData = lassoData.get(Lasso.Key.LASSO_ENTITY_DATA.asKey(), PersistentDataType.STRING);
+
+    lasso.setAmount(1);
+
+    lassoData.set(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING, newItemID);
+    lassoData.remove(Lasso.Key.LASSO_ENTITY_DATA.asKey());
+
+    List<String> newLore = new ArrayList<>(List.of(
+        Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
+        Text.Label.DETAILS.asColor() + "Stores a creature to be released later."));
+    switch (newItemID) {
+      case "iron_lasso" -> newLore.add(Text.Label.DETAILS.asColor() + "{Chicken, Cow, Pig, Sheep}");
+      case "golden_lasso" -> newLore.add(Text.Label.DETAILS.asColor() + "{Iron Lasso + Animals}");
+      case "diamond_lasso" -> newLore.add(Text.Label.DETAILS.asColor() + "{Golden Lasso + Non-Boss Hostile Mobs}");
+      case "emerald_lasso" -> newLore.add(Text.Label.DETAILS.asColor() + "{Diamond Lasso + Villagers}");
+    }
+    newLore.add(Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + TextUtils.Format.asTitle(newItemID));
+
+    meta.setLore(newLore);
+    meta.setEnchantmentGlintOverride(false);
+    lasso.setItemMeta(meta);
+
+    mainHandItem.setAmount(mainHandItem.getAmount() - 1);
+    inv.setItemInMainHand(mainHandItem);
+
+    if (inv.firstEmpty() != -1) {
+      inv.addItem(lasso);
+    } else {
+      player.getWorld().dropItem(player.getLocation(), lasso);
+    }
+
+    EntityUtils.Data.decodeEntityString(entityData, player.getLocation().add(player.getEyeLocation().getDirection().multiply(5)));
   }
 
   /**
