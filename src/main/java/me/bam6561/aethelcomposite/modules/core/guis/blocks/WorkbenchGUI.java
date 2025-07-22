@@ -5,7 +5,6 @@ import me.bam6561.aethelcomposite.modules.core.events.RecipeCraftEvent;
 import me.bam6561.aethelcomposite.modules.core.guis.GUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
 import me.bam6561.aethelcomposite.modules.core.guis.markers.CachedInventory;
-import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.utils.RecipeCraftOperation;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
@@ -18,7 +17,6 @@ import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -29,10 +27,10 @@ import java.util.Objects;
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.54
+ * @version 1.0.70
  * @since 1.0.3
  */
-public class CraftingTableGUI extends GUI implements Workstation, CachedInventory {
+public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
   /**
    * {@link CachedInventory}
    */
@@ -41,7 +39,7 @@ public class CraftingTableGUI extends GUI implements Workstation, CachedInventor
   /**
    * No parameter constructor.
    */
-  public CraftingTableGUI() {
+  public WorkbenchGUI() {
   }
 
   /**

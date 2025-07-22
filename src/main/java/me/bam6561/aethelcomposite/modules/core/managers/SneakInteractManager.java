@@ -3,7 +3,7 @@ package me.bam6561.aethelcomposite.modules.core.managers;
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.events.gui.GUIOpenEvent;
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEvent;
-import me.bam6561.aethelcomposite.modules.core.guis.blocks.CraftingTableGUI;
+import me.bam6561.aethelcomposite.modules.core.guis.blocks.WorkbenchGUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -61,7 +61,7 @@ public class SneakInteractManager {
           return;
         }
         event.setCancelled(true);
-        Plugin.getGUIManager().openGUI(player, new CraftingTableGUI());
+        Plugin.getGUIManager().openGUI(player, new WorkbenchGUI());
       }
     }
   }
