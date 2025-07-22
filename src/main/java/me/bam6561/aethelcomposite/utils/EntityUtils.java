@@ -1,17 +1,12 @@
 package me.bam6561.aethelcomposite.utils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.util.io.BukkitObjectInputStream;
-import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Base64;
 import java.util.Objects;
 
 /**
@@ -61,7 +56,7 @@ public class EntityUtils {
    * Serializes and deserializes Entities.
    *
    * @author Danny Nguyen
-   * @version 1.0.59
+   * @version 1.0.66
    * @since 1.0.59
    */
   public static class Data {
@@ -72,7 +67,7 @@ public class EntityUtils {
     }
 
     /**
-     * Serializes an entity into a String of bytes.
+     * Serializes an entity into an NBT string.
      *
      * @param entity entity to encode
      * @return serialized entity string
@@ -80,32 +75,20 @@ public class EntityUtils {
     @Nullable
     public static String encodeEntityString(@NotNull Entity entity) {
       Objects.requireNonNull(entity, "Null entity");
-      try {
-        ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-        BukkitObjectOutputStream bukkitObjectOutput = new BukkitObjectOutputStream(byteOutput);
-        bukkitObjectOutput.writeObject(entity);
-        bukkitObjectOutput.flush();
-        return Base64.getEncoder().encodeToString(byteOutput.toByteArray());
-      } catch (IOException ex) {
-        return null;
-      }
+      return entity.getAsString();
     }
 
     /**
-     * Deserializes an entity byte String.
+     * Deserializes an entity NBT string and spawns it at a location.
      *
-     * @param data serialized entity string
+     * @param data     serialized entity string
+     * @param location spawn location
      * @return decoded entity
      */
-    public static Entity decodeEntityString(@NotNull String data) {
+    @NotNull
+    public static Entity decodeEntityString(@NotNull String data, @NotNull Location location) {
       Objects.requireNonNull(data, "Null data");
-      try {
-        ByteArrayInputStream byteInput = new ByteArrayInputStream(Base64.getDecoder().decode(data));
-        BukkitObjectInputStream bukkitObjectInput = new BukkitObjectInputStream(byteInput);
-        return (Entity) bukkitObjectInput.readObject();
-      } catch (IOException | ClassNotFoundException ex) {
-        return null;
-      }
+      return Bukkit.getEntityFactory().createEntitySnapshot(data).createEntity(location);
     }
   }
 }
