@@ -2,11 +2,13 @@ package me.bam6561.aethelcomposite.modules.lasso.managers;
 
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
+import me.bam6561.aethelcomposite.modules.lasso.events.LassoCaptureEvent;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import me.bam6561.aethelcomposite.utils.EntityUtils;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import me.bam6561.aethelcomposite.utils.TextUtils;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -26,7 +28,7 @@ import java.util.Set;
  * Manages {@link Lasso.Item} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.67
+ * @version 1.0.69
  * @since 1.0.55
  */
 public class LassoManager {
@@ -71,35 +73,19 @@ public class LassoManager {
   public void captureEntity(@NotNull PlayerInteractEntityEvent event, @NotNull Lasso.Item tier) {
     Player player = event.getPlayer();
     PlayerInventory inv = player.getInventory();
-
     Entity entity = event.getRightClicked();
-    EntityType entityType = entity.getType();
 
-    switch (tier) {
-      case IRON_LASSO -> {
-        if (ironLassoCaptureable.contains(entityType)) {
-          event.setCancelled(true);
-          storeEntityAsData(player, inv, entity);
-        }
+    if (isCaptureable(tier, entity.getType())) {
+      LassoCaptureEvent lassoCaptureEvent = new LassoCaptureEvent(player, entity);
+      Bukkit.getPluginManager().callEvent(lassoCaptureEvent);
+      if (lassoCaptureEvent.isCancelled()) {
+        return;
       }
-      case GOLDEN_LASSO -> {
-        if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType)) {
-          event.setCancelled(true);
-          storeEntityAsData(player, inv, entity);
-        }
-      }
-      case DIAMOND_LASSO -> {
-        if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType) || diamondLassoCaptureable.contains(entityType)) {
-          event.setCancelled(true);
-          storeEntityAsData(player, inv, entity);
-        }
-      }
-      case EMERALD_LASSO -> {
-        if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType) || diamondLassoCaptureable.contains(entityType) || emeraldLassoCaptureable.contains(entityType)) {
-          event.setCancelled(true);
-          storeEntityAsData(player, inv, entity);
-        }
-      }
+      event.setCancelled(true);
+      storeEntityAsData(player, inv, entity);
+    } else {
+      event.setCancelled(true);
+      player.sendMessage(Text.Label.INVALID.asColor() + "[!] Failed to capture entity.");
     }
   }
 
@@ -110,6 +96,39 @@ public class LassoManager {
    */
   public void releaseEntity(@NotNull PlayerInteractEvent event) {
 
+  }
+
+  /**
+   * If the entity type is captureable by the {@link Lasso.Item} tier.
+   *
+   * @param tier       {@link Lasso.Item} tier
+   * @param entityType entity type
+   * @return the entity type is captureable
+   */
+  private boolean isCaptureable(Lasso.Item tier, EntityType entityType) {
+    switch (tier) {
+      case IRON_LASSO -> {
+        if (ironLassoCaptureable.contains(entityType)) {
+          return true;
+        }
+      }
+      case GOLDEN_LASSO -> {
+        if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType)) {
+          return true;
+        }
+      }
+      case DIAMOND_LASSO -> {
+        if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType) || diamondLassoCaptureable.contains(entityType)) {
+          return true;
+        }
+      }
+      case EMERALD_LASSO -> {
+        if (ironLassoCaptureable.contains(entityType) || goldenLassoCaptureable.contains(entityType) || diamondLassoCaptureable.contains(entityType) || emeraldLassoCaptureable.contains(entityType)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /**
@@ -134,6 +153,7 @@ public class LassoManager {
         Text.Label.DETAILS.asColor() + "Releases the stored creature.",
         Text.Label.DETAILS.asColor() + entity.getName() + " [" + TextUtils.Format.asTitle(entity.getType().name()) + "]",
         Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + TextUtils.Format.asTitle(newItemID)));
+    meta.setEnchantmentGlintOverride(true);
     lasso.setItemMeta(meta);
 
     mainHandItem.setAmount(mainHandItem.getAmount() - 1);
