@@ -1,9 +1,9 @@
 package me.bam6561.aethelcomposite.modules.core.managers;
 
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEntityEvent;
-import me.bam6561.aethelcomposite.modules.core.objects.markers.ActiveAbilityItem;
+import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
 import me.bam6561.aethelcomposite.modules.lasso.objects.LassoItem;
-import me.bam6561.aethelcomposite.modules.core.objects.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;

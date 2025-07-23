@@ -1,6 +1,6 @@
 package me.bam6561.aethelcomposite.modules.lasso.objects;
 
-import me.bam6561.aethelcomposite.modules.core.objects.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.lasso.events.LassoCaptureEvent;

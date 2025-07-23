@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.modules.core.objects;
+package me.bam6561.aethelcomposite.modules.core.objects.item;
 
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.references.Module;

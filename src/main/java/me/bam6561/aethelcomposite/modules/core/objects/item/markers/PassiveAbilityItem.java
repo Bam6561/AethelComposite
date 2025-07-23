@@ -1,6 +1,6 @@
-package me.bam6561.aethelcomposite.modules.core.objects.markers;
+package me.bam6561.aethelcomposite.modules.core.objects.item.markers;
 
-import me.bam6561.aethelcomposite.modules.core.objects.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 
 /**
  * {@link ModuleItemStack ModuleItemStacks} that have a passive ability.
