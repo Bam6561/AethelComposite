@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface StringValue {
   /**
-   * Gets the enum's String value.
+   * Gets the String.
    *
-   * @return enum's String value
+   * @return String
    */
   @NotNull
   String asString();

@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface ModuleRecipeValue {
   /**
-   * Gets the enum's {@link ModuleRecipe} value.
+   * Gets the {@link ModuleRecipe}.
    *
-   * @return enum's {@link ModuleRecipe} value
+   * @return {@link ModuleRecipe}
    */
   @NotNull
   ModuleRecipe asModuleRecipe();

@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface NamespacedKeyValue {
   /**
-   * Gets the enum's NamespacedKey value.
+   * Gets the NamespacedKey.
    *
-   * @return enum's NamespacedKey value
+   * @return NamespacedKey
    */
   @NotNull
   NamespacedKey asKey();

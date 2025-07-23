@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface ChatColorValue {
   /**
-   * Gets the enum's ChatColor value.
+   * Gets the ChatColor.
    *
-   * @return enum's ChatColor value
+   * @return ChatColor
    */
   @NotNull
   ChatColor asColor();

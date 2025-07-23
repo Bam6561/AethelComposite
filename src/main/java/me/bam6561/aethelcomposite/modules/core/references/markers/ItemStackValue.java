@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface ItemStackValue {
   /**
-   * Gets the enum's ItemStack value.
+   * Gets the item.
    *
-   * @return enum's ItemStack value
+   * @return item
    */
   @NotNull
   ItemStack asItem();
