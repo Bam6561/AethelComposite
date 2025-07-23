@@ -83,7 +83,7 @@ public class Namespaced {
     }
 
     /**
-     * Shared resource namespace keys.
+     * Top level namespace keys.
      *
      * @author Danny Nguyen
      * @version 1.0.83
