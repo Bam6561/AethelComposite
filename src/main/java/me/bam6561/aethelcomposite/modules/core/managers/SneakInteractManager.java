@@ -34,8 +34,8 @@ public class SneakInteractManager {
   /**
    * On interaction:
    * <ul>
-   *   <li>triggers an {@link ActiveAbilityItem}
-   *   <li>opens a {@link Workstation}
+   *   <li>{@link #activateItemAbility(PlayerInteractEvent, ItemStack)}
+   *   <li>{@link #openWorkstation(PlayerInteractEvent)}
    * </ul>
    *
    * @param event player interact event
