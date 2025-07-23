@@ -42,7 +42,7 @@ public class ItemUtils {
    * Creates and serializes ItemStacks with metadata.
    *
    * @author Danny Nguyen
-   * @version 1.0.44
+   * @version 1.0.91
    * @since 1.0.16
    */
   public static class Create {
@@ -137,27 +137,32 @@ public class ItemUtils {
     }
 
     /**
-     * Creates a named item with lore and a key string value.
+     * Creates a named item with lore and two key string value pairs.
      *
      * @param material item material
      * @param name     item name
      * @param lore     item lore
      * @param key      key
      * @param value    key value
-     * @return named item with lore and a key string value
+     * @param key2     second key
+     * @param value2   second key value
+     * @return named item with lore and 2 key string value pairs
      */
     @NotNull
-    public static ItemStack createItem(@NotNull Material material, @NotNull String name, @NotNull List<String> lore, @NotNull NamespacedKey key, @NotNull String value) {
+    public static ItemStack createItem(@NotNull Material material, @NotNull String name, @NotNull List<String> lore, @NotNull NamespacedKey key, @NotNull String value, @NotNull NamespacedKey key2, @NotNull String value2) {
       Objects.requireNonNull(material, "Null material");
       Objects.requireNonNull(name, "Null name");
       Objects.requireNonNull(lore, "Null lore");
       Objects.requireNonNull(key, "Null key");
       Objects.requireNonNull(value, "Null value");
+      Objects.requireNonNull(key, "Null key2");
+      Objects.requireNonNull(value, "Null value2");
       ItemStack item = new ItemStack(material);
       ItemMeta meta = item.getItemMeta();
       meta.setDisplayName(name);
       meta.setLore(lore);
       meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, value);
+      meta.getPersistentDataContainer().set(key2, PersistentDataType.STRING, value2);
       item.setItemMeta(meta);
       return item;
     }

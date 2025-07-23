@@ -35,7 +35,7 @@ public class Lasso {
    * Lasso items.
    *
    * @author Danny Nguyen
-   * @version 1.0.89
+   * @version 1.0.91
    * @since 1.0.21
    */
   public enum Item implements ItemStackValue {
@@ -47,7 +47,7 @@ public class Lasso {
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Chicken, Cow, Pig, Sheep}",
             Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Iron Lasso"),
-        Namespaced.Key.Item.ID.asKey(), "iron_lasso")),
+        Namespaced.Key.Core.MODULE.asKey(), Module.Name.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "iron_lasso")),
 
     /**
      * Captures iron tier lasso-able and all animals.
@@ -57,7 +57,7 @@ public class Lasso {
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Iron Lasso + Animals}",
             Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Golden Lasso"),
-        Namespaced.Key.Item.ID.asKey(), "golden_lasso")),
+        Namespaced.Key.Core.MODULE.asKey(), Module.Name.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "golden_lasso")),
 
     /**
      * Captures golden tier lasso-able and non-boss hostile mobs.
@@ -67,7 +67,7 @@ public class Lasso {
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Golden Lasso + Non-Boss Hostile Mobs}",
             Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Diamond Lasso"),
-        Namespaced.Key.Item.ID.asKey(), "diamond_lasso")),
+        Namespaced.Key.Core.MODULE.asKey(), Module.Name.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "diamond_lasso")),
 
     /**
      * Captures diamond tier lasso-able and villagers.
@@ -77,7 +77,7 @@ public class Lasso {
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Diamond Lasso + Villagers}",
             Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Emerald Lasso"),
-        Namespaced.Key.Item.ID.asKey(), "emerald_lasso"));
+        Namespaced.Key.Core.MODULE.asKey(), Module.Name.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "emerald_lasso"));
 
     /**
      * Item.
