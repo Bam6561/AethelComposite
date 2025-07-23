@@ -1,6 +1,7 @@
-package me.bam6561.aethelcomposite.modules.core.guis;
+package me.bam6561.aethelcomposite.templates;
 
 import me.bam6561.aethelcomposite.Plugin;
+import me.bam6561.aethelcomposite.modules.core.guis.GUI;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
