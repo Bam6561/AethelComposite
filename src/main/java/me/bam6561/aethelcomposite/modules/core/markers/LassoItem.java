@@ -3,6 +3,7 @@ package me.bam6561.aethelcomposite.modules.core.markers;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.lasso.events.LassoCaptureEvent;
+import me.bam6561.aethelcomposite.modules.lasso.events.LassoReleaseEvent;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import me.bam6561.aethelcomposite.utils.EntityUtils;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
@@ -29,7 +30,7 @@ import java.util.Set;
  * Represents a {@link Lasso.Item}.
  *
  * @author Danny Nguyen
- * @version 1.0.86
+ * @version 1.0.87
  * @since 1.0.86
  */
 public class LassoItem extends ModuleItemStack {
@@ -83,9 +84,9 @@ public class LassoItem extends ModuleItemStack {
     EntityType entityType = entity.getType();
 
     if (isCaptureable(tier, entityType)) {
-      LassoCaptureEvent lassoCaptureEvent = new LassoCaptureEvent(player, entity);
-      Bukkit.getPluginManager().callEvent(lassoCaptureEvent);
-      if (lassoCaptureEvent.isCancelled()) {
+      LassoCaptureEvent lassoCapture = new LassoCaptureEvent(player, entity);
+      Bukkit.getPluginManager().callEvent(lassoCapture);
+      if (lassoCapture.isCancelled()) {
         return;
       }
       event.setCancelled(true);
@@ -105,7 +106,14 @@ public class LassoItem extends ModuleItemStack {
     Player player = event.getPlayer();
     PlayerInventory inv = player.getInventory();
 
+    String entityData = inv.getItemInMainHand().getItemMeta().getPersistentDataContainer().get(Lasso.Key.LASSO_ENTITY_DATA.asKey(), PersistentDataType.STRING);
+    LassoReleaseEvent lassoRelease = new LassoReleaseEvent(player, entityData);
+    Bukkit.getPluginManager().callEvent(lassoRelease);
+    if (lassoRelease.isCancelled()) {
+      return;
+    }
     event.setCancelled(true);
+
     retrieveEntityFromData(player, inv);
   }
 
@@ -145,7 +153,7 @@ public class LassoItem extends ModuleItemStack {
 
     lassoData.set(Namespaced.Key.Item.ID.asKey(), PersistentDataType.STRING, newItemID);
     lassoData.set(Lasso.Key.LASSO_ENTITY_DATA.asKey(), PersistentDataType.STRING, EntityUtils.Data.encodeEntityString(entity));
-    
+
     meta.setLore(List.of(
         Text.Label.ACTION.asColor() + "Release " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
         Text.Label.DETAILS.asColor() + "Releases the stored creature.",
