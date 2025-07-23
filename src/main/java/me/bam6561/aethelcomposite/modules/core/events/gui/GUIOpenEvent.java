@@ -21,7 +21,7 @@ import java.util.Objects;
  * Cancellation prevents the {@link GUI} from opening.
  *
  * @author Danny Nguyen
- * @version 1.0.74
+ * @version 1.0.95
  * @since 1.0.4
  */
 public class GUIOpenEvent extends Event implements Cancellable {
@@ -41,26 +41,26 @@ public class GUIOpenEvent extends Event implements Cancellable {
   private final Player player;
 
   /**
-   * {@link Cause}
-   */
-  private final Cause cause;
-
-  /**
    * {@link Type}
    */
   private final Type type;
 
   /**
-   * Associates the event with its player, {@link Cause}, and {@link Type}.
+   * {@link Cause}
+   */
+  private final Cause cause;
+
+  /**
+   * Associates the event with its player, {@link Type}, and {@link Cause}.
    *
    * @param player interacting player
-   * @param cause  {@link Cause}
    * @param type   {@link Type}
+   * @param cause  {@link Cause}
    */
-  public GUIOpenEvent(@NotNull Player player, @NotNull Cause cause, @NotNull Type type) {
+  public GUIOpenEvent(@NotNull Player player, @NotNull Type type, @NotNull Cause cause) {
     this.player = Objects.requireNonNull(player, "Null player");
-    this.cause = Objects.requireNonNull(cause, "Null cause");
     this.type = Objects.requireNonNull(type, "Null type");
+    this.cause = Objects.requireNonNull(cause, "Null cause");
   }
 
   /**
@@ -74,16 +74,6 @@ public class GUIOpenEvent extends Event implements Cancellable {
   }
 
   /**
-   * Gets the {@link Cause}.
-   *
-   * @return {@link Cause}
-   */
-  @NotNull
-  public Cause getCause() {
-    return this.cause;
-  }
-
-  /**
    * Gets the {@link Type}.
    *
    * @return {@link Type}
@@ -91,6 +81,16 @@ public class GUIOpenEvent extends Event implements Cancellable {
   @NotNull
   public Type getType() {
     return this.type;
+  }
+
+  /**
+   * Gets the {@link Cause}.
+   *
+   * @return {@link Cause}
+   */
+  @NotNull
+  public Cause getCause() {
+    return this.cause;
   }
 
   /**
@@ -135,6 +135,20 @@ public class GUIOpenEvent extends Event implements Cancellable {
   }
 
   /**
+   * Type of {@link GUI} being opened.
+   *
+   * @author Danny Nguyen
+   * @version 1.0.74
+   * @since 1.0.74
+   */
+  public enum Type {
+    /**
+     * {@link me.bam6561.aethelcomposite.modules.core.guis.blocks.WorkbenchGUI}
+     */
+    WORKBENCH
+  }
+
+  /**
    * Cause of the {@link GUIOpenEvent).
    *
    * @author Danny Nguyen
@@ -151,19 +165,5 @@ public class GUIOpenEvent extends Event implements Cancellable {
      * By world interaction.
      */
     INTERACTION
-  }
-
-  /**
-   * Type of {@link GUI} being opened.
-   *
-   * @author Danny Nguyen
-   * @version 1.0.74
-   * @since 1.0.74
-   */
-  public enum Type {
-    /**
-     * {@link me.bam6561.aethelcomposite.modules.core.guis.blocks.WorkbenchGUI}
-     */
-    WORKBENCH
   }
 }
