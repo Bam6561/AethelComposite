@@ -45,7 +45,7 @@ public class RecipeCraftEvent extends Event implements Cancellable {
   private InventorySource invSource = InventorySource.NULL;
 
   /**
-   * Inventory being used to craft the recipe.
+   * Inventory being used to craft the {@link ModuleRecipe}.
    */
   private final Inventory inv;
 
@@ -147,9 +147,9 @@ public class RecipeCraftEvent extends Event implements Cancellable {
   }
 
   /**
-   * Gets the inventory being used to craft the recipe.
+   * Gets the inventory being used to craft the {@link ModuleRecipe}.
    *
-   * @return inventory being used to craft the recipe
+   * @return inventory being used to craft the {@link ModuleRecipe}
    */
   @NotNull
   public Inventory getInventory() {

@@ -15,7 +15,7 @@ import java.util.Objects;
  * Unlike ItemStacks, ModuleItemStacks have a {@link Key.Core#MODULE} and {@link Key.Item#ID}.
  *
  * @author Danny Nguyen
- * @version 1.0.85
+ * @version 1.0.86
  * @since 1.0.78
  */
 public class ModuleItemStack {
@@ -37,6 +37,9 @@ public class ModuleItemStack {
   public ModuleItemStack(@NotNull ItemStack item) {
     this.item = Objects.requireNonNull(item, "Null item");
     this.itemData = item.getItemMeta().getPersistentDataContainer();
+    if (!itemData.has(Key.Item.ID.asKey(), PersistentDataType.STRING)) {
+      throw new IllegalArgumentException("Not a ModuleItemStack");
+    }
   }
 
   /**
