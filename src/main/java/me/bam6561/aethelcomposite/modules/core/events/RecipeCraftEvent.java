@@ -68,7 +68,7 @@ public class RecipeCraftEvent extends Event implements Cancellable {
    * Associates the event with its {@link InventorySource} without any entity or block interaction.
    *
    * @param recipe {@link ModuleRecipe}
-   * @param inv    inventory being used to craft the recipe
+   * @param inv    inventory being used to craft the {@link ModuleRecipe}
    */
   public RecipeCraftEvent(@NotNull ModuleRecipe recipe, @NotNull Inventory inv) {
     this.recipe = Objects.requireNonNull(recipe, "Null recipe");
@@ -79,7 +79,7 @@ public class RecipeCraftEvent extends Event implements Cancellable {
    * Associates the event with its {@link InventorySource}, inventory, and interacting entity.
    *
    * @param recipe {@link ModuleRecipe}
-   * @param inv    inventory being used to craft the recipe
+   * @param inv    inventory being used to craft the {@link ModuleRecipe}
    * @param entity interacting entity
    */
   public RecipeCraftEvent(@NotNull ModuleRecipe recipe, @NotNull Inventory inv, @NotNull Entity entity) {
@@ -96,7 +96,7 @@ public class RecipeCraftEvent extends Event implements Cancellable {
    * Associates the event with its {@link InventorySource}, inventory, and interacting block.
    *
    * @param recipe {@link ModuleRecipe}
-   * @param inv    inventory being used to craft the recipe
+   * @param inv    inventory being used to craft the {@link ModuleRecipe}
    * @param block  interacting block
    */
   public RecipeCraftEvent(@NotNull ModuleRecipe recipe, @NotNull Inventory inv, @NotNull Block block) {
@@ -112,7 +112,7 @@ public class RecipeCraftEvent extends Event implements Cancellable {
    * This constructor sets the {@link InventorySource} to {@link InventorySource#ENTITY}.
    *
    * @param recipe {@link ModuleRecipe}
-   * @param inv    inventory being used to craft the recipe
+   * @param inv    inventory being used to craft the {@link ModuleRecipe}
    * @param entity interacting entity
    * @param block  interacting block
    */

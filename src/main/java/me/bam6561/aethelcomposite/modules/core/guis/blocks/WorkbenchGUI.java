@@ -10,7 +10,6 @@ import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.utils.RecipeCraftOperation;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
-import me.bam6561.aethelcomposite.utils.TextUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,15 +19,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.80
+ * @version 1.0.92
  * @since 1.0.3
  */
 public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
@@ -38,37 +35,54 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
   private static final Inventory cachedInventory = initializeCachedInventory();
 
   /**
+   * Inventory slot : {@link ModuleRecipe}
+   */
+  private static final Map<Integer, ModuleRecipe> cachedModuleRecipes = new HashMap<>();
+
+  /**
    * No parameter constructor.
    */
   public WorkbenchGUI() {
   }
 
   /**
-   * Initializes the {@link CachedInventory}.
+   * Initializes the {@link CachedInventory} and maps inventory slot : {@link ModuleRecipe}.
    *
    * @return {@link CachedInventory}
    */
   private static Inventory initializeCachedInventory() {
     Inventory inv = Bukkit.createInventory(null, 54, "Workbench");
 
-    Lasso.Item[] items = Lasso.Item.values();
+    List<ModuleRecipe> moduleRecipes = new ArrayList<>();
+    for (Lasso.Recipe lassoRecipe : Lasso.Recipe.values()) {
+      moduleRecipes.add(lassoRecipe.asModuleRecipe());
+    }
 
-    for (int invSlot = 0; invSlot < items.length; invSlot++) {
-      ItemStack item = items[invSlot].asItem();
-      ItemMeta meta = item.getItemMeta();
+    for (int invSlot = 0; invSlot < moduleRecipes.size(); invSlot++) {
+      ModuleRecipe recipe = moduleRecipes.get(invSlot);
+      cachedModuleRecipes.put(invSlot, recipe);
+
+      List<ItemStack> results = recipe.getResults();
+      List<ItemStack> ingredients = recipe.getIngredients();
+
+      ItemStack displayItem = results.getFirst();
+      ItemMeta meta = displayItem.getItemMeta();
       List<String> lore = meta.getLore();
 
-      List<ItemStack> recipe = items[invSlot].asRecipe();
-      List<String> recipeLore = new ArrayList<>(List.of("", ChatColor.WHITE + "Recipe"));
-
-      for (ItemStack ingredient : recipe) {
+      List<String> recipeLore = new ArrayList<>(List.of("", ChatColor.WHITE + "Results"));
+      for (ItemStack result : results) {
+        recipeLore.add(Text.Label.DETAILS.asColor() + "- x" + result.getAmount() + " " + ItemUtils.Read.getEffectiveName(result));
+      }
+      recipeLore.add("");
+      recipeLore.add(ChatColor.WHITE + "Ingredients");
+      for (ItemStack ingredient : ingredients) {
         recipeLore.add(Text.Label.DETAILS.asColor() + "- x" + ingredient.getAmount() + " " + ItemUtils.Read.getEffectiveName(ingredient));
       }
       lore.addAll(recipeLore);
       meta.setLore(lore);
 
-      item.setItemMeta(meta);
-      inv.setItem(invSlot, item);
+      displayItem.setItemMeta(meta);
+      inv.setItem(invSlot, displayItem);
     }
     return inv;
   }
@@ -106,14 +120,12 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
     if (cInv == null) {
       return true;
     }
-    if (cInv.getType() == InventoryType.PLAYER) {
-      return true;
-    }
-    return false;
+    return cInv.getType() == InventoryType.PLAYER;
   }
 
   /**
-   * Crafts an item if the interacting player has enough recipe ingredients.
+   * Crafts a {@link ModuleRecipe} through a {@link RecipeCraftOperation}
+   * if the interacting player has enough {@link ModuleRecipe} ingredients.
    *
    * @param event inventory click event
    */
@@ -130,16 +142,17 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
       return;
     }
 
+    ModuleRecipe recipe = cachedModuleRecipes.get(event.getSlot());
     Player player = (Player) event.getWhoClicked();
-    RecipeCraftEvent recipeCraft = new RecipeCraftEvent(new ModuleRecipe(List.of(), List.of()), player.getInventory(), player);
+    Inventory inv = player.getInventory();
+
+    RecipeCraftEvent recipeCraft = new RecipeCraftEvent(recipe, inv, player);
     Bukkit.getPluginManager().callEvent(recipeCraft);
     if (recipeCraft.isCancelled()) {
       return;
     }
 
-    Lasso.Item itemEnum = Lasso.Item.valueOf(TextUtils.Format.asEnum(ItemUtils.Read.getItemID(clicked)));
-    RecipeCraftOperation recipeCraftOperation = new RecipeCraftOperation(player.getInventory(), List.of(itemEnum.asItem()), itemEnum.asRecipe(), 1);
-
+    RecipeCraftOperation recipeCraftOperation = new RecipeCraftOperation(recipe, inv, 1);
     if (!recipeCraftOperation.craft()) {
       player.sendMessage(Text.Label.INVALID.asColor() + "[!] Insufficient ingredients.");
     }
