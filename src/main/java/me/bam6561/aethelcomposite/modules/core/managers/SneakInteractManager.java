@@ -5,7 +5,9 @@ import me.bam6561.aethelcomposite.modules.core.events.gui.GUIOpenEvent;
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEvent;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.WorkbenchGUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
-import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
+import me.bam6561.aethelcomposite.modules.core.markers.ActiveAbilityItem;
+import me.bam6561.aethelcomposite.modules.core.markers.LassoItem;
+import me.bam6561.aethelcomposite.modules.core.markers.ModuleItemStack;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -19,7 +21,7 @@ import java.util.Objects;
  * Manages {@link SneakInteractEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.74
+ * @version 1.0.94
  * @since 1.0.8
  */
 public class SneakInteractManager {
@@ -32,41 +34,28 @@ public class SneakInteractManager {
   /**
    * On interaction:
    * <ul>
-   *   <li> Opens a {@link Workstation}.
+   *   <li>triggers an {@link ActiveAbilityItem}
+   *   <li>opens a {@link Workstation}
    * </ul>
    *
    * @param event player interact event
    */
   public void interpretAction(@NotNull PlayerInteractEvent event) {
     Objects.requireNonNull(event, "Null event");
+    ItemStack mainHandItem = event.getPlayer().getInventory().getItemInMainHand();
+
     switch (event.getAction()) {
       case RIGHT_CLICK_AIR -> {
-        ItemStack mainHandItem = event.getPlayer().getInventory().getItemInMainHand();
         if (ItemUtils.Read.isNullOrAir(mainHandItem)) {
           return;
         }
-
-        String itemID = ItemUtils.Read.getItemID(mainHandItem);
-        if (itemID == null) {
-          return;
-        }
-
-        activateItemAbility(event, itemID);
+        activateItemAbility(event, mainHandItem);
       }
       case RIGHT_CLICK_BLOCK -> {
-        ItemStack mainHandItem = event.getPlayer().getInventory().getItemInMainHand();
         if (ItemUtils.Read.isNullOrAir(mainHandItem)) {
-          if (event.isBlockInHand()) {
-            return;
-          }
           openWorkstation(event);
         } else {
-          String itemID = ItemUtils.Read.getItemID(mainHandItem);
-          if (itemID == null) {
-            return;
-          }
-
-          activateItemAbility(event, itemID);
+          activateItemAbility(event, mainHandItem);
         }
       }
     }
@@ -93,15 +82,20 @@ public class SneakInteractManager {
   }
 
   /**
-   * Activates an item's ability.
+   * Activates the ability associated with the {@link ActiveAbilityItem} if it exists.
    *
-   * @param event  player interact entity event
-   * @param itemID {@link Namespaced.Key#ITEM_ID}
+   * @param event player interact event
+   * @param item  interacting item
    */
-  private void activateItemAbility(PlayerInteractEvent event, String itemID) {
-    switch (itemID) {
-      case "iron_lasso'd", "golden_lasso'd", "diamond_lasso'd", "emerald_lasso'd" ->
-          Plugin.getLassoManager().releaseEntity(event);
+  private void activateItemAbility(PlayerInteractEvent event, ItemStack item) {
+    String itemID = ItemUtils.Read.getItemID(item);
+    if (itemID == null) {
+      return;
+    }
+
+    ModuleItemStack moduleItem = new ModuleItemStack(item);
+    switch (moduleItem.getModuleName()) {
+      case LASSO -> new LassoItem(moduleItem.getItem()).releaseEntity(event);
     }
   }
 }

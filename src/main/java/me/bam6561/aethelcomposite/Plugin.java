@@ -52,7 +52,7 @@ public class Plugin extends JavaPlugin {
   /**
    * On enable:
    * <ul>
-   *   <li>{@link #registerEventListeners() Registers} event listeners.
+   *   <li>{@link #registerEventListeners() registers} event listeners
    * </ul>
    */
   @Override
