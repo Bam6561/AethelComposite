@@ -11,10 +11,10 @@ import java.util.Objects;
 /**
  * Represents a stack of items managed by the {@link Plugin}.
  * <p>
- * Unlike ItemStacks, ModuleItemStacks have a {@link Key#ITEM_ID}.
+ * Unlike ItemStacks, ModuleItemStacks have a {@link Key.Core#MODULE} and {@link Key.Item#ID}.
  *
  * @author Danny Nguyen
- * @version 1.0.78
+ * @version 1.0.84
  * @since 1.0.78
  */
 public class ModuleItemStack {
@@ -42,11 +42,20 @@ public class ModuleItemStack {
   }
 
   /**
-   * Gets the {@link Key#ITEM_ID}.
+   * Gets the {@link Key.Core#MODULE}.
    *
-   * @return {@link Key#ITEM_ID}
+   * @return {@link Key.Core#MODULE}.
+   */
+  public String getModule() {
+    return this.item.getItemMeta().getPersistentDataContainer().get(Key.Core.MODULE.asKey(), PersistentDataType.STRING);
+  }
+
+  /**
+   * Gets the {@link Key.Item#ID}.
+   *
+   * @return {@link Key.Item#ID}
    */
   public String getItemID() {
-    return this.item.getItemMeta().getPersistentDataContainer().get(Key.ITEM_ID.asKey(), PersistentDataType.STRING);
+    return this.item.getItemMeta().getPersistentDataContainer().get(Key.Item.ID.asKey(), PersistentDataType.STRING);
   }
 }
