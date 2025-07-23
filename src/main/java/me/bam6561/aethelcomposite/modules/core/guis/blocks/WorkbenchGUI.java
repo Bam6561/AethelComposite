@@ -5,7 +5,7 @@ import me.bam6561.aethelcomposite.modules.core.events.RecipeCraftEvent;
 import me.bam6561.aethelcomposite.modules.core.guis.GUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
 import me.bam6561.aethelcomposite.modules.core.guis.markers.CachedInventory;
-import me.bam6561.aethelcomposite.modules.core.markers.ModuleRecipe;
+import me.bam6561.aethelcomposite.modules.core.objects.ModuleRecipe;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.utils.RecipeCraftOperation;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;

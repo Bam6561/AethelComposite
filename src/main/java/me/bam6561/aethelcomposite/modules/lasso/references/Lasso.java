@@ -1,7 +1,7 @@
 package me.bam6561.aethelcomposite.modules.lasso.references;
 
 import me.bam6561.aethelcomposite.Plugin;
-import me.bam6561.aethelcomposite.modules.core.markers.ModuleRecipe;
+import me.bam6561.aethelcomposite.modules.core.objects.ModuleRecipe;
 import me.bam6561.aethelcomposite.modules.core.references.Module;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;

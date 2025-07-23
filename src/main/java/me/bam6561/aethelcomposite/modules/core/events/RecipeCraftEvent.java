@@ -1,6 +1,6 @@
 package me.bam6561.aethelcomposite.modules.core.events;
 
-import me.bam6561.aethelcomposite.modules.core.markers.ModuleRecipe;
+import me.bam6561.aethelcomposite.modules.core.objects.ModuleRecipe;
 import me.bam6561.aethelcomposite.modules.core.utils.RecipeCraftOperation;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
