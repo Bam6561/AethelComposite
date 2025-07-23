@@ -1,27 +1,60 @@
 package me.bam6561.aethelcomposite.modules.core.markers;
 
+import me.bam6561.aethelcomposite.Plugin;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
- * Recipe managed by the {@link me.bam6561.aethelcomposite.Plugin}.
+ * Represents a recipe managed by the {@link Plugin}.
  * <p>
- * Recipes are lists of ingredients required to craft an item, but a recipe may not exist for every item.
+ * Recipes are lists of ingredients required to craft lists of results.
  * <p>
- * Recipes are represented as Lists of ItemStacks.
+ * A recipe may not exist for every item.
  *
  * @author Danny Nguyen
- * @version 1.0.77
- * @since 1.0.77
+ * @version 1.0.79
+ * @since 1.0.79
  */
-public interface ModuleRecipe {
+public class ModuleRecipe {
   /**
-   * Gets the recipe, if it exists.
-   *
-   * @return recipe
+   * Recipe ingredients.
    */
-  @Nullable
-  List<ItemStack> asRecipe();
+  private final List<ItemStack> ingredients;
+
+  /**
+   * Recipe results.
+   */
+  private final List<ItemStack> results;
+
+  /**
+   * Associates the ModuleRecipe with its ingredients and results.
+   *
+   * @param ingredients recipe ingredients
+   * @param results     recipe results
+   */
+  public ModuleRecipe(@NotNull List<ItemStack> ingredients, @NotNull List<ItemStack> results) {
+    this.ingredients = Objects.requireNonNull(ingredients, "Null ingredients");
+    this.results = Objects.requireNonNull(results, "Null results");
+  }
+
+  /**
+   * Gets the recipe's ingredients.
+   *
+   * @return recipe's ingredients
+   */
+  public List<ItemStack> getIngredients() {
+    return this.ingredients;
+  }
+
+  /**
+   * Gets the recipe's results.
+   *
+   * @return recipe's results
+   */
+  public List<ItemStack> getResults() {
+    return this.results;
+  }
 }
