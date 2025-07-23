@@ -1,6 +1,6 @@
 package me.bam6561.aethelcomposite.modules.core.events;
 
-import me.bam6561.aethelcomposite.modules.core.references.Module;
+import me.bam6561.aethelcomposite.modules.core.markers.ModuleRecipe;
 import me.bam6561.aethelcomposite.modules.core.utils.RecipeCraftOperation;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -15,12 +15,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 /**
- * Called before crafting any {@link Module Module's} recipe.
+ * Called before crafting a {@link ModuleRecipe}.
  * <p>
  * Cancellation prevents the {@link RecipeCraftOperation} from occurring.
  *
  * @author Danny Nguyen
- * @version 1.0.76
+ * @version 1.0.80
  * @since 1.0.50
  */
 public class RecipeCraftEvent extends Event implements Cancellable {
@@ -33,6 +33,11 @@ public class RecipeCraftEvent extends Event implements Cancellable {
    * Cancellation state.
    */
   private boolean isCancelled = false;
+
+  /**
+   * {@link ModuleRecipe}
+   */
+  private final ModuleRecipe recipe;
 
   /**
    * {@link InventorySource}
@@ -62,19 +67,23 @@ public class RecipeCraftEvent extends Event implements Cancellable {
   /**
    * Associates the event with its {@link InventorySource} without any entity or block interaction.
    *
-   * @param inv inventory being used to craft the recipe
+   * @param recipe {@link ModuleRecipe}
+   * @param inv    inventory being used to craft the recipe
    */
-  public RecipeCraftEvent(@NotNull Inventory inv) {
+  public RecipeCraftEvent(@NotNull ModuleRecipe recipe, @NotNull Inventory inv) {
+    this.recipe = Objects.requireNonNull(recipe, "Null recipe");
     this.inv = Objects.requireNonNull(inv, "Null inventory");
   }
 
   /**
    * Associates the event with its {@link InventorySource}, inventory, and interacting entity.
    *
+   * @param recipe {@link ModuleRecipe}
    * @param inv    inventory being used to craft the recipe
    * @param entity interacting entity
    */
-  public RecipeCraftEvent(@NotNull Inventory inv, @NotNull Entity entity) {
+  public RecipeCraftEvent(@NotNull ModuleRecipe recipe, @NotNull Inventory inv, @NotNull Entity entity) {
+    this.recipe = Objects.requireNonNull(recipe, "Null recipe");
     this.invSource = InventorySource.ENTITY;
     this.inv = Objects.requireNonNull(inv, "Null inventory");
     this.entity = Objects.requireNonNull(entity, "Null entity");
@@ -86,10 +95,12 @@ public class RecipeCraftEvent extends Event implements Cancellable {
   /**
    * Associates the event with its {@link InventorySource}, inventory, and interacting block.
    *
-   * @param inv   inventory being used to craft the recipe
-   * @param block interacting block
+   * @param recipe {@link ModuleRecipe}
+   * @param inv    inventory being used to craft the recipe
+   * @param block  interacting block
    */
-  public RecipeCraftEvent(@NotNull Inventory inv, @NotNull Block block) {
+  public RecipeCraftEvent(@NotNull ModuleRecipe recipe, @NotNull Inventory inv, @NotNull Block block) {
+    this.recipe = Objects.requireNonNull(recipe, "Null recipe");
     this.invSource = InventorySource.BLOCK;
     this.inv = Objects.requireNonNull(inv, "Null inventory");
     this.block = Objects.requireNonNull(block, "Null block");
@@ -100,11 +111,13 @@ public class RecipeCraftEvent extends Event implements Cancellable {
    * <p>
    * This constructor sets the {@link InventorySource} to {@link InventorySource#ENTITY}.
    *
+   * @param recipe {@link ModuleRecipe}
    * @param inv    inventory being used to craft the recipe
    * @param entity interacting entity
    * @param block  interacting block
    */
-  public RecipeCraftEvent(@NotNull Inventory inv, @NotNull Entity entity, @NotNull Block block) {
+  public RecipeCraftEvent(@NotNull ModuleRecipe recipe, @NotNull Inventory inv, @NotNull Entity entity, @NotNull Block block) {
+    this.recipe = Objects.requireNonNull(recipe, "Null recipe");
     this.invSource = InventorySource.ENTITY;
     this.inv = Objects.requireNonNull(inv, "Null inventory");
     this.entity = Objects.requireNonNull(entity, "Null entity");
@@ -112,6 +125,15 @@ public class RecipeCraftEvent extends Event implements Cancellable {
     if (entity instanceof Player) {
       this.isCausedByPlayer = true;
     }
+  }
+
+  /**
+   * Gets the {@link ModuleRecipe}.
+   *
+   * @return {@link ModuleRecipe}
+   */
+  public ModuleRecipe getRecipe() {
+    return this.recipe;
   }
 
   /**

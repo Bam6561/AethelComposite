@@ -5,6 +5,7 @@ import me.bam6561.aethelcomposite.modules.core.events.RecipeCraftEvent;
 import me.bam6561.aethelcomposite.modules.core.guis.GUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
 import me.bam6561.aethelcomposite.modules.core.guis.markers.CachedInventory;
+import me.bam6561.aethelcomposite.modules.core.markers.ModuleRecipe;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.utils.RecipeCraftOperation;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
@@ -27,7 +28,7 @@ import java.util.Objects;
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.76
+ * @version 1.0.80
  * @since 1.0.3
  */
 public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
@@ -130,7 +131,7 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
     }
 
     Player player = (Player) event.getWhoClicked();
-    RecipeCraftEvent recipeCraft = new RecipeCraftEvent(player.getInventory(), player);
+    RecipeCraftEvent recipeCraft = new RecipeCraftEvent(new ModuleRecipe(List.of(), List.of()), player.getInventory(), player);
     Bukkit.getPluginManager().callEvent(recipeCraft);
     if (recipeCraft.isCancelled()) {
       return;
