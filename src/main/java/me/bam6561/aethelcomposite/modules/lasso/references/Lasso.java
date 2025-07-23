@@ -6,6 +6,7 @@ import me.bam6561.aethelcomposite.modules.core.references.Module;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.references.markers.ItemStackValue;
+import me.bam6561.aethelcomposite.modules.core.references.markers.ModuleRecipeValue;
 import me.bam6561.aethelcomposite.modules.core.references.markers.NamespacedKeyValue;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;
@@ -111,7 +112,7 @@ public class Lasso {
    * @version 1.0.89
    * @since 1.0.89
    */
-  public enum Recipe {
+  public enum Recipe implements ModuleRecipeValue {
     /**
      * {@link Item#IRON_LASSO}
      */
