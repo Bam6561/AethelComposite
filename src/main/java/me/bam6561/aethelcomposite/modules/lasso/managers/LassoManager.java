@@ -29,7 +29,7 @@ import java.util.Set;
  * Manages {@link Lasso.Item} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.73
+ * @version 1.0.89
  * @since 1.0.55
  */
 public class LassoManager {
@@ -107,12 +107,12 @@ public class LassoManager {
     PersistentDataContainer lassoData = meta.getPersistentDataContainer();
     String itemID = ItemUtils.Read.getItemID(lasso);
     String newItemID = itemID.substring(0, itemID.length() - 2);
-    String entityData = lassoData.get(Lasso.Key.LASSO_ENTITY_DATA.asKey(), PersistentDataType.STRING);
+    String entityData = lassoData.get(Lasso.Key.ENTITY_DATA.asKey(), PersistentDataType.STRING);
 
     lasso.setAmount(1);
 
     lassoData.set(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING, newItemID);
-    lassoData.remove(Lasso.Key.LASSO_ENTITY_DATA.asKey());
+    lassoData.remove(Lasso.Key.ENTITY_DATA.asKey());
 
     List<String> newLore = new ArrayList<>(List.of(
         Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
@@ -190,7 +190,7 @@ public class LassoManager {
 
     lasso.setAmount(1);
     lassoData.set(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING, newItemID);
-    lassoData.set(Lasso.Key.LASSO_ENTITY_DATA.asKey(), PersistentDataType.STRING, EntityUtils.Data.encodeEntityString(entity));
+    lassoData.set(Lasso.Key.ENTITY_DATA.asKey(), PersistentDataType.STRING, EntityUtils.Data.encodeEntityString(entity));
     meta.setLore(List.of(
         Text.Label.ACTION.asColor() + "Release " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
         Text.Label.DETAILS.asColor() + "Releases the stored creature.",

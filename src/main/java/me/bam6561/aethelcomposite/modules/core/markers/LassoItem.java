@@ -30,7 +30,7 @@ import java.util.Set;
  * Represents a {@link Lasso.Item}.
  *
  * @author Danny Nguyen
- * @version 1.0.87
+ * @version 1.0.89
  * @since 1.0.86
  */
 public class LassoItem extends ModuleItemStack {
@@ -106,7 +106,7 @@ public class LassoItem extends ModuleItemStack {
     Player player = event.getPlayer();
     PlayerInventory inv = player.getInventory();
 
-    String entityData = inv.getItemInMainHand().getItemMeta().getPersistentDataContainer().get(Lasso.Key.LASSO_ENTITY_DATA.asKey(), PersistentDataType.STRING);
+    String entityData = inv.getItemInMainHand().getItemMeta().getPersistentDataContainer().get(Lasso.Key.ENTITY_DATA.asKey(), PersistentDataType.STRING);
     LassoReleaseEvent lassoRelease = new LassoReleaseEvent(player, entityData);
     Bukkit.getPluginManager().callEvent(lassoRelease);
     if (lassoRelease.isCancelled()) {
@@ -136,7 +136,7 @@ public class LassoItem extends ModuleItemStack {
   }
 
   /**
-   * Stores the entity to {@link Lasso.Key#LASSO_ENTITY_DATA} into the {@link Lasso.Item} and removes it from the world.
+   * Stores the entity to {@link Lasso.Key#ENTITY_DATA} into the {@link Lasso.Item} and removes it from the world.
    *
    * @param player interacting player
    * @param inv    player inventory
@@ -152,7 +152,7 @@ public class LassoItem extends ModuleItemStack {
     String newItemID = ItemUtils.Read.getItemID(lasso) + "'d";
 
     lassoData.set(Namespaced.Key.Item.ID.asKey(), PersistentDataType.STRING, newItemID);
-    lassoData.set(Lasso.Key.LASSO_ENTITY_DATA.asKey(), PersistentDataType.STRING, EntityUtils.Data.encodeEntityString(entity));
+    lassoData.set(Lasso.Key.ENTITY_DATA.asKey(), PersistentDataType.STRING, EntityUtils.Data.encodeEntityString(entity));
 
     meta.setLore(List.of(
         Text.Label.ACTION.asColor() + "Release " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
@@ -175,7 +175,7 @@ public class LassoItem extends ModuleItemStack {
   }
 
   /**
-   * Retrieves the entity {@link Lasso.Key#LASSO_ENTITY_DATA} from the {@link Lasso.Item} and spawns it into the world.
+   * Retrieves the entity {@link Lasso.Key#ENTITY_DATA} from the {@link Lasso.Item} and spawns it into the world.
    *
    * @param player interacting player
    * @param inv    player inventory
@@ -189,10 +189,10 @@ public class LassoItem extends ModuleItemStack {
     PersistentDataContainer lassoData = meta.getPersistentDataContainer();
     String itemID = ItemUtils.Read.getItemID(lasso);
     String newItemID = itemID.substring(0, itemID.length() - 2);
-    String entityData = lassoData.get(Lasso.Key.LASSO_ENTITY_DATA.asKey(), PersistentDataType.STRING);
+    String entityData = lassoData.get(Lasso.Key.ENTITY_DATA.asKey(), PersistentDataType.STRING);
 
     lassoData.set(Namespaced.Key.Item.ID.asKey(), PersistentDataType.STRING, newItemID);
-    lassoData.remove(Lasso.Key.LASSO_ENTITY_DATA.asKey());
+    lassoData.remove(Lasso.Key.ENTITY_DATA.asKey());
 
     List<String> newLore = new ArrayList<>(List.of(
         Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",

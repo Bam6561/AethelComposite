@@ -1,28 +1,26 @@
 package me.bam6561.aethelcomposite.modules.lasso.references;
 
 import me.bam6561.aethelcomposite.Plugin;
+import me.bam6561.aethelcomposite.modules.core.markers.ModuleRecipe;
+import me.bam6561.aethelcomposite.modules.core.references.Module;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.references.markers.ItemStackValue;
 import me.bam6561.aethelcomposite.modules.core.references.markers.NamespacedKeyValue;
-import me.bam6561.aethelcomposite.modules.core.references.markers.RecipeValue;
-import me.bam6561.aethelcomposite.modules.core.references.markers.StringValue;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Lasso module-related references.
+ * Lasso {@link Module} references.
  *
  * @author Danny Nguyen
- * @version 1.0.62
+ * @version 1.0.89
  * @since 1.0.39
  */
 public class Lasso {
@@ -33,13 +31,13 @@ public class Lasso {
   }
 
   /**
-   * Lasso items and their recipes.
+   * Lasso items.
    *
    * @author Danny Nguyen
-   * @version 1.0.44
+   * @version 1.0.89
    * @since 1.0.21
    */
-  public enum Item implements ItemStackValue, RecipeValue {
+  public enum Item implements ItemStackValue {
     /**
      * Captures farms animals.
      */
@@ -48,8 +46,7 @@ public class Lasso {
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Chicken, Cow, Pig, Sheep}",
             Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Iron Lasso"),
-        Namespaced.Key.ITEM_ID.asKey(), "iron_lasso"),
-        List.of(new ItemStack(Material.LEAD, 1), new ItemStack(Material.IRON_INGOT, 2))),
+        Namespaced.Key.Item.ID.asKey(), "iron_lasso")),
 
     /**
      * Captures iron tier lasso-able and all animals.
@@ -59,8 +56,7 @@ public class Lasso {
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Iron Lasso + Animals}",
             Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Golden Lasso"),
-        Namespaced.Key.ITEM_ID.asKey(), "golden_lasso"),
-        List.of(Item.IRON_LASSO.asItem(), new ItemStack(Material.GOLD_INGOT, 2))),
+        Namespaced.Key.Item.ID.asKey(), "golden_lasso")),
 
     /**
      * Captures golden tier lasso-able and non-boss hostile mobs.
@@ -70,8 +66,7 @@ public class Lasso {
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Golden Lasso + Non-Boss Hostile Mobs}",
             Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Diamond Lasso"),
-        Namespaced.Key.ITEM_ID.asKey(), "diamond_lasso"),
-        List.of(Item.GOLDEN_LASSO.asItem(), new ItemStack(Material.DIAMOND, 2))),
+        Namespaced.Key.Item.ID.asKey(), "diamond_lasso")),
 
     /**
      * Captures diamond tier lasso-able and villagers.
@@ -81,8 +76,7 @@ public class Lasso {
             Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
             Text.Label.DETAILS.asColor() + "{Diamond Lasso + Villagers}",
             Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Emerald Lasso"),
-        Namespaced.Key.ITEM_ID.asKey(), "emerald_lasso"),
-        List.of(Item.DIAMOND_LASSO.asItem(), new ItemStack(Material.EMERALD, 8)));
+        Namespaced.Key.Item.ID.asKey(), "emerald_lasso"));
 
     /**
      * Item.
@@ -90,19 +84,12 @@ public class Lasso {
     private final ItemStack item;
 
     /**
-     * Item recipe.
-     */
-    private final List<ItemStack> recipe;
-
-    /**
-     * Associates an item with its recipe.
+     * Associates an entry with its item.
      *
-     * @param item   item
-     * @param recipe item recipe
+     * @param item item
      */
-    Item(ItemStack item, List<ItemStack> recipe) {
+    Item(ItemStack item) {
       this.item = item;
-      this.recipe = recipe;
     }
 
     /**
@@ -115,16 +102,58 @@ public class Lasso {
     public ItemStack asItem() {
       return this.item.clone();
     }
+  }
+
+  /**
+   * Lasso {@link ModuleRecipe ModuleRecipes}.
+   *
+   * @author Danny Nguyen
+   * @version 1.0.89
+   * @since 1.0.89
+   */
+  public enum Recipe {
+    /**
+     * {@link Item#IRON_LASSO}
+     */
+    IRON_LASSO(new ModuleRecipe(List.of(new ItemStack(Material.LEAD, 1), new ItemStack(Material.IRON_INGOT, 2)), List.of(Item.IRON_LASSO.asItem()))),
 
     /**
-     * Gets a copy of item recipe.
-     *
-     * @return item recipe
+     * {@link Item#GOLDEN_LASSO}
      */
-    @Override
-    @Nullable
-    public List<ItemStack> asRecipe() {
-      return new ArrayList<>(this.recipe);
+    GOLDEN_LASSO(new ModuleRecipe(List.of(Item.IRON_LASSO.asItem(), new ItemStack(Material.GOLD_INGOT, 2)), List.of(Item.GOLDEN_LASSO.asItem()))),
+
+    /**
+     * {@link Item#DIAMOND_LASSO}
+     */
+    DIAMOND_LASSO(new ModuleRecipe(List.of(Item.GOLDEN_LASSO.asItem(), new ItemStack(Material.DIAMOND, 2)), List.of(Item.DIAMOND_LASSO.asItem()))),
+
+    /**
+     * {@link Item#EMERALD_LASSO}
+     */
+    EMERALD_LASSO(new ModuleRecipe(List.of(Item.DIAMOND_LASSO.asItem(), new ItemStack(Material.EMERALD, 8)), List.of(Item.EMERALD_LASSO.asItem())));
+
+    /**
+     * {@link ModuleRecipe}
+     */
+    private final ModuleRecipe moduleRecipe;
+
+    /**
+     * Associates an entry with its {@link ModuleRecipe}.
+     *
+     * @param moduleRecipe {@link ModuleRecipe}
+     */
+    Recipe(ModuleRecipe moduleRecipe) {
+      this.moduleRecipe = moduleRecipe;
+    }
+
+    /**
+     * Gets the {@link ModuleRecipe}.
+     *
+     * @return {@link ModuleRecipe}
+     */
+    @NotNull
+    public ModuleRecipe asModuleRecipe() {
+      return this.moduleRecipe;
     }
   }
 
@@ -132,14 +161,14 @@ public class Lasso {
    * Reserved namespaced keys.
    *
    * @author Danny Nguyen
-   * @version 1.0.61
+   * @version 1.0.89
    * @since 1.0.61
    */
-  public enum Key implements NamespacedKeyValue, StringValue {
+  public enum Key implements NamespacedKeyValue {
     /**
-     * Captured entity data.
+     * Stored entity data.
      */
-    LASSO_ENTITY_DATA(new NamespacedKey(Plugin.getInstance(), Namespaced.Header.ITEM.asString() + "lasso_entity_data"), Namespaced.Header.ITEM.asString() + "lasso_entity_data");
+    ENTITY_DATA(new NamespacedKey(Plugin.getInstance(), Namespaced.Header.ITEM.asString() + "lasso_entity_data"));
 
     /**
      * Namespaced key.
@@ -147,19 +176,12 @@ public class Lasso {
     private final NamespacedKey key;
 
     /**
-     * Namespaced key string.
-     */
-    private final String keyString;
-
-    /**
-     * Associates the entry with the namespaced key and namespaced key string.
+     * Associates the entry with its namespaced key.
      *
-     * @param key       namespaced key
-     * @param keyString namespaced key string
+     * @param key namespaced key
      */
-    Key(NamespacedKey key, String keyString) {
+    Key(NamespacedKey key) {
       this.key = key;
-      this.keyString = keyString;
     }
 
     /**
@@ -171,17 +193,6 @@ public class Lasso {
     @NotNull
     public NamespacedKey asKey() {
       return this.key;
-    }
-
-    /**
-     * Gets the namespaced key string.
-     *
-     * @return namespaced key string
-     */
-    @Override
-    @NotNull
-    public String asString() {
-      return this.keyString;
     }
   }
 }
