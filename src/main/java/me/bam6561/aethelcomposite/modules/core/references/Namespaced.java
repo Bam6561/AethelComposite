@@ -68,16 +68,21 @@ public class Namespaced {
 
   /**
    * Reserved namespaced keys.
+   * <p>
+   * Spaces are replaced with underscores.
    *
    * @author Danny Nguyen
-   * @version 1.0.61
+   * @version 1.0.82
    * @since 1.0.29
    */
   public enum Key implements NamespacedKeyValue, StringValue {
     /**
+     * Module.
+     */
+    MODULE_ID(new NamespacedKey(Plugin.getInstance(), Header.ITEM.asString() + "module"), Header.ITEM.asString() + "module"),
+
+    /**
      * Item ID.
-     * <p>
-     * Spaces are replaced with underscores.
      */
     ITEM_ID(new NamespacedKey(Plugin.getInstance(), Header.ITEM.asString() + "id"), Header.ITEM.asString() + "id");
 
