@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * {@link Plugin} namespaces.
  *
  * @author Danny Nguyen
- * @version 1.0.38
+ * @version 1.0.83
  * @since 1.0.38
  */
 public class Namespaced {
@@ -36,7 +36,7 @@ public class Namespaced {
     AETHEL("aethel."),
 
     /**
-     * Tags describing an item's meta.
+     * Item data.
      */
     ITEM(AETHEL.asString() + "item.");
 
@@ -72,61 +72,92 @@ public class Namespaced {
    * Spaces are replaced with underscores.
    *
    * @author Danny Nguyen
-   * @version 1.0.82
-   * @since 1.0.29
+   * @version 1.0.83
+   * @since 1.0.83
    */
-  public enum Key implements NamespacedKeyValue, StringValue {
+  public static class Key {
     /**
-     * Module.
+     * Enum usage only.
      */
-    MODULE_ID(new NamespacedKey(Plugin.getInstance(), Header.ITEM.asString() + "module"), Header.ITEM.asString() + "module"),
-
-    /**
-     * Item ID.
-     */
-    ITEM_ID(new NamespacedKey(Plugin.getInstance(), Header.ITEM.asString() + "id"), Header.ITEM.asString() + "id");
-
-    /**
-     * Namespaced key.
-     */
-    private final NamespacedKey key;
-
-    /**
-     * Namespaced key string.
-     */
-    private final String keyString;
-
-    /**
-     * Associates the entry with the namespaced key and namespaced key string.
-     *
-     * @param key       namespaced key
-     * @param keyString namespaced key string
-     */
-    Key(NamespacedKey key, String keyString) {
-      this.key = key;
-      this.keyString = keyString;
+    private Key() {
     }
 
     /**
-     * Gets the namespaced key.
+     * Shared resource namespace keys.
      *
-     * @return namespaced key
+     * @author Danny Nguyen
+     * @version 1.0.83
+     * @since 1.0.83
      */
-    @Override
-    @NotNull
-    public NamespacedKey asKey() {
-      return this.key;
+    public enum Core implements NamespacedKeyValue {
+      /**
+       * Module.
+       */
+      MODULE(new NamespacedKey(Plugin.getInstance(), Header.AETHEL.asString() + "module"));
+
+      /**
+       * Namespaced key.
+       */
+      private final NamespacedKey key;
+
+      /**
+       * Associates the entry with the namespaced key.
+       *
+       * @param key namespaced key
+       */
+      Core(NamespacedKey key) {
+        this.key = key;
+      }
+
+      /**
+       * Gets the namespaced key.
+       *
+       * @return namespaced key
+       */
+      @Override
+      @NotNull
+      public NamespacedKey asKey() {
+        return this.key;
+      }
     }
 
     /**
-     * Gets the namespaced key string.
+     * Item-related namespaced keys.
      *
-     * @return namespaced key string
+     * @author Danny Nguyen
+     * @version 1.0.83
+     * @since 1.0.29
      */
-    @Override
-    @NotNull
-    public String asString() {
-      return this.keyString;
+    public enum Item implements NamespacedKeyValue {
+      /**
+       * Item ID.
+       */
+      ID(new NamespacedKey(Plugin.getInstance(), Header.ITEM.asString() + "id"));
+
+      /**
+       * Namespaced key.
+       */
+      private final NamespacedKey key;
+
+      /**
+       * Associates the entry with the namespaced key.
+       *
+       * @param key namespaced key
+       */
+      Item(NamespacedKey key) {
+        this.key = key;
+      }
+
+      /**
+       * Gets the namespaced key.
+       *
+       * @return namespaced key
+       */
+      @Override
+      @NotNull
+      public NamespacedKey asKey() {
+        return this.key;
+      }
     }
   }
 }
