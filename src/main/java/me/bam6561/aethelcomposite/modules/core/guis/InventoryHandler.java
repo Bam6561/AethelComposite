@@ -1,5 +1,6 @@
 package me.bam6561.aethelcomposite.modules.core.guis;
 
+import me.bam6561.aethelcomposite.Plugin;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -7,7 +8,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Outlines base interactions for a plugin managed inventory.
+ * Outlines base interactions for a {@link Plugin} managed inventory.
  *
  * @author Danny Nguyen
  * @version 1.0.1

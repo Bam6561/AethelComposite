@@ -16,7 +16,7 @@ public abstract class GUI implements InventoryHandler {
   /**
    * Inventory.
    */
-  private final Inventory inventory = createInventory();
+  private final Inventory inv = createInventory();
 
   /**
    * No parameter constructor.
@@ -53,6 +53,6 @@ public abstract class GUI implements InventoryHandler {
    */
   @NotNull
   public Inventory getInventory() {
-    return this.inventory;
+    return this.inv;
   }
 }

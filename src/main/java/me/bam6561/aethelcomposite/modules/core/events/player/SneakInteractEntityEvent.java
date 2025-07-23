@@ -1,10 +1,10 @@
 package me.bam6561.aethelcomposite.modules.core.events.player;
 
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
+import me.bam6561.aethelcomposite.Plugin;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -12,10 +12,12 @@ import java.util.Objects;
 /**
  * Called when a player interacts with an entity while sneaking.
  * <p>
+ * Cancellation prevents additional {@link Plugin} functionality.
+ * <p>
  * May be cancelled without cancelling its source PlayerInteractEntityEvent.
  *
  * @author Danny Nguyen
- * @version 1.0.9
+ * @version 1.0.88
  * @since 1.0.5
  */
 public class SneakInteractEntityEvent extends Event implements Cancellable {
@@ -30,44 +32,27 @@ public class SneakInteractEntityEvent extends Event implements Cancellable {
   private boolean isCancelled = false;
 
   /**
-   * Interacting player.
+   * Source of the event.
    */
-  private final Player player;
+  private final PlayerInteractEntityEvent source;
 
   /**
-   * Interacting entity.
-   */
-  private final Entity entity;
-
-  /**
-   * Associates the event with its player and entity.
+   * Associates the event with its source, player, and entity.
    *
-   * @param player interacting player
-   * @param entity interacting entity
+   * @param source source of the event
    */
-  public SneakInteractEntityEvent(@NotNull Player player, @NotNull Entity entity) {
-    this.player = Objects.requireNonNull(player, "Null player");
-    this.entity = Objects.requireNonNull(entity, "Null entity");
+  public SneakInteractEntityEvent(@NotNull PlayerInteractEntityEvent source) {
+    this.source = Objects.requireNonNull(source, "Null source");
   }
 
   /**
-   * Gets the interacting player.
+   * Gets the source of the event.
    *
-   * @return interacting player
+   * @return source of the event
    */
   @NotNull
-  public Player getPlayer() {
-    return this.player;
-  }
-
-  /**
-   * Gets the interacting entity.
-   *
-   * @return interacting entity.
-   */
-  @NotNull
-  public Entity getEntity() {
-    return this.entity;
+  public PlayerInteractEntityEvent getSource() {
+    return this.source;
   }
 
   /**

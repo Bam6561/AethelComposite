@@ -1,26 +1,23 @@
 package me.bam6561.aethelcomposite.modules.core.events.player;
 
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Player;
+import me.bam6561.aethelcomposite.Plugin;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.block.Action;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
 /**
  * Called when a player interacts while sneaking.
  * <p>
+ * Cancellation prevents additional {@link Plugin} functionality.
+ * <p>
  * May be cancelled without cancelling its source PlayerInteractEvent.
  *
  * @author Danny Nguyen
- * @version 1.0.75
+ * @version 1.0.88
  * @since 1.0.5
  */
 public class SneakInteractEvent extends Event implements Cancellable {
@@ -35,112 +32,27 @@ public class SneakInteractEvent extends Event implements Cancellable {
   private boolean isCancelled = false;
 
   /**
-   * Interacting player.
+   * Source of the event.
    */
-  private final Player player;
+  private final PlayerInteractEvent source;
 
   /**
-   * Interacting item.
-   */
-  private final ItemStack item;
-
-  /**
-   * Type of player action.
-   */
-  private final Action action;
-
-  /**
-   * Interacting block.
-   */
-  private final Block block;
-
-  /**
-   * Interacting block face.
-   */
-  private final BlockFace blockFace;
-
-  /**
-   * Clicked position on the block.
-   */
-  private final Vector clickedPosition;
-
-  /**
-   * Associates the event with its player, item in hand, action, block, block face, and position interacted with.
+   * Associates the event with its source.
    *
-   * @param player          interacting player
-   * @param item            interacting item
-   * @param action          type of player action
-   * @param block           interacting block
-   * @param blockFace       interacting block face
-   * @param clickedPosition clicked position on the block
+   * @param source source of the event
    */
-  public SneakInteractEvent(@NotNull Player player, @Nullable ItemStack item, @NotNull Action action, @Nullable Block block, @NotNull BlockFace blockFace, @Nullable Vector clickedPosition) {
-    this.player = Objects.requireNonNull(player, "Null player");
-    this.item = item;
-    this.action = Objects.requireNonNull(action, "Null action");
-    this.block = block;
-    this.blockFace = Objects.requireNonNull(blockFace, "Null block face");
-    this.clickedPosition = clickedPosition;
+  public SneakInteractEvent(@NotNull PlayerInteractEvent source) {
+    this.source = Objects.requireNonNull(source, "Null source");
   }
 
   /**
-   * Gets the interacting player.
+   * Gets the source of the event.
    *
-   * @return interacting player
+   * @return source of the event
    */
   @NotNull
-  public Player getPlayer() {
-    return this.player;
-  }
-
-  /**
-   * Gets the interacting item
-   *
-   * @return interacting item
-   */
-  @Nullable
-  public ItemStack getItem() {
-    return this.item;
-  }
-
-  /**
-   * Gets the type of player action.
-   *
-   * @return type of player action
-   */
-  @NotNull
-  public Action getAction() {
-    return this.action;
-  }
-
-  /**
-   * Gets the interacting block.
-   *
-   * @return interacting block
-   */
-  @Nullable
-  public Block getBlock() {
-    return this.block;
-  }
-
-  /**
-   * Gets the interacting block face.
-   *
-   * @return interacting block face
-   */
-  @NotNull
-  public BlockFace getBlockFace() {
-    return this.blockFace;
-  }
-
-  /**
-   * Gets the clicked position on the block.
-   *
-   * @return clicked position on the block
-   */
-  @Nullable
-  public Vector getClickedPosition() {
-    return this.clickedPosition;
+  public PlayerInteractEvent getSource() {
+    return this.source;
   }
 
   /**

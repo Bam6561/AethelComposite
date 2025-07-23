@@ -6,7 +6,6 @@ import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEvent;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractEntityManager;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractManager;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -22,7 +21,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * </ul>
  *
  * @author Danny Nguyen
- * @version 1.0.75
+ * @version 1.0.88
  * @since 1.0.7
  */
 public class PlayerListener implements Listener {
@@ -49,14 +48,9 @@ public class PlayerListener implements Listener {
    */
   @EventHandler
   private void onPlayerInteract(PlayerInteractEvent event) {
-    Player player = event.getPlayer();
-    if (player.isSneaking()) {
-      SneakInteractEvent sneakInteractEvent = new SneakInteractEvent(event.getPlayer(), event.getItem(), event.getAction(), event.getClickedBlock(), event.getBlockFace(), event.getClickedPosition());
+    if (event.getPlayer().isSneaking()) {
+      SneakInteractEvent sneakInteractEvent = new SneakInteractEvent(event);
       Bukkit.getPluginManager().callEvent(sneakInteractEvent);
-      if (sneakInteractEvent.isCancelled()) {
-        return;
-      }
-      sneakInteractManager.interpretAction(event);
     }
   }
 
@@ -67,14 +61,35 @@ public class PlayerListener implements Listener {
    */
   @EventHandler
   private void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-    Player player = event.getPlayer();
-    if (player.isSneaking()) {
-      SneakInteractEntityEvent sneakInteractEntityEvent = new SneakInteractEntityEvent(event.getPlayer(), event.getRightClicked());
+    if (event.getPlayer().isSneaking()) {
+      SneakInteractEntityEvent sneakInteractEntityEvent = new SneakInteractEntityEvent(event);
       Bukkit.getPluginManager().callEvent(sneakInteractEntityEvent);
-      if (sneakInteractEntityEvent.isCancelled()) {
-        return;
-      }
-      sneakInteractEntityManager.interpretAction(event);
     }
+  }
+
+  /**
+   * Routes {@link SneakInteractEvent SneakInteractEvents}.
+   *
+   * @param event {@link SneakInteractEvent}
+   */
+  @EventHandler
+  private void onPlayerSneakInteract(SneakInteractEvent event) {
+    if (event.isCancelled()) {
+      return;
+    }
+    sneakInteractManager.interpretAction(event.getSource());
+  }
+
+  /**
+   * Routes {@link SneakInteractEntityEvent SneakInteractEntityEvents}.
+   *
+   * @param event {@link SneakInteractEntityEvent}
+   */
+  @EventHandler
+  private void onPlayerSneakInteractEntity(SneakInteractEntityEvent event) {
+    if (event.isCancelled()) {
+      return;
+    }
+    sneakInteractEntityManager.interpretAction(event.getSource());
   }
 }
