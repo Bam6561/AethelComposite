@@ -1,5 +1,6 @@
 package me.bam6561.aethelcomposite.modules.core.utils;
 
+import me.bam6561.aethelcomposite.modules.core.markers.ModuleRecipe;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import org.bukkit.Location;
@@ -21,34 +22,30 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 /**
- * Represents a recipe craft operation.
+ * Represents a {@link ModuleRecipe} craft operation.
  * <p>
- * Only removes items from the inventory if there are enough ingredients to craft the recipe.
+ * Only removes items from the inventory if there are enough
+ * ingredients to craft the results of the {@link ModuleRecipe}.
  *
  * @author Danny Nguyen
- * @version 1.0.64
+ * @version 1.0.93
  * @since 1.0.46
  */
 public class RecipeCraftOperation {
   /**
-   * {@link me.bam6561.aethelcomposite.modules.core.references.Namespaced.Key#ITEM_ID}
+   * {@link Namespaced.Key.Item#ID}
    */
-  private final NamespacedKey itemID = Namespaced.Key.ITEM_ID.asKey();
+  private final NamespacedKey itemID = Namespaced.Key.Item.ID.asKey();
 
   /**
-   * Inventory used to craft the recipe.
+   * {@link ModuleRecipe}
+   */
+  private final ModuleRecipe recipe;
+
+  /**
+   * Inventory used to craft the {@link ModuleRecipe}.
    */
   private final Inventory inv;
-
-  /**
-   * Recipe's results.
-   */
-  private final List<ItemStack> results;
-
-  /**
-   * Recipe's ingredients.
-   */
-  private final List<ItemStack> ingredients;
 
   /**
    * Number of crafts done at once.
@@ -61,22 +58,20 @@ public class RecipeCraftOperation {
   private final Map<Material, List<SlotItemStack>> invMap;
 
   /**
-   * Inventory slots to update if the recipe craft is successful.
+   * Inventory slots to update if the {@link ModuleRecipe} craft is successful.
    */
   private final List<SlotItemStack> postCraft = new ArrayList<>();
 
   /**
-   * Associates a recipe craft with its necessary components.
+   * Associates a {@link ModuleRecipe} craft with its necessary components.
    *
-   * @param inv         inventory used to craft the recipe
-   * @param results     recipe results
-   * @param ingredients recipe ingredients
-   * @param crafts      number of crafts done at once
+   * @param recipe {@link ModuleRecipe}
+   * @param inv    inventory used to craft the {@link ModuleRecipe}
+   * @param crafts number of crafts done at once
    */
-  public RecipeCraftOperation(@NotNull Inventory inv, @NotNull List<ItemStack> results, @NotNull List<ItemStack> ingredients, int crafts) {
+  public RecipeCraftOperation(@NotNull ModuleRecipe recipe, @NotNull Inventory inv, int crafts) {
+    this.recipe = Objects.requireNonNull(recipe, "Null recipe");
     this.inv = Objects.requireNonNull(inv, "Null inventory");
-    this.results = Objects.requireNonNull(results, "Null results");
-    this.ingredients = Objects.requireNonNull(ingredients, "Null ingredients");
     this.crafts = crafts;
     this.invMap = mapInventoryMaterials();
   }
@@ -106,12 +101,12 @@ public class RecipeCraftOperation {
   }
 
   /**
-   * Crafts the recipe, adding its results directly to the inventory if there's space.
+   * Crafts the {@link ModuleRecipe}, adding its results directly to the inventory if there's space.
    * Otherwise, the results are dropped at the crafting inventory's location.
    * <p>
    * Note that this method does not handle overflow for null InventoryHolders: the extra items are discarded.
    *
-   * @return if the recipe craft was successful
+   * @return if the {@link ModuleRecipe} craft was successful
    */
   public boolean craft() {
     if (hasEnoughOfAllIngredients()) {
@@ -122,7 +117,7 @@ public class RecipeCraftOperation {
       }
 
       for (int i = 0; i < crafts; i++) {
-        for (ItemStack item : results) {
+        for (ItemStack item : recipe.getResults()) {
           if (inv.firstEmpty() != -1) {
             inv.addItem(item);
           } else {
@@ -143,12 +138,12 @@ public class RecipeCraftOperation {
   }
 
   /**
-   * If the inventory has enough ingredients to craft the recipe.
+   * If the inventory has enough ingredients to craft the {@link ModuleRecipe}.
    *
    * @return has enough ingredients
    */
   private boolean hasEnoughOfAllIngredients() {
-    for (ItemStack item : ingredients) {
+    for (ItemStack item : recipe.getIngredients()) {
       Material requiredMaterial = item.getType();
       if (!invMap.containsKey(requiredMaterial)) {
         return false;
@@ -219,12 +214,12 @@ public class RecipeCraftOperation {
   }
 
   /**
-   * If the inventory has enough of the required ingredient by matching material type
-   * and {@link me.bam6561.aethelcomposite.modules.core.references.Namespaced.Key#ITEM_ID}.
+   * If the inventory has enough of the required ingredient
+   * by matching material type and {@link Namespaced.Key.Item#ID}.
    *
    * @param requiredMaterial required material
    * @param requiredNumber   required number
-   * @param requiredItemID   required item ID
+   * @param requiredItemID   {@link Namespaced.Key.Item#ID}
    * @return has enough ingredients
    */
   private boolean hasEnoughIngredientsWithIDs(Material requiredMaterial, int requiredNumber, String requiredItemID) {

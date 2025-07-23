@@ -1,7 +1,7 @@
 package me.bam6561.aethelcomposite.modules.core.markers;
 
 import me.bam6561.aethelcomposite.Plugin;
-import me.bam6561.aethelcomposite.modules.core.references.Namespaced.Key;
+import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -12,10 +12,10 @@ import java.util.Objects;
 /**
  * Represents a stack of items managed by the {@link Plugin}.
  * <p>
- * Unlike ItemStacks, ModuleItemStacks have a {@link Key.Core#MODULE} and {@link Key.Item#ID}.
+ * Unlike ItemStacks, ModuleItemStacks have a {@link Namespaced.Key.Core#MODULE} and {@link Namespaced.Key.Item#ID}.
  *
  * @author Danny Nguyen
- * @version 1.0.86
+ * @version 1.0.93
  * @since 1.0.78
  */
 public class ModuleItemStack {
@@ -37,7 +37,7 @@ public class ModuleItemStack {
   public ModuleItemStack(@NotNull ItemStack item) {
     this.item = Objects.requireNonNull(item, "Null item");
     this.itemData = item.getItemMeta().getPersistentDataContainer();
-    if (!itemData.has(Key.Item.ID.asKey(), PersistentDataType.STRING)) {
+    if (!itemData.has(Namespaced.Key.Item.ID.asKey(), PersistentDataType.STRING)) {
       throw new IllegalArgumentException("Not a ModuleItemStack");
     }
   }
@@ -61,20 +61,20 @@ public class ModuleItemStack {
   }
 
   /**
-   * Gets the {@link Key.Core#MODULE}.
+   * Gets the {@link Namespaced.Key.Core#MODULE}.
    *
-   * @return {@link Key.Core#MODULE}.
+   * @return {@link Namespaced.Key.Core#MODULE}.
    */
   public String getModule() {
-    return this.itemData.get(Key.Core.MODULE.asKey(), PersistentDataType.STRING);
+    return this.itemData.get(Namespaced.Key.Core.MODULE.asKey(), PersistentDataType.STRING);
   }
 
   /**
-   * Gets the {@link Key.Item#ID}.
+   * Gets the {@link Namespaced.Key.Item#ID}.
    *
-   * @return {@link Key.Item#ID}
+   * @return {@link Namespaced.Key.Item#ID}
    */
   public String getItemID() {
-    return this.itemData.get(Key.Item.ID.asKey(), PersistentDataType.STRING);
+    return this.itemData.get(Namespaced.Key.Item.ID.asKey(), PersistentDataType.STRING);
   }
 }
