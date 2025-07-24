@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.modules.core.objects;
+package me.bam6561.aethelcomposite.modules.core.objects.recipe;
 
 import me.bam6561.aethelcomposite.Plugin;
 import org.bukkit.inventory.ItemStack;

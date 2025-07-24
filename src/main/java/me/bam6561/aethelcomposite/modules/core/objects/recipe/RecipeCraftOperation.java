@@ -1,6 +1,5 @@
-package me.bam6561.aethelcomposite.modules.core.utils;
+package me.bam6561.aethelcomposite.modules.core.objects.recipe;
 
-import me.bam6561.aethelcomposite.modules.core.objects.ModuleRecipe;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import org.bukkit.Location;

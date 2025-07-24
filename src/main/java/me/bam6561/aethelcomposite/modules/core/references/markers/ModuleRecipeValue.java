@@ -1,6 +1,6 @@
 package me.bam6561.aethelcomposite.modules.core.references.markers;
 
-import me.bam6561.aethelcomposite.modules.core.objects.ModuleRecipe;
+import me.bam6561.aethelcomposite.modules.core.objects.recipe.ModuleRecipe;
 import org.jetbrains.annotations.NotNull;
 
 /**
