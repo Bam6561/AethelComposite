@@ -5,11 +5,16 @@ import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEntity
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEvent;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractEntityManager;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractManager;
+import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
+import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.PlayerInventory;
 
 /**
  * Collection of player interaction listeners.
@@ -21,7 +26,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
  * </ul>
  *
  * @author Danny Nguyen
- * @version 1.0.88
+ * @version 1.0.112
  * @since 1.0.7
  */
 public class PlayerListener implements Listener {
@@ -43,12 +48,22 @@ public class PlayerListener implements Listener {
 
   /**
    * Routes player interactions.
+   * <p>
+   * Prevents incorrect use of {@link ModuleItemStack} if either
+   * item in main or off-hand has an {@link Namespaced.Key.Item#ID}.
    *
    * @param event player interact event
    */
   @EventHandler
   private void onPlayerInteract(PlayerInteractEvent event) {
-    if (event.getPlayer().isSneaking()) {
+    Player player = event.getPlayer();
+    PlayerInventory pInv = player.getInventory();
+
+    if (ItemUtils.Read.getItemID(pInv.getItemInMainHand()) != null || ItemUtils.Read.getItemID(pInv.getItemInOffHand()) != null) {
+      event.setCancelled(true);
+    }
+
+    if (player.isSneaking()) {
       SneakInteractEvent sneakInteractEvent = new SneakInteractEvent(event);
       Bukkit.getPluginManager().callEvent(sneakInteractEvent);
     }
@@ -56,11 +71,21 @@ public class PlayerListener implements Listener {
 
   /**
    * Routes player interactions with entities.
+   * <p>
+   * Prevents incorrect use of {@link ModuleItemStack} if either
+   * item in main or off-hand has an {@link Namespaced.Key.Item#ID}.
    *
    * @param event player interact entity event
    */
   @EventHandler
   private void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+    Player player = event.getPlayer();
+    PlayerInventory pInv = player.getInventory();
+
+    if (ItemUtils.Read.getItemID(pInv.getItemInMainHand()) != null || ItemUtils.Read.getItemID(pInv.getItemInOffHand()) != null) {
+      event.setCancelled(true);
+    }
+
     if (event.getPlayer().isSneaking()) {
       SneakInteractEntityEvent sneakInteractEntityEvent = new SneakInteractEntityEvent(event);
       Bukkit.getPluginManager().callEvent(sneakInteractEntityEvent);

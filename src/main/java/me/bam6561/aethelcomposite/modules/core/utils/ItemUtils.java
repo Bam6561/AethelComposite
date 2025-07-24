@@ -248,7 +248,7 @@ public class ItemUtils {
    * Reads ItemStacks with metadata.
    *
    * @author Danny Nguyen
-   * @version 1.0.105
+   * @version 1.0.112
    * @since 1.0.16
    */
   public static class Read {
@@ -304,8 +304,10 @@ public class ItemUtils {
      * @return item's {@link Namespaced.Key.Item#ID}
      */
     @Nullable
-    public static String getItemID(@NotNull ItemStack item) {
-      Objects.requireNonNull(item, "Null item");
+    public static String getItemID(ItemStack item) {
+      if (item == null) {
+        return null;
+      }
       if (!item.hasItemMeta()) {
         return null;
       }
