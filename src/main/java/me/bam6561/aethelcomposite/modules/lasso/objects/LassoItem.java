@@ -10,9 +10,7 @@ import me.bam6561.aethelcomposite.modules.lasso.events.LassoCaptureEvent;
 import me.bam6561.aethelcomposite.modules.lasso.events.LassoReleaseEvent;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -36,35 +34,35 @@ import java.util.Set;
  * and {@link #releaseEntity(PlayerInteractEvent)}, depending on their tier.
  *
  * @author Danny Nguyen
- * @version 1.0.111
+ * @version 1.1.0
  * @since 1.0.86
  */
 public class LassoItem extends ModuleItemStack {
   /**
    * Entity types an {@link Lasso.Item#IRON_LASSO} can capture.
    */
-  private static Set<EntityType> ironTier = Set.of(EntityType.CHICKEN, EntityType.COW, EntityType.SHEEP, EntityType.PIG);
+  private static final Set<EntityType> ironTier = Set.of(EntityType.CHICKEN, EntityType.COW, EntityType.SHEEP, EntityType.PIG);
 
   /**
    * New entity types an {@link Lasso.Item#GOLDEN_LASSO} can capture.
    * <p>
    * Chain previous tiers together to get a full set of captureable entity types.
    */
-  private static Set<EntityType> goldenTier = Set.of(EntityType.ALLAY, EntityType.ARMADILLO, EntityType.AXOLOTL, EntityType.BAT, EntityType.BEE, EntityType.CAMEL, EntityType.CAT, EntityType.COD, EntityType.DOLPHIN, EntityType.DONKEY, EntityType.FOX, EntityType.FROG, EntityType.GLOW_SQUID, EntityType.GOAT, EntityType.HAPPY_GHAST, EntityType.HORSE, EntityType.LLAMA, EntityType.MOOSHROOM, EntityType.MULE, EntityType.OCELOT, EntityType.PANDA, EntityType.PARROT, EntityType.POLAR_BEAR, EntityType.PUFFERFISH, EntityType.RABBIT, EntityType.SALMON, EntityType.SHEEP, EntityType.SKELETON_HORSE, EntityType.SNIFFER, EntityType.SNOW_GOLEM, EntityType.SQUID, EntityType.STRIDER, EntityType.TADPOLE, EntityType.TRADER_LLAMA, EntityType.TROPICAL_FISH, EntityType.TURTLE, EntityType.WOLF, EntityType.ZOMBIE_HORSE);
+  private static final Set<EntityType> goldenTier = Set.of(EntityType.ALLAY, EntityType.ARMADILLO, EntityType.AXOLOTL, EntityType.BAT, EntityType.BEE, EntityType.CAMEL, EntityType.CAT, EntityType.COD, EntityType.DOLPHIN, EntityType.DONKEY, EntityType.FOX, EntityType.FROG, EntityType.GLOW_SQUID, EntityType.GOAT, EntityType.HAPPY_GHAST, EntityType.HORSE, EntityType.LLAMA, EntityType.MOOSHROOM, EntityType.MULE, EntityType.OCELOT, EntityType.PANDA, EntityType.PARROT, EntityType.POLAR_BEAR, EntityType.PUFFERFISH, EntityType.RABBIT, EntityType.SALMON, EntityType.SHEEP, EntityType.SKELETON_HORSE, EntityType.SNIFFER, EntityType.SNOW_GOLEM, EntityType.SQUID, EntityType.STRIDER, EntityType.TADPOLE, EntityType.TRADER_LLAMA, EntityType.TROPICAL_FISH, EntityType.TURTLE, EntityType.WOLF, EntityType.ZOMBIE_HORSE);
 
   /**
    * New entity types an {@link Lasso.Item#DIAMOND_LASSO} can capture.
    * <p>
    * Chain previous tiers together to get a full set of captureable entity types.
    */
-  private static Set<EntityType> diamondTier = Set.of(EntityType.BLAZE, EntityType.BOGGED, EntityType.BREEZE, EntityType.CAVE_SPIDER, EntityType.CREAKING, EntityType.CREEPER, EntityType.DROWNED, EntityType.ELDER_GUARDIAN, EntityType.ENDERMAN, EntityType.ENDERMITE, EntityType.EVOKER, EntityType.GHAST, EntityType.GUARDIAN, EntityType.HOGLIN, EntityType.HUSK, EntityType.IRON_GOLEM, EntityType.MAGMA_CUBE, EntityType.PHANTOM, EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.PILLAGER, EntityType.RAVAGER, EntityType.SHULKER, EntityType.SILVERFISH, EntityType.SKELETON, EntityType.SLIME, EntityType.SPIDER, EntityType.STRAY, EntityType.VEX, EntityType.VINDICATOR, EntityType.WITCH, EntityType.WITHER_SKELETON, EntityType.ZOGLIN, EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.ZOMBIFIED_PIGLIN);
+  private static final Set<EntityType> diamondTier = Set.of(EntityType.BLAZE, EntityType.BOGGED, EntityType.BREEZE, EntityType.CAVE_SPIDER, EntityType.CREAKING, EntityType.CREEPER, EntityType.DROWNED, EntityType.ELDER_GUARDIAN, EntityType.ENDERMAN, EntityType.ENDERMITE, EntityType.EVOKER, EntityType.GHAST, EntityType.GUARDIAN, EntityType.HOGLIN, EntityType.HUSK, EntityType.IRON_GOLEM, EntityType.MAGMA_CUBE, EntityType.PHANTOM, EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.PILLAGER, EntityType.RAVAGER, EntityType.SHULKER, EntityType.SILVERFISH, EntityType.SKELETON, EntityType.SLIME, EntityType.SPIDER, EntityType.STRAY, EntityType.VEX, EntityType.VINDICATOR, EntityType.WITCH, EntityType.WITHER_SKELETON, EntityType.ZOGLIN, EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.ZOMBIFIED_PIGLIN);
 
   /**
    * New entity types an {@link Lasso.Item#EMERALD_LASSO} can capture.
    * <p>
    * Chain previous tiers together to get a full set of captureable entity types.
    */
-  private static Set<EntityType> emeraldTier = Set.of(EntityType.VILLAGER, EntityType.WANDERING_TRADER);
+  private static final Set<EntityType> emeraldTier = Set.of(EntityType.VILLAGER, EntityType.WANDERING_TRADER);
 
   /**
    * Associates the LassoItem with its item.
@@ -211,7 +209,9 @@ public class LassoItem extends ModuleItemStack {
       player.getWorld().dropItem(player.getLocation(), lasso);
     }
 
-    player.getWorld().playSound(player.getEyeLocation(), Sound.ITEM_LEAD_TIED, 1, 1);
+    World world = player.getWorld();
+    world.playSound(player.getEyeLocation(), Sound.ITEM_LEAD_TIED, 1, 1);
+    world.spawnParticle(Particle.POOF, entity.getLocation(), 10, 0.1, 0.1, 0.1, 0.075);
     entity.remove();
   }
 
@@ -261,7 +261,9 @@ public class LassoItem extends ModuleItemStack {
       player.getWorld().dropItem(player.getLocation(), lasso);
     }
 
-    player.getWorld().playSound(player.getEyeLocation(), Sound.ITEM_LEAD_UNTIED, 1, 1);
+    World world = player.getWorld();
+    world.playSound(player.getEyeLocation(), Sound.ITEM_LEAD_UNTIED, 1, 1);
+    world.spawnParticle(Particle.POOF, loc, 10, 0.1, 0.1, 0.1, 0.075);
     EntityUtils.Data.decodeEntityString(entityData, loc);
   }
 }
