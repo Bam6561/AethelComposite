@@ -1,8 +1,7 @@
 package me.bam6561.aethelcomposite.utils;
 
-import me.bam6561.aethelcomposite.modules.core.references.Item;
-import me.bam6561.aethelcomposite.modules.core.references.Item.PlayerHead;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
+import me.bam6561.aethelcomposite.modules.core.references.PlayerHead;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -42,7 +41,7 @@ public class ItemUtils {
    * Creates and serializes ItemStacks with metadata.
    *
    * @author Danny Nguyen
-   * @version 1.0.91
+   * @version 1.0.101
    * @since 1.0.16
    */
   public static class Create {
@@ -212,7 +211,7 @@ public class ItemUtils {
      * @return named player head texture
      */
     @NotNull
-    public static ItemStack createPluginPlayerHead(@NotNull Item.PlayerHead head, @NotNull String name) {
+    public static ItemStack createPluginPlayerHead(@NotNull PlayerHead head, @NotNull String name) {
       Objects.requireNonNull(head, "Null head");
       Objects.requireNonNull(name, "Null name");
       ItemStack item = head.asItem();
@@ -231,7 +230,7 @@ public class ItemUtils {
      * @return named player head texture with lore
      */
     @NotNull
-    public static ItemStack createPluginPlayerHead(@NotNull Item.PlayerHead head, @NotNull String name, @NotNull List<String> lore) {
+    public static ItemStack createPluginPlayerHead(@NotNull PlayerHead head, @NotNull String name, @NotNull List<String> lore) {
       Objects.requireNonNull(head, "Null head");
       Objects.requireNonNull(name, "Null name");
       Objects.requireNonNull(lore, "Null lore");
