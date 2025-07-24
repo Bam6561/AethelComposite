@@ -149,7 +149,7 @@ public class GUIOpenEvent extends Event implements Cancellable {
   }
 
   /**
-   * Cause of the {@link GUIOpenEvent).
+   * Cause of the {@link GUIOpenEvent}.
    *
    * @author Danny Nguyen
    * @version 1.0.4

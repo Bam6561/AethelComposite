@@ -6,10 +6,10 @@ import me.bam6561.aethelcomposite.modules.core.guis.GUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
 import me.bam6561.aethelcomposite.modules.core.guis.markers.CachedInventory;
 import me.bam6561.aethelcomposite.modules.core.objects.recipe.ModuleRecipe;
-import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.objects.recipe.RecipeCraftOperation;
-import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
+import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
+import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -25,19 +25,19 @@ import java.util.*;
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.92
+ * @version 1.0.108
  * @since 1.0.3
  */
 public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
   /**
-   * {@link CachedInventory}
-   */
-  private static final Inventory cachedInventory = initializeCachedInventory();
-
-  /**
    * Inventory slot : {@link ModuleRecipe}
    */
   private static final Map<Integer, ModuleRecipe> cachedModuleRecipes = new HashMap<>();
+
+  /**
+   * {@link CachedInventory}
+   */
+  private static final Inventory cachedInventory = initializeCachedInventory();
 
   /**
    * No parameter constructor.
