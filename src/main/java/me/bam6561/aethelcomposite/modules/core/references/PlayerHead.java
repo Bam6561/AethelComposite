@@ -1,5 +1,6 @@
 package me.bam6561.aethelcomposite.modules.core.references;
 
+import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.references.markers.ItemStackValue;
 import me.bam6561.aethelcomposite.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;

@@ -1,7 +1,7 @@
 package me.bam6561.aethelcomposite.modules.core.objects.item;
 
 import me.bam6561.aethelcomposite.Plugin;
-import me.bam6561.aethelcomposite.modules.core.references.Module;
+import me.bam6561.aethelcomposite.modules.core.references.ModuleName;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.utils.TextUtils;
 import org.bukkit.inventory.ItemStack;
@@ -14,10 +14,10 @@ import java.util.Objects;
 /**
  * Represents a stack of items managed by the {@link Plugin}.
  * <p>
- * Unlike ItemStacks, ModuleItemStacks belong to a {@link Module.Name} and have a {@link Namespaced.Key.Item#ID}.
+ * Unlike ItemStacks, ModuleItemStacks belong to a {@link ModuleName} and have a {@link Namespaced.Key.Item#ID}.
  *
  * @author Danny Nguyen
- * @version 1.0.94
+ * @version 1.0.102
  * @since 1.0.78
  */
 public class ModuleItemStack {
@@ -66,12 +66,12 @@ public class ModuleItemStack {
   }
 
   /**
-   * Gets the {@link Module.Name}.
+   * Gets the {@link ModuleName}.
    *
-   * @return {@link Module.Name}
+   * @return {@link ModuleName}
    */
-  public Module.Name getModuleName() {
-    return Module.Name.valueOf(TextUtils.Format.asEnum(this.itemData.get(Namespaced.Key.Core.MODULE.asKey(), PersistentDataType.STRING)));
+  public ModuleName getModuleName() {
+    return ModuleName.valueOf(TextUtils.Format.asEnum(this.itemData.get(Namespaced.Key.Core.MODULE.asKey(), PersistentDataType.STRING)));
   }
 
   /**
