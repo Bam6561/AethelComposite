@@ -27,7 +27,7 @@ public class EntityUtils {
    * Spawns entities.
    *
    * @author Danny Nguyen
-   * @version 1.0.57
+   * @version 1.0.104
    * @since 1.0.57
    */
   public static class Spawn {
@@ -45,7 +45,9 @@ public class EntityUtils {
      * @param spawns       number of spawns
      * @param isRandomized natural randomization
      */
-    public void spawnEntity(Location location, EntityType entityType, int spawns, boolean isRandomized) {
+    public void spawnEntity(@NotNull Location location, @NotNull EntityType entityType, int spawns, boolean isRandomized) {
+      Objects.requireNonNull(location, "Null location");
+      Objects.requireNonNull(entityType, "Null entity type");
       for (int i = 0; i < spawns; i++) {
         location.getWorld().spawnEntity(location, entityType, isRandomized);
       }
@@ -56,7 +58,7 @@ public class EntityUtils {
    * Serializes and deserializes Entities.
    *
    * @author Danny Nguyen
-   * @version 1.0.66
+   * @version 1.0.104
    * @since 1.0.59
    */
   public static class Data {
@@ -88,6 +90,7 @@ public class EntityUtils {
     @NotNull
     public static Entity decodeEntityString(@NotNull String data, @NotNull Location location) {
       Objects.requireNonNull(data, "Null data");
+      Objects.requireNonNull(location, "Null location");
       return Bukkit.getEntityFactory().createEntitySnapshot(data).createEntity(location);
     }
   }
