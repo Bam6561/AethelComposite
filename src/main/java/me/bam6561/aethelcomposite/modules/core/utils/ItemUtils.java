@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.utils;
+package me.bam6561.aethelcomposite.modules.core.utils;
 
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.PlayerHead;

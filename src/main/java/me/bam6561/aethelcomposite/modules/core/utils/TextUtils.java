@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.utils;
+package me.bam6561.aethelcomposite.modules.core.utils;
 
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;

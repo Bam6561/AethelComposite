@@ -8,7 +8,7 @@ import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.references.markers.ItemStackValue;
 import me.bam6561.aethelcomposite.modules.core.references.markers.ModuleRecipeValue;
 import me.bam6561.aethelcomposite.modules.core.references.markers.NamespacedKeyValue;
-import me.bam6561.aethelcomposite.utils.ItemUtils;
+import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

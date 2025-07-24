@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.templates;
+package me.bam6561.aethelcomposite.modules.core.templates;
 
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.guis.GUI;

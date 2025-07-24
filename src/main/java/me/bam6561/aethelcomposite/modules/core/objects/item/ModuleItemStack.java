@@ -3,7 +3,7 @@ package me.bam6561.aethelcomposite.modules.core.objects.item;
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.references.ModuleName;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
-import me.bam6561.aethelcomposite.utils.TextUtils;
+import me.bam6561.aethelcomposite.modules.core.utils.TextUtils;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;

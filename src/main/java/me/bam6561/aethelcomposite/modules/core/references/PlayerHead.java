@@ -2,7 +2,7 @@ package me.bam6561.aethelcomposite.modules.core.references;
 
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.references.markers.ItemStackValue;
-import me.bam6561.aethelcomposite.utils.ItemUtils;
+import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

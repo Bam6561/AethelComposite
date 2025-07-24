@@ -9,7 +9,7 @@ import me.bam6561.aethelcomposite.modules.core.objects.recipe.ModuleRecipe;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.objects.recipe.RecipeCraftOperation;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
-import me.bam6561.aethelcomposite.utils.ItemUtils;
+import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

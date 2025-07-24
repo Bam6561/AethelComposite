@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.templates;
+package me.bam6561.aethelcomposite.modules.core.templates;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

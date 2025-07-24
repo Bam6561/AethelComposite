@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.utils;
+package me.bam6561.aethelcomposite.modules.core.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
