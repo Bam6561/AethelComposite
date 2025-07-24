@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
@@ -38,7 +39,7 @@ public class ItemUtils {
   }
 
   /**
-   * Creates and serializes ItemStacks with metadata.
+   * Creates ItemStacks with metadata.
    *
    * @author Danny Nguyen
    * @version 1.0.101
@@ -244,10 +245,10 @@ public class ItemUtils {
   }
 
   /**
-   * Reads and decodes ItemStacks with metadata.
+   * Reads ItemStacks with metadata.
    *
    * @author Danny Nguyen
-   * @version 1.0.53
+   * @version 1.0.105
    * @since 1.0.16
    */
   public static class Read {
@@ -297,10 +298,10 @@ public class ItemUtils {
     }
 
     /**
-     * Gets the item's {@link Namespaced.Key#ITEM_ID}, if it exists.
+     * Gets the item's {@link Namespaced.Key.Item#ID}, if it exists.
      *
      * @param item interacting item
-     * @return item's {@link Namespaced.Key#ITEM_ID}
+     * @return item's {@link Namespaced.Key.Item#ID}
      */
     @Nullable
     public static String getItemID(@NotNull ItemStack item) {
@@ -308,7 +309,11 @@ public class ItemUtils {
       if (!item.hasItemMeta()) {
         return null;
       }
-      return item.getItemMeta().getPersistentDataContainer().get(Namespaced.Key.ITEM_ID.asKey(), PersistentDataType.STRING);
+      PersistentDataContainer itemData = item.getItemMeta().getPersistentDataContainer();
+      if (!itemData.has(Namespaced.Key.Item.ID.asKey())) {
+        return null;
+      }
+      return itemData.get(Namespaced.Key.Item.ID.asKey(), PersistentDataType.STRING);
     }
   }
 
