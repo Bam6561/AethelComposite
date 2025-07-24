@@ -148,7 +148,7 @@ public class Lasso {
    * Lasso {@link ModuleRecipe ModuleRecipes}.
    *
    * @author Danny Nguyen
-   * @version 1.0.89
+   * @version 1.0.110
    * @since 1.0.89
    */
   public enum Recipe implements ModuleRecipeValue {
@@ -187,13 +187,13 @@ public class Lasso {
     }
 
     /**
-     * Gets the {@link ModuleRecipe}.
+     * Gets a copy of the {@link ModuleRecipe}.
      *
-     * @return {@link ModuleRecipe}
+     * @return copy of the {@link ModuleRecipe}
      */
     @NotNull
     public ModuleRecipe asModuleRecipe() {
-      return this.moduleRecipe;
+      return new ModuleRecipe(this.moduleRecipe);
     }
   }
 }

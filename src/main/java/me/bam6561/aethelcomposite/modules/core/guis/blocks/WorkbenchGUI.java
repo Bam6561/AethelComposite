@@ -25,7 +25,7 @@ import java.util.*;
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.108
+ * @version 1.0.110
  * @since 1.0.3
  */
 public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
@@ -60,7 +60,7 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
 
     for (int invSlot = 0; invSlot < moduleRecipes.size(); invSlot++) {
       ModuleRecipe recipe = moduleRecipes.get(invSlot);
-      cachedModuleRecipes.put(invSlot, recipe);
+      cachedModuleRecipes.put(invSlot, new ModuleRecipe(recipe));
 
       List<ItemStack> results = recipe.getResults();
       List<ItemStack> ingredients = recipe.getIngredients();
