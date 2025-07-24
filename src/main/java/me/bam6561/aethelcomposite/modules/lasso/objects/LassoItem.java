@@ -34,7 +34,7 @@ import java.util.Set;
  * and {@link #releaseEntity(PlayerInteractEvent)}, depending on their tier.
  *
  * @author Danny Nguyen
- * @version 1.0.89
+ * @version 1.0.109
  * @since 1.0.86
  */
 public class LassoItem extends ModuleItemStack {
@@ -71,7 +71,12 @@ public class LassoItem extends ModuleItemStack {
    */
   public LassoItem(@NotNull ItemStack item) {
     super(item);
-    Lasso.Item.valueOf(TextUtils.Format.asEnum(getItemID()));
+    String itemID = getItemID();
+    if (itemID.endsWith("'d")) {
+      Lasso.Item.valueOf(TextUtils.Format.asEnum(itemID.substring(0, itemID.length() - 2)));
+    } else {
+      Lasso.Item.valueOf(TextUtils.Format.asEnum(itemID));
+    }
   }
 
   /**
@@ -119,6 +124,35 @@ public class LassoItem extends ModuleItemStack {
     event.setCancelled(true);
 
     retrieveEntityFromData(player, inv);
+  }
+
+  /**
+   * Releases the entity from the {@link Lasso.Item}.
+   *
+   * @param event player interact event
+   */
+  public void releaseEntity(@NotNull PlayerInteractEntityEvent event) {
+    Player player = event.getPlayer();
+    PlayerInventory inv = player.getInventory();
+
+    String entityData = inv.getItemInMainHand().getItemMeta().getPersistentDataContainer().get(Lasso.Key.ENTITY_DATA.asKey(), PersistentDataType.STRING);
+    LassoReleaseEvent lassoRelease = new LassoReleaseEvent(player, entityData);
+    Bukkit.getPluginManager().callEvent(lassoRelease);
+    if (lassoRelease.isCancelled()) {
+      return;
+    }
+    event.setCancelled(true);
+
+    retrieveEntityFromData(player, inv);
+  }
+
+  /**
+   * If the {@link Lasso.Item} has {@link Lasso.Key#ENTITY_DATA}.
+   *
+   * @return if the {@link Lasso.Item} has {@link Lasso.Key#ENTITY_DATA}
+   */
+  public boolean hasEntityData() {
+    return getItemData().has(Lasso.Key.ENTITY_DATA.asKey(), PersistentDataType.STRING);
   }
 
   /**

@@ -1,10 +1,10 @@
 package me.bam6561.aethelcomposite.modules.core.managers;
 
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEntityEvent;
-import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
-import me.bam6561.aethelcomposite.modules.lasso.objects.LassoItem;
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
+import me.bam6561.aethelcomposite.modules.lasso.objects.LassoItem;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +15,7 @@ import java.util.Objects;
  * Manages {@link SneakInteractEntityEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.96
+ * @version 1.0.109
  * @since 1.0.8
  */
 public class SneakInteractEntityManager {
@@ -58,7 +58,14 @@ public class SneakInteractEntityManager {
   private void activateItemAbility(PlayerInteractEntityEvent event, ItemStack item) {
     ModuleItemStack moduleItem = new ModuleItemStack(item);
     switch (moduleItem.getModuleName()) {
-      case LASSO -> new LassoItem(moduleItem.getItem()).captureEntity(event);
+      case LASSO -> {
+        LassoItem lassoItem = new LassoItem(moduleItem.getItem());
+        if (!lassoItem.hasEntityData()) {
+          lassoItem.captureEntity(event);
+        } else {
+          lassoItem.releaseEntity(event);
+        }
+      }
     }
   }
 }

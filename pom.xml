@@ -6,7 +6,7 @@
 
     <groupId>Bam6561</groupId>
     <artifactId>AethelComposite</artifactId>
-    <version>1.0.108</version>
+    <version>1.0.109</version>
 
     <build>
         <plugins>

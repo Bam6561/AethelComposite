@@ -5,10 +5,10 @@ import me.bam6561.aethelcomposite.modules.core.events.gui.GUIOpenEvent;
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEvent;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.WorkbenchGUI;
 import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
-import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
-import me.bam6561.aethelcomposite.modules.lasso.objects.LassoItem;
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
+import me.bam6561.aethelcomposite.modules.lasso.objects.LassoItem;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -21,7 +21,7 @@ import java.util.Objects;
  * Manages {@link SneakInteractEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.95
+ * @version 1.0.109
  * @since 1.0.8
  */
 public class SneakInteractManager {
@@ -95,7 +95,12 @@ public class SneakInteractManager {
 
     ModuleItemStack moduleItem = new ModuleItemStack(item);
     switch (moduleItem.getModuleName()) {
-      case LASSO -> new LassoItem(moduleItem.getItem()).releaseEntity(event);
+      case LASSO -> {
+        LassoItem lassoItem = new LassoItem(moduleItem.getItem());
+        if (lassoItem.hasEntityData()) {
+          lassoItem.releaseEntity(event);
+        }
+      }
     }
   }
 }
