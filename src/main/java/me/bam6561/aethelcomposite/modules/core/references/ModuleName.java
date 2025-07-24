@@ -2,6 +2,7 @@ package me.bam6561.aethelcomposite.modules.core.references;
 
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.references.markers.StringValue;
+import me.bam6561.aethelcomposite.modules.hook.references.Hook;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,10 +10,15 @@ import org.jetbrains.annotations.NotNull;
  * {@link Plugin} modules.
  *
  * @author Danny Nguyen
- * @version 1.0.102
+ * @version 1.1.2
  * @since 1.0.102
  */
 public enum ModuleName implements StringValue {
+  /**
+   * {@link Hook}
+   */
+  HOOK("hook"),
+
   /**
    * {@link Lasso}
    */

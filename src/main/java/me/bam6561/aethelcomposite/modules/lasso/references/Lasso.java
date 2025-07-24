@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 /**
- * Lasso {@link Module} references.
+ * Lasso {@link ModuleName} references.
  *
  * @author Danny Nguyen
  * @version 1.0.89
