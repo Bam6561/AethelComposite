@@ -3,12 +3,12 @@ package me.bam6561.aethelcomposite.modules.lasso.objects;
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
-import me.bam6561.aethelcomposite.modules.lasso.events.LassoCaptureEvent;
-import me.bam6561.aethelcomposite.modules.lasso.events.LassoReleaseEvent;
-import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import me.bam6561.aethelcomposite.modules.core.utils.EntityUtils;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import me.bam6561.aethelcomposite.modules.core.utils.TextUtils;
+import me.bam6561.aethelcomposite.modules.lasso.events.LassoCaptureEvent;
+import me.bam6561.aethelcomposite.modules.lasso.events.LassoReleaseEvent;
+import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -29,6 +29,9 @@ import java.util.Set;
 
 /**
  * Represents a {@link Lasso.Item}.
+ * <p>
+ * LassoItems are reusable tools that can {@link #captureEntity(PlayerInteractEntityEvent)}
+ * and {@link #releaseEntity(PlayerInteractEvent)}, depending on their tier.
  *
  * @author Danny Nguyen
  * @version 1.0.89

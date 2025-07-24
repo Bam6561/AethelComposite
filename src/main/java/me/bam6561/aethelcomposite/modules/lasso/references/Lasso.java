@@ -32,6 +32,45 @@ public class Lasso {
   }
 
   /**
+   * Reserved namespaced keys.
+   *
+   * @author Danny Nguyen
+   * @version 1.0.107
+   * @since 1.0.61
+   */
+  public enum Key implements NamespacedKeyValue {
+    /**
+     * Stored entity data.
+     */
+    ENTITY_DATA(new NamespacedKey(Plugin.getInstance(), Namespaced.Header.ITEM.asString() + "lasso.entity_data"));
+
+    /**
+     * Namespaced key.
+     */
+    private final NamespacedKey key;
+
+    /**
+     * Associates the entry with its namespaced key.
+     *
+     * @param key namespaced key
+     */
+    Key(NamespacedKey key) {
+      this.key = key;
+    }
+
+    /**
+     * Gets the namespaced key.
+     *
+     * @return namespaced key
+     */
+    @Override
+    @NotNull
+    public NamespacedKey asKey() {
+      return this.key;
+    }
+  }
+
+  /**
    * Lasso items.
    *
    * @author Danny Nguyen
@@ -155,45 +194,6 @@ public class Lasso {
     @NotNull
     public ModuleRecipe asModuleRecipe() {
       return this.moduleRecipe;
-    }
-  }
-
-  /**
-   * Reserved namespaced keys.
-   *
-   * @author Danny Nguyen
-   * @version 1.0.89
-   * @since 1.0.61
-   */
-  public enum Key implements NamespacedKeyValue {
-    /**
-     * Stored entity data.
-     */
-    ENTITY_DATA(new NamespacedKey(Plugin.getInstance(), Namespaced.Header.ITEM.asString() + "lasso_entity_data"));
-
-    /**
-     * Namespaced key.
-     */
-    private final NamespacedKey key;
-
-    /**
-     * Associates the entry with its namespaced key.
-     *
-     * @param key namespaced key
-     */
-    Key(NamespacedKey key) {
-      this.key = key;
-    }
-
-    /**
-     * Gets the namespaced key.
-     *
-     * @return namespaced key
-     */
-    @Override
-    @NotNull
-    public NamespacedKey asKey() {
-      return this.key;
     }
   }
 }
