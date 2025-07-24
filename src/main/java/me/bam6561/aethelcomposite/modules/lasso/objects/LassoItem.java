@@ -11,6 +11,8 @@ import me.bam6561.aethelcomposite.modules.lasso.events.LassoReleaseEvent;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -34,7 +36,7 @@ import java.util.Set;
  * and {@link #releaseEntity(PlayerInteractEvent)}, depending on their tier.
  *
  * @author Danny Nguyen
- * @version 1.0.109
+ * @version 1.0.111
  * @since 1.0.86
  */
 public class LassoItem extends ModuleItemStack {
@@ -123,7 +125,7 @@ public class LassoItem extends ModuleItemStack {
     }
     event.setCancelled(true);
 
-    retrieveEntityFromData(player, inv);
+    retrieveEntityFromData(player, inv, event.getClickedBlock().getLocation().add(event.getClickedPosition()));
   }
 
   /**
@@ -143,7 +145,7 @@ public class LassoItem extends ModuleItemStack {
     }
     event.setCancelled(true);
 
-    retrieveEntityFromData(player, inv);
+    retrieveEntityFromData(player, inv, event.getRightClicked().getLocation());
   }
 
   /**
@@ -209,16 +211,19 @@ public class LassoItem extends ModuleItemStack {
       player.getWorld().dropItem(player.getLocation(), lasso);
     }
 
+    player.getWorld().playSound(player.getEyeLocation(), Sound.ITEM_LEAD_TIED, 1, 1);
     entity.remove();
   }
 
   /**
-   * Retrieves the entity {@link Lasso.Key#ENTITY_DATA} from the {@link Lasso.Item} and spawns it into the world.
+   * Retrieves the entity {@link Lasso.Key#ENTITY_DATA} from the
+   * {@link Lasso.Item} and spawns it into the world at the provided location.
    *
    * @param player interacting player
    * @param inv    player inventory
+   * @param loc    location
    */
-  private void retrieveEntityFromData(Player player, PlayerInventory inv) {
+  private void retrieveEntityFromData(Player player, PlayerInventory inv, Location loc) {
     ItemStack mainHandItem = inv.getItemInMainHand();
     ItemStack lasso = mainHandItem.clone();
     lasso.setAmount(1);
@@ -256,6 +261,7 @@ public class LassoItem extends ModuleItemStack {
       player.getWorld().dropItem(player.getLocation(), lasso);
     }
 
-    EntityUtils.Data.decodeEntityString(entityData, player.getLocation().add(player.getEyeLocation().getDirection().multiply(5)));
+    player.getWorld().playSound(player.getEyeLocation(), Sound.ITEM_LEAD_UNTIED, 1, 1);
+    EntityUtils.Data.decodeEntityString(entityData, loc);
   }
 }
