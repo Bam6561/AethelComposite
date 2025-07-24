@@ -13,6 +13,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -34,7 +35,7 @@ import java.util.Set;
  * and {@link #releaseEntity(PlayerInteractEvent)}, depending on their tier.
  *
  * @author Danny Nguyen
- * @version 1.1.0
+ * @version 1.1.1
  * @since 1.0.86
  */
 public class LassoItem extends ModuleItemStack {
@@ -85,9 +86,13 @@ public class LassoItem extends ModuleItemStack {
    * @param event player interact entity event
    */
   public void captureEntity(@NotNull PlayerInteractEntityEvent event) {
+    Entity entity = event.getRightClicked();
+    if (!(entity instanceof LivingEntity)) {
+      return;
+    }
+
     Player player = event.getPlayer();
     PlayerInventory inv = player.getInventory();
-    Entity entity = event.getRightClicked();
 
     Lasso.Item tier = Lasso.Item.valueOf(TextUtils.Format.asEnum(getItemID()));
     EntityType entityType = entity.getType();
