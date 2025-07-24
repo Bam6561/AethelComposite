@@ -2,7 +2,7 @@ package me.bam6561.aethelcomposite.modules.core.managers;
 
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.guis.GUI;
-import me.bam6561.aethelcomposite.modules.core.guis.InventoryHandler;
+import me.bam6561.aethelcomposite.modules.core.guis.markers.InventoryHandler;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;

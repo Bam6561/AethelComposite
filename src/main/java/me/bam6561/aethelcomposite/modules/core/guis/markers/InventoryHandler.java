@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.modules.core.guis;
+package me.bam6561.aethelcomposite.modules.core.guis.markers;
 
 import me.bam6561.aethelcomposite.Plugin;
 import org.bukkit.event.inventory.InventoryClickEvent;

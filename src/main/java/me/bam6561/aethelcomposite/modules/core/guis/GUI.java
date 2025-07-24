@@ -1,6 +1,7 @@
 package me.bam6561.aethelcomposite.modules.core.guis;
 
 import me.bam6561.aethelcomposite.Plugin;
+import me.bam6561.aethelcomposite.modules.core.guis.markers.InventoryHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;

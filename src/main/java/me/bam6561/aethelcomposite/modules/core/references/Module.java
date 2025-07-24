@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * {@link Plugin} modules.
  * <p>
- * Modules are defined as add-ons that function independently and can be toggled on or off separately.
+ * Modules are defined as add-ons that function independently.
  *
  * @author Danny Nguyen
  * @version 1.0.37

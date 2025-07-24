@@ -2,7 +2,6 @@ package me.bam6561.aethelcomposite.modules.core.references;
 
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.references.markers.ChatColorValue;
-import me.bam6561.aethelcomposite.modules.core.references.markers.StringValue;
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,34 +23,34 @@ public class Text {
    * Information type colors.
    *
    * @author Danny Nguyen
-   * @version 1.0.34
+   * @version 1.0.99
    * @since 1.0.18
    */
-  public enum Label implements ChatColorValue, StringValue {
+  public enum Label implements ChatColorValue {
     /**
      * Approval or confirmation.
      */
-    VALID(ChatColor.GREEN, "green"),
+    VALID(ChatColor.GREEN),
 
     /**
      * Rejection or denial.
      */
-    INVALID(ChatColor.RED, "red"),
+    INVALID(ChatColor.RED),
 
     /**
      * Advice or instruction.
      */
-    TIP(ChatColor.YELLOW, "yellow"),
+    TIP(ChatColor.YELLOW),
 
     /**
      * Ability or skill.
      */
-    ACTION(ChatColor.AQUA, "aqua"),
+    ACTION(ChatColor.AQUA),
 
     /**
      * Data or notes.
      */
-    DETAILS(ChatColor.GRAY, "gray");
+    DETAILS(ChatColor.GRAY);
 
     /**
      * Color.
@@ -59,19 +58,12 @@ public class Text {
     private final ChatColor color;
 
     /**
-     * Color name.
-     */
-    private final String colorName;
-
-    /**
-     * Associates a label with its color and color name.
+     * Associates a label with its color.
      *
-     * @param color     color
-     * @param colorName color name
+     * @param color color
      */
-    Label(ChatColor color, String colorName) {
+    Label(ChatColor color) {
       this.color = color;
-      this.colorName = colorName;
     }
 
     /**
@@ -83,18 +75,6 @@ public class Text {
     @NotNull
     public ChatColor asColor() {
       return this.color;
-    }
-
-
-    /**
-     * Gets the color name.
-     *
-     * @return color name
-     */
-    @Override
-    @NotNull
-    public String asString() {
-      return this.colorName;
     }
   }
 }
