@@ -26,7 +26,7 @@ public class Namespaced {
    * Key headers are divided into categories by period characters for parsing.
    *
    * @author Danny Nguyen
-   * @version 1.0.38
+   * @version 1.1.14
    * @since 1.0.28
    */
   public enum Header implements StringValue {
@@ -34,6 +34,11 @@ public class Namespaced {
      * {@link Plugin}
      */
     AETHEL("aethel."),
+
+    /**
+     * Entity data.
+     */
+    ENTITY(AETHEL.asString() + "entity."),
 
     /**
      * Item data.
@@ -72,7 +77,7 @@ public class Namespaced {
    * Spaces are replaced with underscores.
    *
    * @author Danny Nguyen
-   * @version 1.0.83
+   * @version 1.1.14
    * @since 1.0.83
    */
   public static class Key {
@@ -106,6 +111,45 @@ public class Namespaced {
        * @param key namespaced key
        */
       Core(NamespacedKey key) {
+        this.key = key;
+      }
+
+      /**
+       * Gets the namespaced key.
+       *
+       * @return namespaced key
+       */
+      @Override
+      @NotNull
+      public NamespacedKey asKey() {
+        return this.key;
+      }
+    }
+
+    /**
+     * Entity-related namespaced keys.
+     *
+     * @author Danny Nguyen
+     * @version 1.1.14
+     * @since 1.1.14
+     */
+    public enum Entity implements NamespacedKeyValue {
+      /**
+       * Entity ID.
+       */
+      ID(new NamespacedKey(Plugin.getInstance(), Header.ENTITY.asString() + "id"));
+
+      /**
+       * Namespaced key.
+       */
+      private final NamespacedKey key;
+
+      /**
+       * Associates the entry with the namespaced key.
+       *
+       * @param key namespaced key
+       */
+      Entity(NamespacedKey key) {
         this.key = key;
       }
 
