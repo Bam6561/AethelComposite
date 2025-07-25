@@ -4,14 +4,15 @@ import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.modules.core.utils.TextUtils;
 import me.bam6561.aethelcomposite.modules.hook.references.Hook;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.CrossbowMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a {@link Hook.Item#HOOK_SHOT}
@@ -19,7 +20,7 @@ import java.util.List;
  * HookShotItems are loadable crossbow ammunition that launch the user forward on impact.
  *
  * @author Danny Nguyen
- * @version 1.1.6
+ * @version 1.1.7
  * @since 1.1.6
  */
 public class HookShotItem extends ModuleItemStack {
@@ -38,25 +39,19 @@ public class HookShotItem extends ModuleItemStack {
   /**
    * Loads the crossbow with a {@link Hook.Item#HOOK_SHOT}.
    *
-   * @param event player interact event
+   * @param event    player interact event
+   * @param crossbow crossbow to load
    */
-  public void loadCrossbow(@NotNull PlayerInteractEvent event) {
-    Player player = event.getPlayer();
-    PlayerInventory pInv = player.getInventory();
+  public void loadCrossbow(@NotNull PlayerInteractEvent event, @NotNull ItemStack crossbow) {
+    Objects.requireNonNull(event, "Null event");
+    Objects.requireNonNull(crossbow, "Null crossbow");
+    PlayerInventory pInv = event.getPlayer().getInventory();
 
-    ItemStack mainHandItem = pInv.getItemInMainHand();
-    if (mainHandItem.getType() != Material.CROSSBOW) {
-      return;
-    }
-
-    CrossbowMeta crossbowMeta = (CrossbowMeta) mainHandItem.getItemMeta();
-    if (crossbowMeta.hasChargedProjectiles()) {
-      return;
-    }
-
+    CrossbowMeta crossbowMeta = (CrossbowMeta) crossbow.getItemMeta();
     crossbowMeta.setLore(List.of("Ammunition: Hook Shot"));
+    crossbowMeta.getPersistentDataContainer().set(Hook.Key.PROJECTILE.asKey(), PersistentDataType.STRING, "Hook Shot");
     crossbowMeta.addChargedProjectile(new ItemStack(Material.ARROW));
-    mainHandItem.setItemMeta(crossbowMeta);
+    crossbow.setItemMeta(crossbowMeta);
 
     ItemStack hookShotItem = pInv.getItemInOffHand();
     hookShotItem.setAmount(hookShotItem.getAmount() - 1);

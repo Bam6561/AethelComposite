@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -35,7 +36,7 @@ import java.util.Set;
  * and {@link #releaseEntity(PlayerInteractEvent)}, depending on their tier.
  *
  * @author Danny Nguyen
- * @version 1.1.1
+ * @version 1.1.7
  * @since 1.0.86
  */
 public class LassoItem extends ModuleItemStack {
@@ -71,7 +72,7 @@ public class LassoItem extends ModuleItemStack {
    * @param item interacting item
    */
   public LassoItem(@NotNull ItemStack item) {
-    super(item);
+    super(Objects.requireNonNull(item, "Null item"));
     String itemID = getItemID();
     if (itemID.endsWith("'d")) {
       Lasso.Item.valueOf(TextUtils.Format.asEnum(itemID.substring(0, itemID.length() - 2)));
@@ -86,6 +87,7 @@ public class LassoItem extends ModuleItemStack {
    * @param event player interact entity event
    */
   public void captureEntity(@NotNull PlayerInteractEntityEvent event) {
+    Objects.requireNonNull(event, "Null event");
     Entity entity = event.getRightClicked();
     if (!(entity instanceof LivingEntity)) {
       return;
@@ -117,6 +119,7 @@ public class LassoItem extends ModuleItemStack {
    * @param event player interact event
    */
   public void releaseEntity(@NotNull PlayerInteractEvent event) {
+    Objects.requireNonNull(event, "Null event");
     Player player = event.getPlayer();
     PlayerInventory inv = player.getInventory();
 
@@ -137,6 +140,7 @@ public class LassoItem extends ModuleItemStack {
    * @param event player interact event
    */
   public void releaseEntity(@NotNull PlayerInteractEntityEvent event) {
+    Objects.requireNonNull(event, "Null event");
     Player player = event.getPlayer();
     PlayerInventory inv = player.getInventory();
 
