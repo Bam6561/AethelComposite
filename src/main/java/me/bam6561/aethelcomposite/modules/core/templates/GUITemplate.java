@@ -13,7 +13,7 @@ import java.util.Objects;
  * {@link GUI}.
  *
  * @author Danny Nguyen
- * @version 1.0.12
+ * @version 1.1.10
  * @since 1.0.12
  */
 public class GUITemplate extends GUI {
@@ -55,10 +55,7 @@ public class GUITemplate extends GUI {
     if (cInv == null) {
       return true;
     }
-    if (cInv.getType() == InventoryType.PLAYER) {
-      return true;
-    }
-    return false;
+    return cInv.getType() == InventoryType.PLAYER;
   }
 
   /**

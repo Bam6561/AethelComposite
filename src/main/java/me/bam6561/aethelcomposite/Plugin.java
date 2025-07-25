@@ -1,6 +1,7 @@
 package me.bam6561.aethelcomposite;
 
 import me.bam6561.aethelcomposite.modules.core.listeners.GUIListener;
+import me.bam6561.aethelcomposite.modules.core.listeners.LivingEntityListener;
 import me.bam6561.aethelcomposite.modules.core.listeners.PlayerListener;
 import me.bam6561.aethelcomposite.modules.core.managers.GUIManager;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractEntityManager;
@@ -17,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  * </p>
  *
  * @author Danny Nguyen
- * @version 1.0.106
+ * @version 1.1.10
  * @since 1.0.0
  */
 
@@ -70,6 +71,7 @@ public class Plugin extends JavaPlugin {
   private void registerEventListeners() {
     PluginManager manager = getServer().getPluginManager();
     manager.registerEvents(new GUIListener(), this);
+    manager.registerEvents(new LivingEntityListener(), this);
     manager.registerEvents(new PlayerListener(), this);
   }
 
