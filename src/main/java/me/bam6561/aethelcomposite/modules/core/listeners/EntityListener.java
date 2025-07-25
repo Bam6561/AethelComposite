@@ -7,17 +7,17 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * Collection of living entity interaction listeners.
+ * Collection of entity interaction listeners.
  *
  * @author Danny Nguyen
- * @version 1.1.10
+ * @version 1.1.12
  * @since 1.1.10
  */
-public class LivingEntityListener implements Listener {
+public class EntityListener implements Listener {
   /**
    * No parameter listener.
    */
-  public LivingEntityListener() {
+  public EntityListener() {
   }
 
   /**
