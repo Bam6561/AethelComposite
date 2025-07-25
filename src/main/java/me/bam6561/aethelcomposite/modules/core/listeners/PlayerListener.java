@@ -6,7 +6,6 @@ import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEvent;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractEntityManager;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractManager;
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
-import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -18,6 +17,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import java.util.Set;
+
 /**
  * Collection of player interaction listeners.
  * <p>
@@ -28,10 +29,18 @@ import org.bukkit.inventory.PlayerInventory;
  * </ul>
  *
  * @author Danny Nguyen
- * @version 1.1.8
+ * @version 1.1.9
  * @since 1.0.7
  */
 public class PlayerListener implements Listener {
+  /**
+   * Material types linked to a {@link ModuleItemStack} whose default
+   * interactions should be disabled to prevent incorrect usage.
+   * <p>
+   * See {@link #hasDefaultInteractionsDisabled(Player)}
+   */
+  private static final Set<Material> disabledMaterials = Set.of(Material.LEAD);
+
   /**
    * {@link SneakInteractManager}
    */
@@ -50,23 +59,15 @@ public class PlayerListener implements Listener {
 
   /**
    * Routes player interactions.
-   * <p>
-   * Prevents incorrect use of {@link ModuleItemStack} if either
-   * item in main or off-hand has an {@link Namespaced.Key.Item#ID}.
    *
    * @param event player interact event
    */
   @EventHandler
   private void onPlayerInteract(PlayerInteractEvent event) {
     Player player = event.getPlayer();
-    PlayerInventory pInv = player.getInventory();
-
-    ItemStack mainHandItem = pInv.getItemInMainHand();
-    ItemStack offHandItem = pInv.getItemInMainHand();
-    if ((mainHandItem.getType() == Material.LEAD && ItemUtils.Read.getItemID(mainHandItem) != null) || (offHandItem.getType() == Material.LEAD && ItemUtils.Read.getItemID(offHandItem) != null)) {
+    if (hasDefaultInteractionsDisabled(player)) {
       event.setCancelled(true);
     }
-
     if (player.isSneaking()) {
       SneakInteractEvent sneakInteractEvent = new SneakInteractEvent(event);
       Bukkit.getPluginManager().callEvent(sneakInteractEvent);
@@ -75,24 +76,16 @@ public class PlayerListener implements Listener {
 
   /**
    * Routes player interactions with entities.
-   * <p>
-   * Prevents incorrect use of {@link ModuleItemStack} if either
-   * item in main or off-hand has an {@link Namespaced.Key.Item#ID}.
    *
    * @param event player interact entity event
    */
   @EventHandler
   private void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
     Player player = event.getPlayer();
-    PlayerInventory pInv = player.getInventory();
-
-    ItemStack mainHandItem = pInv.getItemInMainHand();
-    ItemStack offHandItem = pInv.getItemInMainHand();
-    if ((mainHandItem.getType() == Material.LEAD && ItemUtils.Read.getItemID(mainHandItem) != null) || (offHandItem.getType() == Material.LEAD && ItemUtils.Read.getItemID(offHandItem) != null)) {
+    if (hasDefaultInteractionsDisabled(player)) {
       event.setCancelled(true);
     }
-
-    if (event.getPlayer().isSneaking()) {
+    if (player.isSneaking()) {
       SneakInteractEntityEvent sneakInteractEntityEvent = new SneakInteractEntityEvent(event);
       Bukkit.getPluginManager().callEvent(sneakInteractEntityEvent);
     }
@@ -122,5 +115,19 @@ public class PlayerListener implements Listener {
       return;
     }
     sneakInteractEntityManager.interpretAction(event.getSource());
+  }
+
+  /**
+   * Whether to disable default interactions when an item whose material is
+   * linked to a {@link ModuleItemStack} is held in either the main or off-hand.
+   *
+   * @param player interacting player
+   */
+  private boolean hasDefaultInteractionsDisabled(Player player) {
+    PlayerInventory pInv = player.getInventory();
+    ItemStack mainHandItem = pInv.getItemInMainHand();
+    ItemStack offHandItem = pInv.getItemInOffHand();
+    return (disabledMaterials.contains(mainHandItem.getType()) && ItemUtils.Read.getItemID(mainHandItem) != null) ||
+        (disabledMaterials.contains(offHandItem.getType()) && ItemUtils.Read.getItemID(offHandItem) != null);
   }
 }
