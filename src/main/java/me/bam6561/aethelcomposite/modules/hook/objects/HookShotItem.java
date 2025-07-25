@@ -1,6 +1,7 @@
 package me.bam6561.aethelcomposite.modules.hook.objects;
 
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.utils.TextUtils;
 import me.bam6561.aethelcomposite.modules.hook.references.Hook;
 import org.bukkit.Material;
@@ -20,7 +21,7 @@ import java.util.Objects;
  * HookShotItems are loadable crossbow ammunition that launch the user forward on impact.
  *
  * @author Danny Nguyen
- * @version 1.1.7
+ * @version 1.1.8
  * @since 1.1.6
  */
 public class HookShotItem extends ModuleItemStack {
@@ -48,7 +49,7 @@ public class HookShotItem extends ModuleItemStack {
     PlayerInventory pInv = event.getPlayer().getInventory();
 
     CrossbowMeta crossbowMeta = (CrossbowMeta) crossbow.getItemMeta();
-    crossbowMeta.setLore(List.of("Ammunition: Hook Shot"));
+    crossbowMeta.setLore(List.of(Text.Label.DETAILS.asColor() + "Ammunition: Hook Shot"));
     crossbowMeta.getPersistentDataContainer().set(Hook.Key.PROJECTILE.asKey(), PersistentDataType.STRING, "Hook Shot");
     crossbowMeta.addChargedProjectile(new ItemStack(Material.ARROW));
     crossbow.setItemMeta(crossbowMeta);

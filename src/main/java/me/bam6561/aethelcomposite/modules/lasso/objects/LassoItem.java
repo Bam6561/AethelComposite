@@ -11,6 +11,7 @@ import me.bam6561.aethelcomposite.modules.lasso.events.LassoReleaseEvent;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -36,7 +37,7 @@ import java.util.Set;
  * and {@link #releaseEntity(PlayerInteractEvent)}, depending on their tier.
  *
  * @author Danny Nguyen
- * @version 1.1.7
+ * @version 1.1.8
  * @since 1.0.86
  */
 public class LassoItem extends ModuleItemStack {
@@ -120,6 +121,11 @@ public class LassoItem extends ModuleItemStack {
    */
   public void releaseEntity(@NotNull PlayerInteractEvent event) {
     Objects.requireNonNull(event, "Null event");
+    Block block = event.getClickedBlock();
+    if (block == null) {
+      return;
+    }
+
     Player player = event.getPlayer();
     PlayerInventory inv = player.getInventory();
 
@@ -131,7 +137,7 @@ public class LassoItem extends ModuleItemStack {
     }
     event.setCancelled(true);
 
-    retrieveEntityFromData(player, inv, event.getClickedBlock().getLocation().add(event.getClickedPosition()));
+    retrieveEntityFromData(player, inv, block.getLocation().add(event.getClickedPosition()));
   }
 
   /**

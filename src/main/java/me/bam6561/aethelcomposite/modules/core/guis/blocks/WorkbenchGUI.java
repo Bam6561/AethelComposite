@@ -9,6 +9,7 @@ import me.bam6561.aethelcomposite.modules.core.objects.recipe.ModuleRecipe;
 import me.bam6561.aethelcomposite.modules.core.objects.recipe.RecipeCraftOperation;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
+import me.bam6561.aethelcomposite.modules.hook.references.Hook;
 import me.bam6561.aethelcomposite.modules.lasso.references.Lasso;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -25,7 +26,7 @@ import java.util.*;
  * Crafting table {@link GUI}, also known as a Workbench.
  *
  * @author Danny Nguyen
- * @version 1.0.110
+ * @version 1.1.8
  * @since 1.0.3
  */
 public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
@@ -56,6 +57,9 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
     List<ModuleRecipe> moduleRecipes = new ArrayList<>();
     for (Lasso.Recipe lassoRecipe : Lasso.Recipe.values()) {
       moduleRecipes.add(lassoRecipe.asModuleRecipe());
+    }
+    for (Hook.Recipe hookRecipe : Hook.Recipe.values()) {
+      moduleRecipes.add(hookRecipe.asModuleRecipe());
     }
 
     for (int invSlot = 0; invSlot < moduleRecipes.size(); invSlot++) {

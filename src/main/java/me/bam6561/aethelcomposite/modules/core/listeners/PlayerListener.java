@@ -9,11 +9,13 @@ import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 /**
@@ -26,7 +28,7 @@ import org.bukkit.inventory.PlayerInventory;
  * </ul>
  *
  * @author Danny Nguyen
- * @version 1.0.112
+ * @version 1.1.8
  * @since 1.0.7
  */
 public class PlayerListener implements Listener {
@@ -59,7 +61,9 @@ public class PlayerListener implements Listener {
     Player player = event.getPlayer();
     PlayerInventory pInv = player.getInventory();
 
-    if (ItemUtils.Read.getItemID(pInv.getItemInMainHand()) != null || ItemUtils.Read.getItemID(pInv.getItemInOffHand()) != null) {
+    ItemStack mainHandItem = pInv.getItemInMainHand();
+    ItemStack offHandItem = pInv.getItemInMainHand();
+    if ((mainHandItem.getType() == Material.LEAD && ItemUtils.Read.getItemID(mainHandItem) != null) || (offHandItem.getType() == Material.LEAD && ItemUtils.Read.getItemID(offHandItem) != null)) {
       event.setCancelled(true);
     }
 
@@ -82,7 +86,9 @@ public class PlayerListener implements Listener {
     Player player = event.getPlayer();
     PlayerInventory pInv = player.getInventory();
 
-    if (ItemUtils.Read.getItemID(pInv.getItemInMainHand()) != null || ItemUtils.Read.getItemID(pInv.getItemInOffHand()) != null) {
+    ItemStack mainHandItem = pInv.getItemInMainHand();
+    ItemStack offHandItem = pInv.getItemInMainHand();
+    if ((mainHandItem.getType() == Material.LEAD && ItemUtils.Read.getItemID(mainHandItem) != null) || (offHandItem.getType() == Material.LEAD && ItemUtils.Read.getItemID(offHandItem) != null)) {
       event.setCancelled(true);
     }
 
