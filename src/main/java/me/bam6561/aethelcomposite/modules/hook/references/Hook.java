@@ -1,9 +1,11 @@
 package me.bam6561.aethelcomposite.modules.hook.references;
 
+import me.bam6561.aethelcomposite.modules.core.objects.recipe.ModuleRecipe;
 import me.bam6561.aethelcomposite.modules.core.references.ModuleName;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.references.markers.ItemStackValue;
+import me.bam6561.aethelcomposite.modules.core.references.markers.ModuleRecipeValue;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -76,6 +78,49 @@ public class Hook {
     @NotNull
     public ItemStack asItem() {
       return this.item.clone();
+    }
+  }
+
+  /**
+   * Hook {@link ModuleRecipe ModuleRecipes}.
+   *
+   * @author Danny Nguyen
+   * @version 1.1.4
+   * @since 1.1.4
+   */
+  public enum Recipe implements ModuleRecipeValue {
+    /**
+     * {@link Item#HOOK_SHOT}
+     */
+    HOOK_SHOT(new ModuleRecipe(List.of(new ItemStack(Material.ARROW, 4), new ItemStack(Material.TRIPWIRE_HOOK)), List.of(ItemUtils.Modify.setAmount(Item.HOOK_SHOT.asItem(), 4)))),
+
+    /**
+     * {@link Item#HOOK_GEAR}
+     */
+    HOOK_GEAR(new ModuleRecipe(List.of(new ItemStack(Material.LEATHER_LEGGINGS), new ItemStack(Material.CROSSBOW), new ItemStack(Material.CROSSBOW), new ItemStack(Material.IRON_INGOT, 8)), List.of(Item.HOOK_GEAR.asItem()))));
+
+    /**
+     * {@link ModuleRecipe}
+     */
+    private final ModuleRecipe moduleRecipe;
+
+    /**
+     * Associates an entry with its {@link ModuleRecipe}.
+     *
+     * @param moduleRecipe {@link ModuleRecipe}
+     */
+    Recipe(ModuleRecipe moduleRecipe) {
+      this.moduleRecipe = moduleRecipe;
+    }
+
+    /**
+     * Gets a copy of the {@link ModuleRecipe}.
+     *
+     * @return copy of the {@link ModuleRecipe}
+     */
+    @NotNull
+    public ModuleRecipe asModuleRecipe() {
+      return new ModuleRecipe(this.moduleRecipe);
     }
   }
 }

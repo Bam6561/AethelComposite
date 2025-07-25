@@ -28,7 +28,7 @@ import java.util.Objects;
  * Utilities for ItemStacks.
  *
  * @author Danny Nguyen
- * @version 1.0.60
+ * @version 1.1.4
  * @since 1.0.16
  */
 public class ItemUtils {
@@ -316,6 +316,33 @@ public class ItemUtils {
         return null;
       }
       return itemData.get(Namespaced.Key.Item.ID.asKey(), PersistentDataType.STRING);
+    }
+  }
+
+  /**
+   * Modifies ItemStacks.
+   *
+   * @author Danny Nguyen
+   * @version 1.1.4
+   * @since 1.1.4
+   */
+  public static class Modify {
+    /**
+     * Utility methods only.
+     */
+    private Modify() {
+    }
+
+    /**
+     * Modifies the amount of a given item and returns the item.
+     *
+     * @param amount item amount
+     * @return item with modified amount
+     */
+    public static ItemStack setAmount(@NotNull ItemStack item, int amount) {
+      Objects.requireNonNull(item, "Null item");
+      item.setAmount(amount);
+      return item;
     }
   }
 
