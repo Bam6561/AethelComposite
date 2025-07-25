@@ -1,13 +1,10 @@
 package me.bam6561.aethelcomposite.modules.core.listeners;
 
-import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.CrossbowMeta;
 
 /**
  * Collection of living entity interaction listeners.
