@@ -162,20 +162,20 @@ public class LassoItem extends ModuleItemStack {
   }
 
   /**
-   * If the {@link Lasso.Item} has {@link Lasso.Key#ENTITY_DATA}.
+   * Checks whether the {@link Lasso.Item} has {@link Lasso.Key#ENTITY_DATA}.
    *
-   * @return if the {@link Lasso.Item} has {@link Lasso.Key#ENTITY_DATA}
+   * @return true if the {@link Lasso.Item} has {@link Lasso.Key#ENTITY_DATA}
    */
   public boolean hasEntityData() {
     return getItemData().has(Lasso.Key.ENTITY_DATA.asKey(), PersistentDataType.STRING);
   }
 
   /**
-   * If the entity type is captureable by the {@link Lasso.Item} tier.
+   * Checks whether the entity type is captureable by the {@link Lasso.Item} tier.
    *
    * @param tier       {@link Lasso.Item} tier
    * @param entityType entity type
-   * @return if the entity type is captureable
+   * @return true if the entity type is captureable by the {@link Lasso.Item} tier
    */
   private boolean isCaptureable(Lasso.Item tier, EntityType entityType) {
     return switch (tier) {

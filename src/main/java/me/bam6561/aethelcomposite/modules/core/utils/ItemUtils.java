@@ -259,20 +259,20 @@ public class ItemUtils {
     }
 
     /**
-     * If the item is null or air.
+     * Checks whether the item is null or air.
      *
      * @param item interacting item
-     * @return if the item is null or air
+     * @return true if the item is null or air
      */
     public static boolean isNullOrAir(@Nullable ItemStack item) {
       return item == null || item.getType() == Material.AIR;
     }
 
     /**
-     * If the item is not null and not air.
+     * Checks whether the item is not null and not air.
      *
      * @param item interacting item
-     * @return if the item is not null and not air
+     * @return true if the item is not null and not air
      */
     public static boolean isNotNullOrAir(@Nullable ItemStack item) {
       return item != null && item.getType() != Material.AIR;

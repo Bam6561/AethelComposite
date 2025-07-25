@@ -72,9 +72,9 @@ public class LassoCaptureEvent extends Event implements Cancellable {
   }
 
   /**
-   * If the event is cancelled.
+   * Checks whether the event is cancelled.
    *
-   * @return if the event is cancelled
+   * @return cancellation state
    */
   @Override
   public boolean isCancelled() {

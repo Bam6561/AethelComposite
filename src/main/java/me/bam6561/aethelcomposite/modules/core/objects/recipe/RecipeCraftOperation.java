@@ -105,7 +105,7 @@ public class RecipeCraftOperation {
    * <p>
    * Note that this method does not handle overflow for null InventoryHolders: the extra items are discarded.
    *
-   * @return if the {@link ModuleRecipe} craft was successful
+   * @return true if the {@link ModuleRecipe} craft succeeded
    */
   public boolean craft() {
     if (hasEnoughOfAllIngredients()) {
@@ -137,9 +137,9 @@ public class RecipeCraftOperation {
   }
 
   /**
-   * If the inventory has enough ingredients to craft the {@link ModuleRecipe}.
+   * Checks whether the inventory has enough ingredients to craft the {@link ModuleRecipe}.
    *
-   * @return has enough ingredients
+   * @return true if sufficient ingredients
    */
   private boolean hasEnoughOfAllIngredients() {
     for (ItemStack item : recipe.getIngredients()) {
@@ -191,11 +191,11 @@ public class RecipeCraftOperation {
   }
 
   /**
-   * If the inventory has enough of the required ingredient by matching material type.
+   * Checks whether the inventory has enough of the required ingredient by matching material type.
    *
    * @param requiredMaterial required material
    * @param requiredNumber   required number
-   * @return has enough ingredients
+   * @return true if sufficient ingredients
    */
   private boolean hasEnoughIngredients(Material requiredMaterial, int requiredNumber) {
     for (SlotItemStack invSlot : invMap.get(requiredMaterial)) {
@@ -213,13 +213,13 @@ public class RecipeCraftOperation {
   }
 
   /**
-   * If the inventory has enough of the required ingredient
+   * Checks whether the inventory has enough of the required ingredient
    * by matching material type and {@link Namespaced.Key.Item#ID}.
    *
    * @param requiredMaterial required material
    * @param requiredNumber   required number
    * @param requiredItemID   {@link Namespaced.Key.Item#ID}
-   * @return has enough ingredients
+   * @return true if sufficient ingredients
    */
   private boolean hasEnoughIngredientsWithIDs(Material requiredMaterial, int requiredNumber, String requiredItemID) {
     for (SlotItemStack invSlot : invMap.get(requiredMaterial)) {
@@ -237,11 +237,11 @@ public class RecipeCraftOperation {
   }
 
   /**
-   * If the inventory has enough of the required enchanted books by matching enchantments.
+   * Checks whether the inventory has enough of the required enchanted books by matching enchantments.
    *
    * @param enchantmentMeta enchantment meta
    * @param requiredNumber  required number
-   * @return has enough enchanted book ingredients
+   * @return true if sufficient enchanted book ingredients
    */
   private boolean hasEnoughEnchantedBookIngredients(EnchantmentStorageMeta enchantmentMeta, int requiredNumber) {
     for (SlotItemStack invSlot : invMap.get(Material.ENCHANTED_BOOK)) {
@@ -261,12 +261,12 @@ public class RecipeCraftOperation {
   }
 
   /**
-   * If the inventory has enough of the required potions by matching potion effects.
+   * Checks whether the inventory has enough of the required potions by matching potion effects.
    *
    * @param material       material
    * @param potionMeta     potion meta
    * @param requiredNumber required number
-   * @return has enough potion ingredients
+   * @return true if sufficient potion ingredients
    */
   private boolean hasEnoughPotionIngredients(Material material, PotionMeta potionMeta, int requiredNumber) {
     for (SlotItemStack invSlot : invMap.get(material)) {
@@ -294,11 +294,11 @@ public class RecipeCraftOperation {
   }
 
   /**
-   * If the required number of ingredients was satisfied.
+   * Checks whether the required number of ingredients was satisfied.
    *
    * @param invSlot        tracked post-craft inventory slot
    * @param requiredNumber required number
-   * @return has enough ingredients
+   * @return true if sufficient amount
    */
   private boolean hasRequiredNumber(SlotItemStack invSlot, int requiredNumber) {
     if (requiredNumber > 0 || requiredNumber == 0) {

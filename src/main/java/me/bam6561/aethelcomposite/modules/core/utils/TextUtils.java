@@ -51,10 +51,10 @@ public class TextUtils {
     }
 
     /**
-     * If the text is a hex color code (#ffffff).
+     * Checks whether the text is a hex color code (#ffffff).
      *
      * @param text text
-     * @return if the text is a hex color code
+     * @return true if the text is a hex color code
      */
     public static boolean isHexColorCode(@NotNull String text) {
       Objects.requireNonNull(text, "Null text");
@@ -119,14 +119,14 @@ public class TextUtils {
     }
 
     /**
-     * If the next characters in the character array is a hex color code (#abcdef).
+     * Checks whether the next characters in the character array is a hex color code (#abcdef).
      * <p>
      * Internal usage only.
      *
      * @param nextCharacter next character
      * @param current       current pointer
      * @param characters    character array
-     * @return if the next characters in the character array is a hex color code
+     * @return true if the next characters in the character array is a hex color code
      */
     private static boolean isHexColorCode(char nextCharacter, int current, char[] characters) {
       if (nextCharacter != '#') {
