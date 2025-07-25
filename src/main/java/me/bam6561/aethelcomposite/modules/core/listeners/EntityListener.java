@@ -1,5 +1,8 @@
 package me.bam6561.aethelcomposite.modules.core.listeners;
 
+import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
+import me.bam6561.aethelcomposite.modules.hook.objects.HookShotItem;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
  * Collection of entity interaction listeners.
  *
  * @author Danny Nguyen
- * @version 1.1.12
+ * @version 1.1.13
  * @since 1.1.10
  */
 public class EntityListener implements Listener {
@@ -30,6 +33,17 @@ public class EntityListener implements Listener {
     ItemStack bow = event.getBow();
     if (bow.getType() != Material.CROSSBOW) {
       return;
+    }
+
+    ItemStack consumable = event.getConsumable();
+    String itemID = ItemUtils.Read.getItemID(consumable);
+    if (itemID == null) {
+      return;
+    }
+
+    ModuleItemStack moduleItem = new ModuleItemStack(consumable);
+    switch (moduleItem.getModuleName()) {
+      case HOOK -> new HookShotItem(moduleItem.getItem()).fireProjectile(event);
     }
   }
 }

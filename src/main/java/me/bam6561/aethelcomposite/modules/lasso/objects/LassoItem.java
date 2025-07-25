@@ -33,8 +33,11 @@ import java.util.Set;
 /**
  * Represents a {@link Lasso.Item}.
  * <p>
- * LassoItems are reusable tools that can {@link #captureEntity(PlayerInteractEntityEvent)}
+ * Lassos are reusable tools that can {@link #captureEntity(PlayerInteractEntityEvent)}
  * and {@link #releaseEntity(PlayerInteractEvent)}, depending on their tier.
+ * <p>
+ * Lassos containing entities store their data in {@link Lasso.Key#ENTITY_DATA}, and
+ * are represented with an additional "'d" in their {@link Namespaced.Key.Item#ID} (lasso'd).
  *
  * @author Danny Nguyen
  * @version 1.1.8
