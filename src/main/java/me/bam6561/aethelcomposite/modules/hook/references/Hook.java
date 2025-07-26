@@ -5,13 +5,15 @@ import me.bam6561.aethelcomposite.modules.core.objects.recipe.ModuleRecipe;
 import me.bam6561.aethelcomposite.modules.core.references.ModuleName;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
-import me.bam6561.aethelcomposite.modules.core.references.markers.ItemStackValue;
-import me.bam6561.aethelcomposite.modules.core.references.markers.ModuleRecipeValue;
-import me.bam6561.aethelcomposite.modules.core.references.markers.NamespacedKeyValue;
+import me.bam6561.aethelcomposite.modules.core.references.markers.*;
+import me.bam6561.aethelcomposite.modules.core.utils.EntityUtils;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +23,7 @@ import java.util.List;
  * Hook {@link ModuleName} references.
  *
  * @author Danny Nguyen
- * @version 1.1.2
+ * @version 1.1.17
  * @since 1.1.2
  */
 public class Hook {
@@ -71,6 +73,63 @@ public class Hook {
   }
 
   /**
+   * Spawnable Hook entities.
+   *
+   * @author Danny Nguyen
+   * @version 1.1.17
+   * @since 1.1.17
+   */
+  public enum SpawnableEntity implements StringValue, SpawnableEntityValue {
+    /**
+     * {@link Hook.Item#HOOK_SHOT} projectile.
+     */
+    HOOK_SHOT(EntityType.ARROW, "hook_shot");
+
+    /**
+     * Entity type.
+     */
+    private final EntityType entityType;
+
+    /**
+     * {@link Namespaced.Key.Entity#ID}
+     */
+    private final String entityID;
+
+    /**
+     * Associates the entry with its entity type and {@link Namespaced.Key.Entity#ID}.
+     *
+     * @param entityType entity type
+     * @param entityID   {@link Namespaced.Key.Entity#ID}
+     */
+    SpawnableEntity(EntityType entityType, String entityID) {
+      this.entityType = entityType;
+      this.entityID = entityID;
+    }
+
+    /**
+     * Gets the {@link Namespaced.Key.Entity#ID}.
+     *
+     * @return {@link Namespaced.Key.Entity#ID}
+     */
+    @Override
+    @NotNull
+    public String asString() {
+      return this.entityID;
+    }
+
+    /**
+     * Spawns the entity using its base template.
+     *
+     * @return spawned entity
+     */
+    @Override
+    @NotNull
+    public Entity asEntity(Location loc) {
+      return EntityUtils.Spawn.spawnEntity(loc, this.entityType, Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Entity.ID.asKey(), this.entityID);
+    }
+  }
+
+  /**
    * Hook items.
    *
    * @author Danny Nguyen
@@ -82,23 +141,12 @@ public class Hook {
      * Projectile that launches the user forward on impact when
      * loaded into a crossbow or {@link #HOOK_GEAR H.O.O.K gear}.
      */
-    HOOK_SHOT(ItemUtils.Create.createItem(Material.ARROW, ChatColor.WHITE + "Hook Shot", List.of(
-            Text.Label.ACTION.asColor() + "Hook Shot " + Text.Label.TIP.asColor() + "[Crossbow Ammunition]",
-            Text.Label.DETAILS.asColor() + "Launches the user to the",
-            Text.Label.DETAILS.asColor() + "projectile's point of impact.",
-            Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Hook Shot"),
-        Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_shot")),
+    HOOK_SHOT(ItemUtils.Create.createItem(Material.ARROW, ChatColor.WHITE + "Hook Shot", List.of(Text.Label.ACTION.asColor() + "Hook Shot " + Text.Label.TIP.asColor() + "[Crossbow Ammunition]", Text.Label.DETAILS.asColor() + "Launches the user to the", Text.Label.DETAILS.asColor() + "projectile's point of impact.", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Hook Shot"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_shot")),
 
     /**
      * Leggings equipment that stores and fires {@link #HOOK_SHOT hook shots}.
      */
-    HOOK_GEAR(ItemUtils.Create.createItem(Material.LEATHER_LEGGINGS, ChatColor.WHITE + "H.O.O.K Gear", List.of(
-            Text.Label.ACTION.asColor() + "Hook Shot",
-            Text.Label.TIP.asColor() + "[Empty Off-Hand + Sneak-Interact]",
-            Text.Label.DETAILS.asColor() + "Fires a projectile that launches",
-            Text.Label.DETAILS.asColor() + "the user to its point of impact.",
-            Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "H.O.O.K Gear"),
-        Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "h.o.o.k_gear"));
+    HOOK_GEAR(ItemUtils.Create.createItem(Material.LEATHER_LEGGINGS, ChatColor.WHITE + "H.O.O.K Gear", List.of(Text.Label.ACTION.asColor() + "Hook Shot", Text.Label.TIP.asColor() + "[Empty Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Fires a projectile that launches", Text.Label.DETAILS.asColor() + "the user to its point of impact.", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "H.O.O.K Gear"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "h.o.o.k_gear"));
 
     /**
      * Item.

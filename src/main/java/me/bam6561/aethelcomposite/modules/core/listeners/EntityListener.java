@@ -43,7 +43,7 @@ public class EntityListener implements Listener {
 
     ModuleItemStack moduleItem = new ModuleItemStack(consumable);
     switch (moduleItem.getModuleName()) {
-      case HOOK -> new HookShotItem(moduleItem.getItem()).fireProjectile(event);
+      case HOOK -> new HookShotItem(moduleItem.getItem()).modifyProjectile(event);
     }
   }
 }
