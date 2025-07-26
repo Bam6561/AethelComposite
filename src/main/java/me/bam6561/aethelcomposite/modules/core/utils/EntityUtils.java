@@ -2,8 +2,10 @@ package me.bam6561.aethelcomposite.modules.core.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,7 +15,7 @@ import java.util.Objects;
  * Utilities for Entities.
  *
  * @author Danny Nguyen
- * @version 1.0.59
+ * @version 1.1.15
  * @since 1.0.57
  */
 public class EntityUtils {
@@ -51,6 +53,43 @@ public class EntityUtils {
       for (int i = 0; i < spawns; i++) {
         location.getWorld().spawnEntity(location, entityType, isRandomized);
       }
+    }
+  }
+
+  /**
+   * Modifies entities.
+   *
+   * @author Danny Nguyen
+   * @version 1.1.15
+   * @since 1.1.15
+   */
+  public static class Modify {
+    /**
+     * Utility methods only.
+     */
+    private Modify() {
+    }
+
+    /**
+     * Modifies 2 key string value pairs of an
+     * entity's entity data and returns the entity.
+     *
+     * @param entity interacting entity
+     * @param key    key
+     * @param value  key value
+     * @param key2   second key
+     * @param value2 second key value
+     * @return entity with 2 modified key string value pairs
+     */
+    public static Entity setModuleDataEntity(@NotNull Entity entity, @NotNull NamespacedKey key, @NotNull String value, @NotNull NamespacedKey key2, @NotNull String value2) {
+      Objects.requireNonNull(entity, "Null entity");
+      Objects.requireNonNull(key, "Null key");
+      Objects.requireNonNull(value, "Null value");
+      Objects.requireNonNull(key, "Null key2");
+      Objects.requireNonNull(value2, "Null value2");
+      entity.getPersistentDataContainer().set(key, PersistentDataType.STRING, value);
+      entity.getPersistentDataContainer().set(key2, PersistentDataType.STRING, value2);
+      return entity;
     }
   }
 

@@ -42,7 +42,7 @@ public class ItemUtils {
    * Creates ItemStacks with metadata.
    *
    * @author Danny Nguyen
-   * @version 1.0.101
+   * @version 1.1.15
    * @since 1.0.16
    */
   public static class Create {
@@ -156,7 +156,7 @@ public class ItemUtils {
       Objects.requireNonNull(key, "Null key");
       Objects.requireNonNull(value, "Null value");
       Objects.requireNonNull(key, "Null key2");
-      Objects.requireNonNull(value, "Null value2");
+      Objects.requireNonNull(value2, "Null value2");
       ItemStack item = new ItemStack(material);
       ItemMeta meta = item.getItemMeta();
       meta.setDisplayName(name);
