@@ -29,7 +29,7 @@ public class EntityUtils {
    * Spawns entities.
    *
    * @author Danny Nguyen
-   * @version 1.0.104
+   * @version 1.1.16
    * @since 1.0.57
    */
   public static class Spawn {
@@ -47,12 +47,36 @@ public class EntityUtils {
      * @param spawns       number of spawns
      * @param isRandomized natural randomization
      */
-    public void spawnEntity(@NotNull Location location, @NotNull EntityType entityType, int spawns, boolean isRandomized) {
+    public static void spawnEntity(@NotNull Location location, @NotNull EntityType entityType, int spawns, boolean isRandomized) {
       Objects.requireNonNull(location, "Null location");
       Objects.requireNonNull(entityType, "Null entity type");
       for (int i = 0; i < spawns; i++) {
         location.getWorld().spawnEntity(location, entityType, isRandomized);
       }
+    }
+
+    /**
+     * Spawns an entity with 2 key string values.
+     *
+     * @param location   spawn location
+     * @param entityType entity type
+     * @param key        key
+     * @param value      key value
+     * @param key2       second key
+     * @param value2     second key value
+     * @return entity with 2 key string values
+     */
+    public static Entity spawnEntity(@NotNull Location location, @NotNull EntityType entityType, @NotNull NamespacedKey key, @NotNull String value, @NotNull NamespacedKey key2, @NotNull String value2) {
+      Objects.requireNonNull(location, "Null location");
+      Objects.requireNonNull(entityType, "Null entity type");
+      Objects.requireNonNull(key, "Null key");
+      Objects.requireNonNull(value, "Null value");
+      Objects.requireNonNull(key, "Null key2");
+      Objects.requireNonNull(value2, "Null value2");
+      Entity entity = location.getWorld().spawnEntity(location, entityType);
+      entity.getPersistentDataContainer().set(key, PersistentDataType.STRING, value);
+      entity.getPersistentDataContainer().set(key2, PersistentDataType.STRING, value2);
+      return entity;
     }
   }
 
@@ -60,7 +84,7 @@ public class EntityUtils {
    * Modifies entities.
    *
    * @author Danny Nguyen
-   * @version 1.1.15
+   * @version 1.1.16
    * @since 1.1.15
    */
   public static class Modify {
@@ -71,17 +95,15 @@ public class EntityUtils {
     }
 
     /**
-     * Modifies 2 key string value pairs of an
-     * entity's entity data and returns the entity.
+     * Modifies 2 key string value pairs of an entity's entity data.
      *
      * @param entity interacting entity
      * @param key    key
      * @param value  key value
      * @param key2   second key
      * @param value2 second key value
-     * @return entity with 2 modified key string value pairs
      */
-    public static Entity setModuleDataEntity(@NotNull Entity entity, @NotNull NamespacedKey key, @NotNull String value, @NotNull NamespacedKey key2, @NotNull String value2) {
+    public static void setEntityData(@NotNull Entity entity, @NotNull NamespacedKey key, @NotNull String value, @NotNull NamespacedKey key2, @NotNull String value2) {
       Objects.requireNonNull(entity, "Null entity");
       Objects.requireNonNull(key, "Null key");
       Objects.requireNonNull(value, "Null value");
@@ -89,7 +111,6 @@ public class EntityUtils {
       Objects.requireNonNull(value2, "Null value2");
       entity.getPersistentDataContainer().set(key, PersistentDataType.STRING, value);
       entity.getPersistentDataContainer().set(key2, PersistentDataType.STRING, value2);
-      return entity;
     }
   }
 
