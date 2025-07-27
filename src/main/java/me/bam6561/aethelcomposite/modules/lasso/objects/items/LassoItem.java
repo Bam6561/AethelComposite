@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.modules.lasso.objects;
+package me.bam6561.aethelcomposite.modules.lasso.objects.items;
 
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;

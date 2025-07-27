@@ -8,7 +8,7 @@ import me.bam6561.aethelcomposite.modules.core.guis.blocks.markers.Workstation;
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
-import me.bam6561.aethelcomposite.modules.lasso.objects.LassoItem;
+import me.bam6561.aethelcomposite.modules.lasso.objects.items.LassoItem;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;

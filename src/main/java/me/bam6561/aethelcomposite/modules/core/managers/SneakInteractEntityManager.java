@@ -4,7 +4,7 @@ import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEntity
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
-import me.bam6561.aethelcomposite.modules.lasso.objects.LassoItem;
+import me.bam6561.aethelcomposite.modules.lasso.objects.items.LassoItem;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
