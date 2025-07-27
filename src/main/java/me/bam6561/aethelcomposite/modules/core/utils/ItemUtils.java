@@ -264,7 +264,7 @@ public class ItemUtils {
      * @param item interacting item
      * @return true if the item is null or air
      */
-    public static boolean isNullOrAir(@Nullable ItemStack item) {
+    public static boolean isNullOrAir(ItemStack item) {
       return item == null || item.getType() == Material.AIR;
     }
 
@@ -274,7 +274,7 @@ public class ItemUtils {
      * @param item interacting item
      * @return true if the item is not null and not air
      */
-    public static boolean isNotNullOrAir(@Nullable ItemStack item) {
+    public static boolean isNotNullOrAir(ItemStack item) {
       return item != null && item.getType() != Material.AIR;
     }
 

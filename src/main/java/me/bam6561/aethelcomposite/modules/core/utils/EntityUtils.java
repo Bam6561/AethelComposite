@@ -1,10 +1,12 @@
 package me.bam6561.aethelcomposite.modules.core.utils;
 
+import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,7 +17,7 @@ import java.util.Objects;
  * Utilities for Entities.
  *
  * @author Danny Nguyen
- * @version 1.1.15
+ * @version 1.1.18
  * @since 1.0.57
  */
 public class EntityUtils {
@@ -77,6 +79,39 @@ public class EntityUtils {
       entity.getPersistentDataContainer().set(key, PersistentDataType.STRING, value);
       entity.getPersistentDataContainer().set(key2, PersistentDataType.STRING, value2);
       return entity;
+    }
+  }
+
+  /**
+   * Reads entities with metadata.
+   *
+   * @author Danny Nguyen
+   * @version 1.1.18
+   * @since 1.1.18
+   */
+  public static class Read {
+    /**
+     * Utility methods only.
+     */
+    private Read() {
+    }
+
+    /**
+     * Gets the entity's {@link Namespaced.Key.Entity#ID}, if it exists.
+     *
+     * @param entity interacting entity
+     * @return entity's {@link Namespaced.Key.Entity#ID}
+     */
+    @Nullable
+    public static String getEntityID(Entity entity) {
+      if (entity == null) {
+        return null;
+      }
+      PersistentDataContainer entityData = entity.getPersistentDataContainer();
+      if (!entityData.has(Namespaced.Key.Entity.ID.asKey())) {
+        return null;
+      }
+      return entityData.get(Namespaced.Key.Entity.ID.asKey(), PersistentDataType.STRING);
     }
   }
 
