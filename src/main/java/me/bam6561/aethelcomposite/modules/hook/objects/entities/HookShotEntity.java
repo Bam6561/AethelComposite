@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.modules.hook.objects;
+package me.bam6561.aethelcomposite.modules.hook.objects.entities;
 
 import me.bam6561.aethelcomposite.modules.core.objects.entity.ModuleEntity;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;

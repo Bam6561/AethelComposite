@@ -1,4 +1,4 @@
-package me.bam6561.aethelcomposite.modules.hook.objects;
+package me.bam6561.aethelcomposite.modules.hook.objects.items;
 
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.modules.core.references.ModuleName;
