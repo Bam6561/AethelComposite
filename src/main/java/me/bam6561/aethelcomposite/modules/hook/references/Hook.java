@@ -133,20 +133,20 @@ public class Hook {
    * Hook items.
    *
    * @author Danny Nguyen
-   * @version 1.1.11
+   * @version 1.1.20
    * @since 1.1.3
    */
   public enum Item implements ItemStackValue {
     /**
      * Projectile that launches the user forward on impact when
-     * loaded into a crossbow or {@link #HOOK_GEAR H.O.O.K gear}.
+     * loaded into a crossbow or {@link #HOOK_HARNESS}.
      */
     HOOK_SHOT(ItemUtils.Create.createItem(Material.ARROW, ChatColor.WHITE + "Hook Shot", List.of(Text.Label.ACTION.asColor() + "Hook Shot " + Text.Label.TIP.asColor() + "[Crossbow Ammunition]", Text.Label.DETAILS.asColor() + "Launches the user to the", Text.Label.DETAILS.asColor() + "projectile's point of impact.", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Hook Shot"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_shot")),
 
     /**
      * Leggings equipment that stores and fires {@link #HOOK_SHOT hook shots}.
      */
-    HOOK_GEAR(ItemUtils.Create.createItem(Material.LEATHER_LEGGINGS, ChatColor.WHITE + "H.O.O.K Gear", List.of(Text.Label.ACTION.asColor() + "Hook Shot", Text.Label.TIP.asColor() + "[Empty Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Fires a projectile that launches", Text.Label.DETAILS.asColor() + "the user to its point of impact.", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "H.O.O.K Gear"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "h.o.o.k_gear"));
+    HOOK_HARNESS(ItemUtils.Create.createItem(Material.LEATHER_LEGGINGS, ChatColor.WHITE + "H.O.O.K Harness", List.of(Text.Label.ACTION.asColor() + "Fire Hook Shot", Text.Label.TIP.asColor() + "[Empty Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Fires a projectile that launches", Text.Label.DETAILS.asColor() + "the user to its point of impact.", Text.Label.ACTION.asColor() + "Reload", Text.Label.TIP.asColor() + "[Hook Shot(s) in Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Reloads Hook Shot ammunition.", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "H.O.O.K Harness"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "h.o.o.k_harness"));
 
     /**
      * Item.
@@ -178,19 +178,19 @@ public class Hook {
    * Hook {@link ModuleRecipe ModuleRecipes}.
    *
    * @author Danny Nguyen
-   * @version 1.1.4
+   * @version 1.1.20
    * @since 1.1.4
    */
   public enum Recipe implements ModuleRecipeValue {
     /**
      * {@link Item#HOOK_SHOT}
      */
-    HOOK_SHOT(new ModuleRecipe(List.of(new ItemStack(Material.ARROW, 4), new ItemStack(Material.TRIPWIRE_HOOK)), List.of(ItemUtils.Modify.setAmount(Item.HOOK_SHOT.asItem(), 4)))),
+    HOOK_SHOT(new ModuleRecipe(List.of(new ItemStack(Material.ARROW, 4), new ItemStack(Material.STRING), new ItemStack(Material.TRIPWIRE_HOOK)), List.of(ItemUtils.Modify.setAmount(Item.HOOK_SHOT.asItem(), 4)))),
 
     /**
-     * {@link Item#HOOK_GEAR}
+     * {@link Item#HOOK_HARNESS}
      */
-    HOOK_GEAR(new ModuleRecipe(List.of(new ItemStack(Material.LEATHER_LEGGINGS), new ItemStack(Material.CROSSBOW), new ItemStack(Material.CROSSBOW), new ItemStack(Material.IRON_INGOT, 8)), List.of(Item.HOOK_GEAR.asItem())));
+    HOOK_HARNESS(new ModuleRecipe(List.of(new ItemStack(Material.LEATHER_LEGGINGS), new ItemStack(Material.IRON_INGOT, 16), new ItemStack(Material.REPEATER, 2), new ItemStack(Material.CROSSBOW, 2)), List.of(Item.HOOK_HARNESS.asItem())));
 
     /**
      * {@link ModuleRecipe}
