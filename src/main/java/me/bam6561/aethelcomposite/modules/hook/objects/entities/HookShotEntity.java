@@ -1,21 +1,23 @@
 package me.bam6561.aethelcomposite.modules.hook.objects.entities;
 
+import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.objects.entity.ModuleEntity;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import me.bam6561.aethelcomposite.modules.core.utils.TextUtils;
 import me.bam6561.aethelcomposite.modules.hook.references.Hook;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.BlockFace;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import org.bukkit.inventory.meta.CrossbowMeta;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +29,7 @@ import java.util.Objects;
  * Hook shots are projectiles that pull the shooter towards their point of impact.
  *
  * @author Danny Nguyen
- * @version 1.1.25
+ * @version 1.1.26
  * @since 1.1.19
  */
 public class HookShotEntity extends ModuleEntity {
@@ -53,11 +55,12 @@ public class HookShotEntity extends ModuleEntity {
    */
   public void pullShooter(@NotNull ProjectileHitEvent event) {
     Objects.requireNonNull(event, "Null event");
-    Arrow hookShot = (Arrow) event.getEntity();
-    hookShot.getPersistentDataContainer().remove(Namespaced.Key.Core.MODULE.asKey());
-    hookShot.getPersistentDataContainer().remove(Namespaced.Key.Entity.ID.asKey());
+    Arrow hookShotEntity = (Arrow) event.getEntity();
+    hookShotEntity.getPersistentDataContainer().remove(Namespaced.Key.Core.MODULE.asKey());
+    hookShotEntity.getPersistentDataContainer().remove(Namespaced.Key.Entity.ID.asKey());
+    hookShotEntity.setItem(new ItemStack(Material.ARROW));
 
-    if (!(hookShot.getShooter() instanceof LivingEntity shooter)) {
+    if (!(hookShotEntity.getShooter() instanceof LivingEntity shooter)) {
       return;
     }
     if (shooter instanceof Player player) {
@@ -75,16 +78,126 @@ public class HookShotEntity extends ModuleEntity {
     if (impactLoc.getWorld() != shooterLoc.getWorld()) {
       return;
     }
+    if (impactLoc.distance(shooterLoc) > 64) {
+      return;
+    }
 
-    Vector impactVector = impactLoc.toVector();
-    Vector shooterVector = shooterLoc.toVector();
-    Vector launchVector = (impactVector.subtract(shooterVector)).normalize();
+    if (event.getHitBlock() != null) {
+      if (shooter instanceof Player player) {
+        pullTowardsBlock(event.getHitBlock(), player);
+      } else {
+        pullTowardsBlock(event.getHitBlock(), shooter, 100);
+      }
+      return;
+    }
 
-    double distance = impactLoc.distance(shooterLoc);
-    double amplitude = Math.max(2.5, distance / 4);
+    if (event.getHitEntity() != null) {
+      if (shooter instanceof Player player) {
+        pullTowardsEntity(event.getHitEntity(), player);
+      } else {
+        pullTowardsEntity(event.getHitEntity(), shooter, 100);
+      }
+    }
+  }
 
-    launchVector = new Vector(launchVector.getX() * amplitude, launchVector.getY() * amplitude / 2, launchVector.getZ() * amplitude);
-    shooter.setVelocity(launchVector);
-    shooter.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 80, 0, false, false));
+  /**
+   * Pulls the player-defined shooter towards the block until halt conditions are met.
+   *
+   * @param block   interacting block
+   * @param shooter projectile shooter
+   */
+  private void pullTowardsBlock(Block block, Player shooter) {
+    PlayerInventory pInv = shooter.getInventory();
+    boolean notHoldingCrossbow = pInv.getItemInMainHand().getType() != Material.CROSSBOW && pInv.getItemInOffHand().getType() != Material.CROSSBOW;
+    if (notHoldingCrossbow) {
+      return;
+    }
+    if (((CrossbowMeta) pInv.getItemInMainHand().getItemMeta()).hasChargedProjectiles()) {
+      return;
+    }
+    if (block.getType() != block.getLocation().getBlock().getType()) {
+      return;
+    }
+
+    Vector blockVector = block.getLocation().add(0.5, 0.5, 0.5).toVector();
+    Vector launchVector = (blockVector.subtract(shooter.getLocation().toVector())).normalize();
+    shooter.setVelocity(launchVector.multiply(0.5));
+
+    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsBlock(block, shooter), 2);
+  }
+
+  /**
+   * Pulls the player-defined shooter towards the entity until halt conditions are met.
+   *
+   * @param entity  interacting entity
+   * @param shooter projectile shooter
+   */
+  private void pullTowardsEntity(Entity entity, Player shooter) {
+    PlayerInventory pInv = shooter.getInventory();
+    boolean notHoldingCrossbow = pInv.getItemInMainHand().getType() != Material.CROSSBOW && pInv.getItemInOffHand().getType() != Material.CROSSBOW;
+    if (notHoldingCrossbow) {
+      return;
+    }
+    if (((CrossbowMeta) pInv.getItemInMainHand().getItemMeta()).hasChargedProjectiles()) {
+      return;
+    }
+
+    Location entityLocation = entity.getLocation();
+    Location shooterLocation = shooter.getLocation();
+    if (entityLocation.distance(shooterLocation) > 64 || !entity.getWorld().equals(shooter.getWorld()) || entity.isDead()) {
+      return;
+    }
+
+    Vector launchVector = (entityLocation.toVector().subtract(shooterLocation.toVector())).normalize();
+    shooter.setVelocity(launchVector.multiply(0.5));
+
+    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsEntity(entity, shooter), 2);
+  }
+
+  /**
+   * Pulls the non-player-defined shooter towards the block until halt condtions are met.
+   *
+   * @param block   interacting block
+   * @param shooter projectile shooter
+   * @param ticks   duration
+   */
+  private void pullTowardsBlock(Block block, LivingEntity shooter, long ticks) {
+    if (ticks <= 0) {
+      return;
+    }
+
+    if (block.getType() != block.getLocation().getBlock().getType()) {
+      return;
+    }
+
+    Vector blockVector = block.getLocation().add(0.5, 0.5, 0.5).toVector();
+    Vector launchVector = (blockVector.subtract(shooter.getLocation().toVector())).normalize();
+    shooter.setVelocity(launchVector.multiply(0.5));
+
+    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsBlock(block, shooter, ticks - 2), 2);
+  }
+
+  /**
+   * Pulls the non-player-defined shooter towards the block until halt conditions are met.
+   *
+   * @param entity  interacting block
+   * @param shooter projectile shooter
+   * @param ticks   duration
+   */
+  private void pullTowardsEntity(Entity entity, LivingEntity shooter, long ticks) {
+    if (ticks <= 0) {
+      return;
+    }
+
+    Location entityLocation = entity.getLocation();
+    Location shooterLocation = shooter.getLocation();
+    if (entityLocation.distance(shooterLocation) > 64 || !entity.getWorld().equals(shooter.getWorld()) || entity.isDead()) {
+      return;
+    }
+
+    Vector launchVector = (entityLocation.toVector().subtract(shooterLocation.toVector())).normalize();
+    shooter.setVelocity(launchVector.multiply(0.5));
+
+    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsEntity(entity, shooter, ticks - 2), 2);
   }
 }
