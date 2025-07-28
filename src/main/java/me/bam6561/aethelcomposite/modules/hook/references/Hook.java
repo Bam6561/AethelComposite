@@ -133,7 +133,7 @@ public class Hook {
    * Hook items.
    *
    * @author Danny Nguyen
-   * @version 1.1.20
+   * @version 1.1.22
    * @since 1.1.3
    */
   public enum Item implements ItemStackValue {
@@ -146,7 +146,7 @@ public class Hook {
     /**
      * Leggings equipment that stores and fires {@link #HOOK_SHOT hook shots}.
      */
-    HOOK_HARNESS(ItemUtils.Create.createItem(Material.LEATHER_LEGGINGS, ChatColor.WHITE + "H.O.O.K Harness", List.of(Text.Label.ACTION.asColor() + "Fire Hook Shot", Text.Label.TIP.asColor() + "[Empty Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Fires a projectile that launches", Text.Label.DETAILS.asColor() + "the user to its point of impact.", Text.Label.ACTION.asColor() + "Reload", Text.Label.TIP.asColor() + "[Hook Shot(s) in Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Reloads Hook Shot ammunition.", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "H.O.O.K Harness"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "h.o.o.k_harness"));
+    HOOK_HARNESS(ItemUtils.Create.createItem(Material.LEATHER_LEGGINGS, ChatColor.WHITE + "H.O.O.K Harness", List.of(Text.Label.ACTION.asColor() + "Fire Hook Shot", Text.Label.TIP.asColor() + "[Empty Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Fires a projectile that launches", Text.Label.DETAILS.asColor() + "the user to its point of impact.", Text.Label.ACTION.asColor() + "Reload", Text.Label.TIP.asColor() + "[Hook Shot(s) in Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Reloads Hook Shot ammunition.", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "H.O.O.K Harness"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_harness"));
 
     /**
      * Item.

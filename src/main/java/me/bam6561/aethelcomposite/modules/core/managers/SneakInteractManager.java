@@ -37,6 +37,7 @@ public class SneakInteractManager {
   /**
    * On interaction:
    * <ul>
+   *   <li>{@link #activateLeggingsItemAbility(PlayerInteractEvent, ItemStack)}
    *   <li>{@link #activateMainHandItemAbility(PlayerInteractEvent, ItemStack)}
    *   <li>{@link #openWorkstation(PlayerInteractEvent)}
    * </ul>
@@ -46,8 +47,8 @@ public class SneakInteractManager {
   public void interpretAction(@NotNull PlayerInteractEvent event) {
     Objects.requireNonNull(event, "Null event");
     PlayerInventory pInv = event.getPlayer().getInventory();
-    ItemStack mainHandItem = pInv.getItemInMainHand();
     ItemStack leggingsItem = pInv.getLeggings();
+    ItemStack mainHandItem = pInv.getItemInMainHand();
 
     switch (event.getAction()) {
       case RIGHT_CLICK_AIR -> {
