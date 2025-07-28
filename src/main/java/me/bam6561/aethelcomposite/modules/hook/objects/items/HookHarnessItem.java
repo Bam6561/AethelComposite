@@ -1,6 +1,7 @@
 package me.bam6561.aethelcomposite.modules.hook.objects.items;
 
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
 import me.bam6561.aethelcomposite.modules.core.references.ModuleName;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.utils.EntityUtils;
@@ -24,10 +25,10 @@ import java.util.Objects;
  * and fire {@link Hook.Item#HOOK_SHOT} ammunition.
  *
  * @author Danny Nguyen
- * @version 1.1.22
+ * @version 1.1.23
  * @since 1.1.21
  */
-public class HookHarnessItem extends ModuleItemStack {
+public class HookHarnessItem extends ModuleItemStack implements ActiveAbilityItem {
   /**
    * Associates the HookHarnessItem with its item.
    *

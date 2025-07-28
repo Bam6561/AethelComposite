@@ -24,7 +24,7 @@ import java.util.Objects;
  * Manages {@link SneakInteractEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.1.21
+ * @version 1.1.23
  * @since 1.0.8
  */
 public class SneakInteractManager {
@@ -89,7 +89,7 @@ public class SneakInteractManager {
     ModuleItemStack moduleItem = new ModuleItemStack(item);
     switch (moduleItem.getModuleName()) {
       case HOOK -> {
-        HookHarnessItem hookHarnessItem = new HookHarnessItem(moduleItem.getItem());
+        HookHarnessItem hookHarnessItem = new HookHarnessItem(item);
         ItemStack offHandItem = event.getPlayer().getInventory().getItemInOffHand();
         if (ItemUtils.Read.isNullOrAir(offHandItem)) {
           hookHarnessItem.fireHookShot(event);
@@ -115,7 +115,7 @@ public class SneakInteractManager {
     ModuleItemStack moduleItem = new ModuleItemStack(item);
     switch (moduleItem.getModuleName()) {
       case LASSO -> {
-        LassoItem lassoItem = new LassoItem(moduleItem.getItem());
+        LassoItem lassoItem = new LassoItem(item);
         if (lassoItem.hasEntityData()) {
           lassoItem.releaseEntity(event);
         }

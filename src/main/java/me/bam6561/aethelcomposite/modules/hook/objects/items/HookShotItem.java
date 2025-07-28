@@ -1,6 +1,7 @@
 package me.bam6561.aethelcomposite.modules.hook.objects.items;
 
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
 import me.bam6561.aethelcomposite.modules.core.references.ModuleName;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.utils.EntityUtils;
@@ -19,10 +20,10 @@ import java.util.Objects;
  * ammunition that launch the user to the projectile's point of impact.
  *
  * @author Danny Nguyen
- * @version 1.1.17
+ * @version 1.1.23
  * @since 1.1.6
  */
-public class HookShotItem extends ModuleItemStack {
+public class HookShotItem extends ModuleItemStack implements ActiveAbilityItem {
   /**
    * Associates the HookShotItem with its item.
    *

@@ -15,7 +15,7 @@ import java.util.Objects;
  * Manages {@link SneakInteractEntityEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.0.109
+ * @version 1.1.23
  * @since 1.0.8
  */
 public class SneakInteractEntityManager {
@@ -59,7 +59,7 @@ public class SneakInteractEntityManager {
     ModuleItemStack moduleItem = new ModuleItemStack(item);
     switch (moduleItem.getModuleName()) {
       case LASSO -> {
-        LassoItem lassoItem = new LassoItem(moduleItem.getItem());
+        LassoItem lassoItem = new LassoItem(item);
         if (!lassoItem.hasEntityData()) {
           lassoItem.captureEntity(event);
         } else {

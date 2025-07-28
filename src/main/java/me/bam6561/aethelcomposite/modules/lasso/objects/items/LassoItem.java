@@ -1,6 +1,7 @@
 package me.bam6561.aethelcomposite.modules.lasso.objects.items;
 
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.utils.EntityUtils;
@@ -40,10 +41,10 @@ import java.util.Set;
  * are represented with an additional "'d" in their {@link Namespaced.Key.Item#ID} (lasso'd).
  *
  * @author Danny Nguyen
- * @version 1.1.8
+ * @version 1.1.23
  * @since 1.0.86
  */
-public class LassoItem extends ModuleItemStack {
+public class LassoItem extends ModuleItemStack implements ActiveAbilityItem {
   /**
    * Entity types an {@link Lasso.Item#IRON_LASSO} can capture.
    */

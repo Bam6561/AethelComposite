@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
  * Collection of entity interaction listeners.
  *
  * @author Danny Nguyen
- * @version 1.1.19
+ * @version 1.1.23
  * @since 1.1.10
  */
 public class EntityListener implements Listener {
@@ -48,7 +48,7 @@ public class EntityListener implements Listener {
 
     ModuleItemStack moduleItem = new ModuleItemStack(consumable);
     switch (moduleItem.getModuleName()) {
-      case HOOK -> new HookShotItem(moduleItem.getItem()).modifyProjectile(event);
+      case HOOK -> new HookShotItem(consumable).modifyProjectile(event);
     }
   }
 
