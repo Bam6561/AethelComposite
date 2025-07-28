@@ -11,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
@@ -25,7 +26,7 @@ import java.util.Objects;
  * and fire {@link Hook.Item#HOOK_SHOT} ammunition.
  *
  * @author Danny Nguyen
- * @version 1.1.23
+ * @version 1.1.24
  * @since 1.1.21
  */
 public class HookHarnessItem extends ModuleItemStack implements ActiveAbilityItem {
@@ -59,10 +60,35 @@ public class HookHarnessItem extends ModuleItemStack implements ActiveAbilityIte
   }
 
   /**
+   * Fires loaded {@link Hook.Item#HOOK_SHOT} ammunition.
+   *
+   * @param event player interact entity event
+   */
+  public void fireHookShot(@NotNull PlayerInteractEntityEvent event) {
+    Objects.requireNonNull(event, "Null event");
+    Player player = event.getPlayer();
+
+    Location loc = player.getLocation();
+    Vector direction = loc.getDirection();
+
+    Entity projectile = player.launchProjectile(Arrow.class, direction);
+    EntityUtils.Modify.setEntityData(projectile, Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Entity.ID.asKey(), Hook.SpawnableEntity.HOOK_SHOT.asString());
+    projectile.setVelocity(projectile.getVelocity().multiply(3));
+  }
+
+  /**
    * Reloads the Hook Harness with {@link Hook.Item#HOOK_SHOT} ammunition.
    *
    * @param event player interact event
    */
   public void reload(@NotNull PlayerInteractEvent event) {
+  }
+
+  /**
+   * Reloads the Hook Harness with {@link Hook.Item#HOOK_SHOT} ammunition.
+   *
+   * @param event player interact entity event
+   */
+  public void reload(@NotNull PlayerInteractEntityEvent event) {
   }
 }
