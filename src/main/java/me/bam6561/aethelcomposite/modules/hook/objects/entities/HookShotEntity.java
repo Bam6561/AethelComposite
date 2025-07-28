@@ -7,12 +7,15 @@ import me.bam6561.aethelcomposite.modules.core.utils.TextUtils;
 import me.bam6561.aethelcomposite.modules.hook.references.Hook;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,7 +27,7 @@ import java.util.Objects;
  * Hook shots are projectiles that pull the shooter towards their point of impact.
  *
  * @author Danny Nguyen
- * @version 1.1.22
+ * @version 1.1.25
  * @since 1.1.19
  */
 public class HookShotEntity extends ModuleEntity {
@@ -59,8 +62,9 @@ public class HookShotEntity extends ModuleEntity {
     }
     if (shooter instanceof Player player) {
       PlayerInventory pInv = player.getInventory();
+      String itemID = ItemUtils.Read.getItemID(pInv.getLeggings());
       boolean notHoldingCrossbow = pInv.getItemInMainHand().getType() != Material.CROSSBOW && pInv.getItemInOffHand().getType() != Material.CROSSBOW;
-      boolean notWearingHookHarness = !ItemUtils.Read.getItemID(pInv.getLeggings()).equals(ItemUtils.Read.getItemID(Hook.Item.HOOK_HARNESS.asItem()));
+      boolean notWearingHookHarness = itemID == null || !itemID.equals(ItemUtils.Read.getItemID(Hook.Item.HOOK_HARNESS.asItem()));
       if (notHoldingCrossbow && notWearingHookHarness) {
         return;
       }
@@ -81,5 +85,6 @@ public class HookShotEntity extends ModuleEntity {
 
     launchVector = new Vector(launchVector.getX() * amplitude, launchVector.getY() * amplitude / 2, launchVector.getZ() * amplitude);
     shooter.setVelocity(launchVector);
+    shooter.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 80, 0, false, false));
   }
 }
