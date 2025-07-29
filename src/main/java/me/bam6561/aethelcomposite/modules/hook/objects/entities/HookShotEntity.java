@@ -3,7 +3,6 @@ package me.bam6561.aethelcomposite.modules.hook.objects.entities;
 import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.objects.entity.ModuleEntity;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
-import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import me.bam6561.aethelcomposite.modules.core.utils.TextUtils;
 import me.bam6561.aethelcomposite.modules.hook.references.Hook;
 import org.bukkit.Bukkit;
@@ -29,7 +28,7 @@ import java.util.Objects;
  * Hook shots are projectiles that pull the shooter towards their point of impact.
  *
  * @author Danny Nguyen
- * @version 1.1.26
+ * @version 1.1.27
  * @since 1.1.19
  */
 public class HookShotEntity extends ModuleEntity {
@@ -63,14 +62,8 @@ public class HookShotEntity extends ModuleEntity {
     if (!(hookShotEntity.getShooter() instanceof LivingEntity shooter)) {
       return;
     }
-    if (shooter instanceof Player player) {
-      PlayerInventory pInv = player.getInventory();
-      String itemID = ItemUtils.Read.getItemID(pInv.getLeggings());
-      boolean notHoldingCrossbow = pInv.getItemInMainHand().getType() != Material.CROSSBOW && pInv.getItemInOffHand().getType() != Material.CROSSBOW;
-      boolean notWearingHookHarness = itemID == null || !itemID.equals(ItemUtils.Read.getItemID(Hook.Item.HOOK_HARNESS.asItem()));
-      if (notHoldingCrossbow && notWearingHookHarness) {
-        return;
-      }
+    if (shooter instanceof Player player && player.getInventory().getItemInMainHand().getType() != Material.CROSSBOW) {
+      return;
     }
 
     Location impactLoc = event.getEntity().getLocation();
@@ -108,8 +101,7 @@ public class HookShotEntity extends ModuleEntity {
    */
   private void pullTowardsBlock(Block block, Player shooter) {
     PlayerInventory pInv = shooter.getInventory();
-    boolean notHoldingCrossbow = pInv.getItemInMainHand().getType() != Material.CROSSBOW && pInv.getItemInOffHand().getType() != Material.CROSSBOW;
-    if (notHoldingCrossbow) {
+    if (pInv.getItemInMainHand().getType() != Material.CROSSBOW) {
       return;
     }
     if (((CrossbowMeta) pInv.getItemInMainHand().getItemMeta()).hasChargedProjectiles()) {
@@ -134,8 +126,7 @@ public class HookShotEntity extends ModuleEntity {
    */
   private void pullTowardsEntity(Entity entity, Player shooter) {
     PlayerInventory pInv = shooter.getInventory();
-    boolean notHoldingCrossbow = pInv.getItemInMainHand().getType() != Material.CROSSBOW && pInv.getItemInOffHand().getType() != Material.CROSSBOW;
-    if (notHoldingCrossbow) {
+    if (pInv.getItemInMainHand().getType() != Material.CROSSBOW) {
       return;
     }
     if (((CrossbowMeta) pInv.getItemInMainHand().getItemMeta()).hasChargedProjectiles()) {
