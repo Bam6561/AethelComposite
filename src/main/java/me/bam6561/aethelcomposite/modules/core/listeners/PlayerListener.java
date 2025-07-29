@@ -21,15 +21,9 @@ import java.util.Set;
 
 /**
  * Collection of player interaction listeners.
- * <p>
- * Plugin-monitored player behavior is managed through:
- * <ul>
- *   <li>{@link SneakInteractManager}
- *   <li>{@link SneakInteractEntityManager}
- * </ul>
  *
  * @author Danny Nguyen
- * @version 1.1.9
+ * @version 1.1.29
  * @since 1.0.7
  */
 public class PlayerListener implements Listener {
@@ -40,16 +34,6 @@ public class PlayerListener implements Listener {
    * See {@link #hasDefaultInteractionsDisabled(Player)}
    */
   private static final Set<Material> disabledMaterials = Set.of(Material.LEAD);
-
-  /**
-   * {@link SneakInteractManager}
-   */
-  private final SneakInteractManager sneakInteractManager = Plugin.getSneakInteractManager();
-
-  /**
-   * {@link SneakInteractEntityManager}
-   */
-  private final SneakInteractEntityManager sneakInteractEntityManager = Plugin.getSneakInteractEntityManager();
 
   /**
    * No parameter constructor.
@@ -89,32 +73,6 @@ public class PlayerListener implements Listener {
       SneakInteractEntityEvent sneakInteractEntityEvent = new SneakInteractEntityEvent(event);
       Bukkit.getPluginManager().callEvent(sneakInteractEntityEvent);
     }
-  }
-
-  /**
-   * Routes {@link SneakInteractEvent SneakInteractEvents}.
-   *
-   * @param event {@link SneakInteractEvent}
-   */
-  @EventHandler
-  private void onPlayerSneakInteract(SneakInteractEvent event) {
-    if (event.isCancelled()) {
-      return;
-    }
-    sneakInteractManager.interpretAction(event.getSource());
-  }
-
-  /**
-   * Routes {@link SneakInteractEntityEvent SneakInteractEntityEvents}.
-   *
-   * @param event {@link SneakInteractEntityEvent}
-   */
-  @EventHandler
-  private void onPlayerSneakInteractEntity(SneakInteractEntityEvent event) {
-    if (event.isCancelled()) {
-      return;
-    }
-    sneakInteractEntityManager.interpretAction(event.getSource());
   }
 
   /**
