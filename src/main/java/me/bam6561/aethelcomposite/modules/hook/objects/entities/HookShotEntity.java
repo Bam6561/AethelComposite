@@ -101,7 +101,7 @@ public class HookShotEntity extends ModuleEntity {
   }
 
   /**
-   * Pulls the player-defined shooter towards the block until halt conditions are met.
+   * Continuously pulls the player-defined shooter towards the block until halt conditions are met.
    *
    * @param block   interacting block
    * @param shooter projectile shooter
@@ -120,14 +120,14 @@ public class HookShotEntity extends ModuleEntity {
     }
 
     Vector blockVector = block.getLocation().add(0.5, 0.5, 0.5).toVector();
-    Vector launchVector = (blockVector.subtract(shooter.getLocation().toVector())).normalize();
-    shooter.setVelocity(launchVector.multiply(0.5));
+    Vector pullVector = (blockVector.subtract(shooter.getLocation().toVector())).normalize();
+    shooter.setVelocity(pullVector.multiply(0.5));
 
     Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsBlock(block, shooter), 2);
   }
 
   /**
-   * Pulls the player-defined shooter towards the entity until halt conditions are met.
+   * Continuously pulls the player-defined shooter towards the entity until halt conditions are met.
    *
    * @param entity  interacting entity
    * @param shooter projectile shooter
@@ -148,14 +148,14 @@ public class HookShotEntity extends ModuleEntity {
       return;
     }
 
-    Vector launchVector = (entityLocation.toVector().subtract(shooterLocation.toVector())).normalize();
-    shooter.setVelocity(launchVector.multiply(0.5));
+    Vector pullVector = (entityLocation.toVector().subtract(shooterLocation.toVector())).normalize();
+    shooter.setVelocity(pullVector.multiply(0.5));
 
     Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsEntity(entity, shooter), 2);
   }
 
   /**
-   * Pulls the non-player-defined shooter towards the block until halt condtions are met.
+   * Continuously pulls the non-player-defined shooter towards the block until halt conditions are met.
    *
    * @param block   interacting block
    * @param shooter projectile shooter
@@ -171,14 +171,14 @@ public class HookShotEntity extends ModuleEntity {
     }
 
     Vector blockVector = block.getLocation().add(0.5, 0.5, 0.5).toVector();
-    Vector launchVector = (blockVector.subtract(shooter.getLocation().toVector())).normalize();
-    shooter.setVelocity(launchVector.multiply(0.5));
+    Vector pullVector = (blockVector.subtract(shooter.getLocation().toVector())).normalize();
+    shooter.setVelocity(pullVector.multiply(0.5));
 
     Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsBlock(block, shooter, ticks - 2), 2);
   }
 
   /**
-   * Pulls the non-player-defined shooter towards the block until halt conditions are met.
+   * Continuously pulls the non-player-defined shooter towards the block until halt conditions are met.
    *
    * @param entity  interacting block
    * @param shooter projectile shooter
@@ -195,8 +195,8 @@ public class HookShotEntity extends ModuleEntity {
       return;
     }
 
-    Vector launchVector = (entityLocation.toVector().subtract(shooterLocation.toVector())).normalize();
-    shooter.setVelocity(launchVector.multiply(0.5));
+    Vector pullVector = (entityLocation.toVector().subtract(shooterLocation.toVector())).normalize();
+    shooter.setVelocity(pullVector.multiply(0.5));
 
     Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsEntity(entity, shooter, ticks - 2), 2);
   }

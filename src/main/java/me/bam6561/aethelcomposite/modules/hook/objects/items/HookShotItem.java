@@ -16,8 +16,8 @@ import java.util.Objects;
 /**
  * Represents a {@link Hook.Item#HOOK_SHOT}.
  * <p>
- * Hook shots are loadable crossbow and {@link Hook.Item#HOOK_HARNESS}
- * ammunition that launch the user to the projectile's point of impact.
+ * Hook shots are loadable crossbow and {@link Hook.Item#HOOK_HARNESS} ammunition
+ * that continuously pull the user towards the projectile's point of impact.
  *
  * @author Danny Nguyen
  * @version 1.1.23
