@@ -12,8 +12,11 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -133,7 +136,7 @@ public class Hook {
    * Hook items.
    *
    * @author Danny Nguyen
-   * @version 1.1.22
+   * @version 1.1.28
    * @since 1.1.3
    */
   public enum Item implements ItemStackValue {
@@ -141,12 +144,12 @@ public class Hook {
      * Projectile that continuously pulls the user towards the point
      * of impact when loaded into a crossbow or {@link #HOOK_HARNESS}.
      */
-    HOOK_SHOT(ItemUtils.Create.createItem(Material.ARROW, ChatColor.WHITE + "Hook Shot", List.of(Text.Label.ACTION.asColor() + "Hook Shot " + Text.Label.TIP.asColor() + "[Main Hand + Crossbow]", Text.Label.DETAILS.asColor() + "Continuously pulls the user to the", Text.Label.DETAILS.asColor() + "projectile's point of impact.", Text.Label.DETAILS.asColor() + "{Range: 64}", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Hook Shot"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_shot")),
+    HOOK_SHOT(ItemUtils.Create.createItem(Material.ARROW, ChatColor.WHITE + "Hook Shot", List.of(Text.Label.ACTION.asColor() + "Hook Shot " + Text.Label.TIP.asColor() + "[Main Hand + Crossbow]", Text.Label.DETAILS.asColor() + "Continuously pulls the user to ", Text.Label.DETAILS.asColor() + "the projectile's point of impact.", Text.Label.DETAILS.asColor() + "{Range: 32}", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Hook Shot"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_shot")),
 
     /**
      * Leggings equipment that stores and fires {@link #HOOK_SHOT hook shots}.
      */
-    HOOK_HARNESS(ItemUtils.Create.createItem(Material.LEATHER_LEGGINGS, ChatColor.WHITE + "H.O.O.K Harness", List.of(Text.Label.ACTION.asColor() + "Fire Hook Shot", Text.Label.TIP.asColor() + "[Empty Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Fires a projectile that continuously pulls", Text.Label.DETAILS.asColor() + "the user to its point of impact.", Text.Label.ACTION.asColor() + "Reload", Text.Label.TIP.asColor() + "[Hook Shot(s) in Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Reloads Hook Shot ammunition.", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "H.O.O.K Harness"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_harness"));
+    HOOK_HARNESS(ItemUtils.Modify.addAttributeModifier(ItemUtils.Create.createItem(Material.LEATHER_LEGGINGS, ChatColor.WHITE + "H.O.O.K Harness", List.of(Text.Label.ACTION.asColor() + "Fire Hook Shot", Text.Label.TIP.asColor() + "[Empty Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Fires a projectile that continuously ", Text.Label.DETAILS.asColor() + "pulls the user to its point of impact.", Text.Label.ACTION.asColor() + "Reload", Text.Label.TIP.asColor() + "[Hook Shot(s) in Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Reloads Hook Shot ammunition.", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "H.O.O.K Harness"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_harness"), Attribute.ARMOR, "H.O.O.K Harness", 0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 
     /**
      * Item.

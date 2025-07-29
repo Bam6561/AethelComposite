@@ -81,42 +81,22 @@ public class Lasso {
     /**
      * Captures farms animals.
      */
-    IRON_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Iron Lasso", List.of(
-            Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
-            Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
-            Text.Label.DETAILS.asColor() + "{Chicken, Cow, Pig, Sheep}",
-            Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Iron Lasso"),
-        Namespaced.Key.Core.MODULE.asKey(), ModuleName.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "iron_lasso")),
+    IRON_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Iron Lasso", List.of(Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]", Text.Label.DETAILS.asColor() + "Stores a creature to be released later.", Text.Label.DETAILS.asColor() + "{Chicken, Cow, Pig, Sheep}", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Iron Lasso"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "iron_lasso")),
 
     /**
      * Captures iron tier lasso-able and all animals.
      */
-    GOLDEN_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Golden Lasso", List.of(
-            Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
-            Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
-            Text.Label.DETAILS.asColor() + "{Iron Lasso + Animals}",
-            Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Golden Lasso"),
-        Namespaced.Key.Core.MODULE.asKey(), ModuleName.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "golden_lasso")),
+    GOLDEN_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Golden Lasso", List.of(Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]", Text.Label.DETAILS.asColor() + "Stores a creature to be released later.", Text.Label.DETAILS.asColor() + "{Iron Lassoable + Animals}", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Golden Lasso"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "golden_lasso")),
 
     /**
      * Captures golden tier lasso-able and non-boss hostile mobs.
      */
-    DIAMOND_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Diamond Lasso", List.of(
-            Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
-            Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
-            Text.Label.DETAILS.asColor() + "{Golden Lasso + Non-Boss Hostile Mobs}",
-            Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Diamond Lasso"),
-        Namespaced.Key.Core.MODULE.asKey(), ModuleName.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "diamond_lasso")),
+    DIAMOND_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Diamond Lasso", List.of(Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]", Text.Label.DETAILS.asColor() + "Stores a creature to be released later.", Text.Label.DETAILS.asColor() + "{Golden Lassoable + Non-Boss Hostile Mobs}", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Diamond Lasso"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "diamond_lasso")),
 
     /**
      * Captures diamond tier lasso-able and villagers.
      */
-    EMERALD_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Emerald Lasso", List.of(
-            Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]",
-            Text.Label.DETAILS.asColor() + "Stores a creature to be released later.",
-            Text.Label.DETAILS.asColor() + "{Diamond Lasso + Villagers}",
-            Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Emerald Lasso"),
-        Namespaced.Key.Core.MODULE.asKey(), ModuleName.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "emerald_lasso"));
+    EMERALD_LASSO(ItemUtils.Create.createItem(Material.LEAD, ChatColor.WHITE + "Emerald Lasso", List.of(Text.Label.ACTION.asColor() + "Capture " + Text.Label.TIP.asColor() + "[Sneak-Interact]", Text.Label.DETAILS.asColor() + "Stores a creature to be released later.", Text.Label.DETAILS.asColor() + "{Diamond Lassoable + Villagers}", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Emerald Lasso"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.LASSO.asString(), Namespaced.Key.Item.ID.asKey(), "emerald_lasso"));
 
     /**
      * Item.

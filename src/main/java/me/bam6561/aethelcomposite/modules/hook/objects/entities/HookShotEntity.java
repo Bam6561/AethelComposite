@@ -28,7 +28,7 @@ import java.util.Objects;
  * Hook shots are projectiles that pull the shooter towards their point of impact.
  *
  * @author Danny Nguyen
- * @version 1.1.27
+ * @version 1.1.28
  * @since 1.1.19
  */
 public class HookShotEntity extends ModuleEntity {
@@ -71,7 +71,7 @@ public class HookShotEntity extends ModuleEntity {
     if (impactLoc.getWorld() != shooterLoc.getWorld()) {
       return;
     }
-    if (impactLoc.distance(shooterLoc) > 64) {
+    if (impactLoc.distance(shooterLoc) > 32) {
       return;
     }
 
@@ -135,7 +135,7 @@ public class HookShotEntity extends ModuleEntity {
 
     Location entityLocation = entity.getLocation();
     Location shooterLocation = shooter.getLocation();
-    if (entityLocation.distance(shooterLocation) > 64 || !entity.getWorld().equals(shooter.getWorld()) || entity.isDead()) {
+    if (entityLocation.distance(shooterLocation) > 32 || !entity.getWorld().equals(shooter.getWorld()) || entity.isDead()) {
       return;
     }
 

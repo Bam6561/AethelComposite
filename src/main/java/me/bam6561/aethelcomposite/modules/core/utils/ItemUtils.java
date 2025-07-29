@@ -5,7 +5,10 @@ import me.bam6561.aethelcomposite.modules.core.references.PlayerHead;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -23,6 +26,7 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Utilities for ItemStacks.
@@ -323,7 +327,7 @@ public class ItemUtils {
    * Modifies ItemStacks.
    *
    * @author Danny Nguyen
-   * @version 1.1.4
+   * @version 1.1.28
    * @since 1.1.4
    */
   public static class Modify {
@@ -342,6 +346,29 @@ public class ItemUtils {
     public static ItemStack setAmount(@NotNull ItemStack item, int amount) {
       Objects.requireNonNull(item, "Null item");
       item.setAmount(amount);
+      return item;
+    }
+
+    /**
+     * Adds an attribute modifier to an item and returns the item.
+     *
+     * @param item      interacting item
+     * @param attribute attribute type
+     * @param name      arbitrary name
+     * @param value     attribute value
+     * @param operation attribute modifier operation
+     * @param slot      equipment slot
+     * @return item with new attribute modifier
+     */
+    public static ItemStack addAttributeModifier(@NotNull ItemStack item, @NotNull Attribute attribute, @NotNull String name, double value, @NotNull AttributeModifier.Operation operation, @NotNull EquipmentSlot slot) {
+      Objects.requireNonNull(item, "Null item");
+      Objects.requireNonNull(attribute, "Null attribute");
+      Objects.requireNonNull(name, "Null name");
+      Objects.requireNonNull(operation, "Null operation");
+      Objects.requireNonNull(slot, "Null slot");
+      ItemMeta meta = item.getItemMeta();
+      meta.addAttributeModifier(attribute, new AttributeModifier(UUID.randomUUID(), name, value, operation, slot));
+      item.setItemMeta(meta);
       return item;
     }
   }
