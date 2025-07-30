@@ -7,6 +7,7 @@ import me.bam6561.aethelcomposite.modules.core.listeners.PlayerListener;
 import me.bam6561.aethelcomposite.modules.core.managers.GUIManager;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractEntityManager;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractManager;
+import me.bam6561.aethelcomposite.modules.core.managers.UniqueModuleItemDamageManager;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -16,10 +17,9 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  * Through event listeners and command executors, the plugin can
  * handle various requests given to it by its users and the server.
- * </p>
  *
  * @author Danny Nguyen
- * @version 1.1.29
+ * @version 1.1.37
  * @since 1.0.0
  */
 
@@ -38,6 +38,11 @@ public class Plugin extends JavaPlugin {
    * {@link SneakInteractEntityManager}
    */
   public static final SneakInteractEntityManager SNEAK_INTERACT_ENTITY_MANAGER = new SneakInteractEntityManager();
+
+  /**
+   * {@link UniqueModuleItemDamageManager}
+   */
+  public static final UniqueModuleItemDamageManager UNIQUE_MODULE_ITEM_DAMAGE_MANAGER = new UniqueModuleItemDamageManager();
 
   /**
    * No parameter constructor.
@@ -115,5 +120,15 @@ public class Plugin extends JavaPlugin {
   @NotNull
   public static SneakInteractEntityManager getSneakInteractEntityManager() {
     return SNEAK_INTERACT_ENTITY_MANAGER;
+  }
+
+  /**
+   * Gets the {@link UniqueModuleItemDamageManager}.
+   *
+   * @return {@link UniqueModuleItemDamageManager}
+   */
+  @NotNull
+  public static UniqueModuleItemDamageManager getUniqueModuleItemDamageManager() {
+    return UNIQUE_MODULE_ITEM_DAMAGE_MANAGER;
   }
 }
