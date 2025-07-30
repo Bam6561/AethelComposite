@@ -128,19 +128,19 @@ public class Lasso {
    * Lasso {@link ModuleRecipe ModuleRecipes}.
    *
    * @author Danny Nguyen
-   * @version 1.0.110
+   * @version 1.1.30
    * @since 1.0.89
    */
   public enum Recipe implements ModuleRecipeValue {
     /**
      * {@link Item#IRON_LASSO}
      */
-    IRON_LASSO(new ModuleRecipe(List.of(new ItemStack(Material.LEAD, 1), new ItemStack(Material.IRON_INGOT, 2)), List.of(Item.IRON_LASSO.asItem()))),
+    IRON_LASSO(new ModuleRecipe(List.of(new ItemStack(Material.LEAD, 1), new ItemStack(Material.IRON_INGOT, 4)), List.of(Item.IRON_LASSO.asItem()))),
 
     /**
      * {@link Item#GOLDEN_LASSO}
      */
-    GOLDEN_LASSO(new ModuleRecipe(List.of(Item.IRON_LASSO.asItem(), new ItemStack(Material.GOLD_INGOT, 2)), List.of(Item.GOLDEN_LASSO.asItem()))),
+    GOLDEN_LASSO(new ModuleRecipe(List.of(Item.IRON_LASSO.asItem(), new ItemStack(Material.GOLD_INGOT, 4)), List.of(Item.GOLDEN_LASSO.asItem()))),
 
     /**
      * {@link Item#DIAMOND_LASSO}

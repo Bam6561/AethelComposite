@@ -181,14 +181,14 @@ public class Hook {
    * Hook {@link ModuleRecipe ModuleRecipes}.
    *
    * @author Danny Nguyen
-   * @version 1.1.20
+   * @version 1.1.30
    * @since 1.1.4
    */
   public enum Recipe implements ModuleRecipeValue {
     /**
      * {@link Item#HOOK_SHOT}
      */
-    HOOK_SHOT(new ModuleRecipe(List.of(new ItemStack(Material.ARROW, 4), new ItemStack(Material.STRING), new ItemStack(Material.TRIPWIRE_HOOK)), List.of(ItemUtils.Modify.setAmount(Item.HOOK_SHOT.asItem(), 4)))),
+    HOOK_SHOT(new ModuleRecipe(List.of(new ItemStack(Material.ARROW), new ItemStack(Material.CHAIN), new ItemStack(Material.TRIPWIRE_HOOK)), List.of(ItemUtils.Modify.setAmount(Item.HOOK_SHOT.asItem(), 1)))),
 
     /**
      * {@link Item#HOOK_HARNESS}
