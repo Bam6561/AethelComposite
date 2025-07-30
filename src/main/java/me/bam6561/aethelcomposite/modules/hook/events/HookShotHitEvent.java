@@ -51,6 +51,7 @@ public class HookShotHitEvent extends Event implements Cancellable {
    *
    * @return source of the event
    */
+  @NotNull
   public ProjectileHitEvent getSource() {
     return this.source;
   }

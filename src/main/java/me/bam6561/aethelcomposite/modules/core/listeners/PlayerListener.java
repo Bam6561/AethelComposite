@@ -24,7 +24,7 @@ import java.util.Set;
  * Collection of player interaction listeners.
  *
  * @author Danny Nguyen
- * @version 1.1.37
+ * @version 1.1.38
  * @since 1.0.7
  */
 public class PlayerListener implements Listener {
@@ -97,7 +97,7 @@ public class PlayerListener implements Listener {
 
     if (uniqueDurabilityItemIDs.contains(itemID)) {
       event.setCancelled(true);
-      UniqueModuleItemDamageEvent uniqueModuleItemDamage = new UniqueModuleItemDamageEvent(event);
+      UniqueModuleItemDamageEvent uniqueModuleItemDamage = new UniqueModuleItemDamageEvent(event, new ModuleItemStack(item));
       Bukkit.getPluginManager().callEvent(uniqueModuleItemDamage);
     }
   }

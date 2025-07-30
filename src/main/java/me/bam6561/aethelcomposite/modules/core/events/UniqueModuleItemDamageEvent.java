@@ -18,7 +18,7 @@ import java.util.Objects;
  * May be cancelled without cancelling its source PlayerItemDamageEvent.
  *
  * @author Danny Nguyen
- * @version 1.1.36
+ * @version 1.1.38
  * @since 1.1.35
  */
 public class UniqueModuleItemDamageEvent extends Event implements Cancellable {
@@ -38,13 +38,21 @@ public class UniqueModuleItemDamageEvent extends Event implements Cancellable {
   private final PlayerItemDamageEvent source;
 
   /**
-   * Associates the event with its source.
-   *
-   * @param source source of the event
+   * {@link ModuleItemStack}
    */
-  public UniqueModuleItemDamageEvent(@NotNull PlayerItemDamageEvent source) {
+  private final ModuleItemStack moduleItem;
+
+  /**
+   * Associates the event with its source and {@link ModuleItemStack}.
+   *
+   * @param source     source of the event
+   * @param moduleItem {@link ModuleItemStack}
+   */
+  public UniqueModuleItemDamageEvent(@NotNull PlayerItemDamageEvent source, @NotNull ModuleItemStack moduleItem) {
     Objects.requireNonNull(source, "Null source");
+    Objects.requireNonNull(moduleItem, "Null item");
     this.source = source;
+    this.moduleItem = moduleItem;
   }
 
   /**
@@ -52,8 +60,19 @@ public class UniqueModuleItemDamageEvent extends Event implements Cancellable {
    *
    * @return source of the event
    */
+  @NotNull
   public PlayerItemDamageEvent getSource() {
     return this.source;
+  }
+
+  /**
+   * Gets the {@link ModuleItemStack}.
+   *
+   * @return {@link ModuleItemStack}
+   */
+  @NotNull
+  public ModuleItemStack getModuleItem() {
+    return this.moduleItem;
   }
 
   /**
