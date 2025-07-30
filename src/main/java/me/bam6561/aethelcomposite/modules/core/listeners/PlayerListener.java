@@ -1,9 +1,12 @@
 package me.bam6561.aethelcomposite.modules.core.listeners;
 
+import me.bam6561.aethelcomposite.modules.core.events.UniqueModuleItemDamageEvent;
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEntityEvent;
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEvent;
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
+import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
+import me.bam6561.aethelcomposite.modules.hook.references.Hook;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -20,7 +24,7 @@ import java.util.Set;
  * Collection of player interaction listeners.
  *
  * @author Danny Nguyen
- * @version 1.1.29
+ * @version 1.1.36
  * @since 1.0.7
  */
 public class PlayerListener implements Listener {
@@ -31,6 +35,12 @@ public class PlayerListener implements Listener {
    * See {@link #hasDefaultInteractionsDisabled(Player)}
    */
   private static final Set<Material> disabledMaterials = Set.of(Material.LEAD);
+
+  /**
+   * {@link Namespaced.Key.Item#ID Item IDs} for
+   * {@link ModuleItemStack ModuleItemStacks} with unique durability behaviors.
+   */
+  private static final Set<String> uniqueDurabilityItemIDs = Set.of(ItemUtils.Read.getItemID(Hook.Item.HOOK_HARNESS.asItem()));
 
   /**
    * No parameter constructor.
@@ -69,6 +79,26 @@ public class PlayerListener implements Listener {
     if (player.isSneaking()) {
       SneakInteractEntityEvent sneakInteractEntityEvent = new SneakInteractEntityEvent(event);
       Bukkit.getPluginManager().callEvent(sneakInteractEntityEvent);
+    }
+  }
+
+  /**
+   * Routes player item damages.
+   *
+   * @param event player item damage event
+   */
+  @EventHandler
+  private void onPlayerItemDamageEvent(PlayerItemDamageEvent event) {
+    ItemStack item = event.getItem();
+    String itemID = ItemUtils.Read.getItemID(item);
+    if (itemID == null) {
+      return;
+    }
+
+    if (uniqueDurabilityItemIDs.contains(item)) {
+      event.setCancelled(true);
+      UniqueModuleItemDamageEvent uniqueModuleItemDamageEvent = new UniqueModuleItemDamageEvent(event);
+      Bukkit.getPluginManager().callEvent(uniqueModuleItemDamageEvent);
     }
   }
 

@@ -1,5 +1,6 @@
 package me.bam6561.aethelcomposite.modules.core.events;
 
+import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -9,17 +10,18 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 /**
- * Called before a monitored {@link ModuleItemStack} takes damage.
+ * Called before a {@link ModuleItemStack} with unique
+ * durability behavior takes durability damage.
  * <p>
- * Cancellation prevents modifying the original damage value.
+ * Cancellation prevents modifying the durability damage.
  * <p>
  * May be cancelled without cancelling its source PlayerItemDamageEvent.
  *
  * @author Danny Nguyen
- * @version 1.1.35
+ * @version 1.1.36
  * @since 1.1.35
  */
-public class ModuleItemDamageEvent extends Event implements Cancellable {
+public class UniqueModuleItemDamageEvent extends Event implements Cancellable {
   /**
    * Event handlers.
    */
@@ -40,7 +42,7 @@ public class ModuleItemDamageEvent extends Event implements Cancellable {
    *
    * @param source source of the event
    */
-  public ModuleItemDamageEvent(@NotNull PlayerItemDamageEvent source) {
+  public UniqueModuleItemDamageEvent(@NotNull PlayerItemDamageEvent source) {
     Objects.requireNonNull(source, "Null source");
     this.source = source;
   }
