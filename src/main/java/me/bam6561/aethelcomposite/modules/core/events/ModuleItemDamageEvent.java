@@ -1,27 +1,25 @@
-package me.bam6561.aethelcomposite.modules.hook.events;
+package me.bam6561.aethelcomposite.modules.core.events;
 
-import me.bam6561.aethelcomposite.modules.hook.objects.entities.HookShotEntity;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
 /**
- * Called before the {@link HookShotEntity HookShotEntity's} shooter is
- * pulled towards the {@link HookShotEntity HookShotEntity's} point of impact.
+ * Called before a monitored {@link ModuleItemStack} takes damage.
  * <p>
- * Cancellation prevents the {@link HookShotEntity HookShotEntity's} shooter from being pulled.
+ * Cancellation prevents modifying the original damage value.
  * <p>
- * May be cancelled without cancelling its source ProjectileHitEvent.
+ * May be cancelled without cancelling its source PlayerItemDamageEvent.
  *
  * @author Danny Nguyen
  * @version 1.1.35
- * @since 1.1.34
+ * @since 1.1.35
  */
-public class HookShotHitEvent extends Event implements Cancellable {
+public class ModuleItemDamageEvent extends Event implements Cancellable {
   /**
    * Event handlers.
    */
@@ -35,15 +33,16 @@ public class HookShotHitEvent extends Event implements Cancellable {
   /**
    * Source of the event.
    */
-  private final ProjectileHitEvent source;
+  private final PlayerItemDamageEvent source;
 
   /**
    * Associates the event with its source.
    *
    * @param source source of the event
    */
-  public HookShotHitEvent(@NotNull ProjectileHitEvent source) {
-    this.source = Objects.requireNonNull(source, "Null source");
+  public ModuleItemDamageEvent(@NotNull PlayerItemDamageEvent source) {
+    Objects.requireNonNull(source, "Null source");
+    this.source = source;
   }
 
   /**
@@ -51,7 +50,7 @@ public class HookShotHitEvent extends Event implements Cancellable {
    *
    * @return source of the event
    */
-  public ProjectileHitEvent getSource() {
+  public PlayerItemDamageEvent getSource() {
     return this.source;
   }
 

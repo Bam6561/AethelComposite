@@ -6,7 +6,9 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * An event.
+ * Called before or when something happens.
+ * <p>
+ * Cancellation prevents something from happening.
  *
  * @author Danny Nguyen
  * @version 1.0.6
