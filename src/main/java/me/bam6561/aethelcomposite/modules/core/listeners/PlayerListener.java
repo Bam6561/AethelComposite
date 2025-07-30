@@ -1,6 +1,6 @@
 package me.bam6561.aethelcomposite.modules.core.listeners;
 
-import me.bam6561.aethelcomposite.modules.core.events.UniqueModuleItemDamageEvent;
+import me.bam6561.aethelcomposite.modules.core.events.FormulaicModuleItemDamageEvent;
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEntityEvent;
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEvent;
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
@@ -24,7 +24,7 @@ import java.util.Set;
  * Collection of player interaction listeners.
  *
  * @author Danny Nguyen
- * @version 1.1.38
+ * @version 1.1.40
  * @since 1.0.7
  */
 public class PlayerListener implements Listener {
@@ -41,6 +41,12 @@ public class PlayerListener implements Listener {
    * {@link ModuleItemStack ModuleItemStacks} with unique durability behaviors.
    */
   private static final Set<String> UNIQUE_DURABILITY_ITEM_IDS = Set.of(ItemUtils.Read.getItemID(Hook.Item.HOOK_HARNESS.asItem()));
+
+  /**
+   * {@link Namespaced.Key.Item#ID Item IDs} for
+   * {@link ModuleItemStack ModuleItemStacks} with formulaic durability behaviors.
+   */
+  private static final Set<String> FORMULAIC_DURABILITY_ITEM_IDS = Set.of();
 
   /**
    * No parameter constructor.
@@ -97,8 +103,12 @@ public class PlayerListener implements Listener {
 
     if (UNIQUE_DURABILITY_ITEM_IDS.contains(itemID)) {
       event.setCancelled(true);
-      UniqueModuleItemDamageEvent uniqueModuleItemDamage = new UniqueModuleItemDamageEvent(event, new ModuleItemStack(item));
-      Bukkit.getPluginManager().callEvent(uniqueModuleItemDamage);
+      return;
+    }
+
+    if (FORMULAIC_DURABILITY_ITEM_IDS.contains(itemID)) {
+      FormulaicModuleItemDamageEvent formulaicModuleItemDamage = new FormulaicModuleItemDamageEvent(event, new ModuleItemStack(item));
+      Bukkit.getPluginManager().callEvent(formulaicModuleItemDamage);
     }
   }
 

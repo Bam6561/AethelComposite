@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 /**
- * Called before a {@link ModuleItemStack} with unique
+ * Called before a {@link ModuleItemStack} with formulaic
  * durability behavior takes durability damage.
  * <p>
  * Cancellation prevents modifying the durability damage.
@@ -21,7 +21,7 @@ import java.util.Objects;
  * @version 1.1.38
  * @since 1.1.35
  */
-public class UniqueModuleItemDamageEvent extends Event implements Cancellable {
+public class FormulaicModuleItemDamageEvent extends Event implements Cancellable {
   /**
    * Event handlers.
    */
@@ -48,7 +48,7 @@ public class UniqueModuleItemDamageEvent extends Event implements Cancellable {
    * @param source     source of the event
    * @param moduleItem {@link ModuleItemStack}
    */
-  public UniqueModuleItemDamageEvent(@NotNull PlayerItemDamageEvent source, @NotNull ModuleItemStack moduleItem) {
+  public FormulaicModuleItemDamageEvent(@NotNull PlayerItemDamageEvent source, @NotNull ModuleItemStack moduleItem) {
     Objects.requireNonNull(source, "Null source");
     Objects.requireNonNull(moduleItem, "Null item");
     this.source = source;

@@ -40,14 +40,14 @@ public class RecipeCraftEvent extends Event implements Cancellable {
   private final ModuleRecipe recipe;
 
   /**
-   * {@link InventorySource}
-   */
-  private InventorySource invSource = InventorySource.NULL;
-
-  /**
    * Inventory being used to craft the {@link ModuleRecipe}.
    */
   private final Inventory inv;
+
+  /**
+   * {@link InventorySource}
+   */
+  private InventorySource invSource = InventorySource.NULL;
 
   /**
    * Interacting entity.
@@ -84,8 +84,8 @@ public class RecipeCraftEvent extends Event implements Cancellable {
    */
   public RecipeCraftEvent(@NotNull ModuleRecipe recipe, @NotNull Inventory inv, @NotNull Entity entity) {
     this.recipe = Objects.requireNonNull(recipe, "Null recipe");
-    this.invSource = InventorySource.ENTITY;
     this.inv = Objects.requireNonNull(inv, "Null inventory");
+    this.invSource = InventorySource.ENTITY;
     this.entity = Objects.requireNonNull(entity, "Null entity");
     if (entity instanceof Player) {
       this.isCausedByPlayer = true;
@@ -101,8 +101,8 @@ public class RecipeCraftEvent extends Event implements Cancellable {
    */
   public RecipeCraftEvent(@NotNull ModuleRecipe recipe, @NotNull Inventory inv, @NotNull Block block) {
     this.recipe = Objects.requireNonNull(recipe, "Null recipe");
-    this.invSource = InventorySource.BLOCK;
     this.inv = Objects.requireNonNull(inv, "Null inventory");
+    this.invSource = InventorySource.BLOCK;
     this.block = Objects.requireNonNull(block, "Null block");
   }
 
@@ -118,8 +118,8 @@ public class RecipeCraftEvent extends Event implements Cancellable {
    */
   public RecipeCraftEvent(@NotNull ModuleRecipe recipe, @NotNull Inventory inv, @NotNull Entity entity, @NotNull Block block) {
     this.recipe = Objects.requireNonNull(recipe, "Null recipe");
-    this.invSource = InventorySource.ENTITY;
     this.inv = Objects.requireNonNull(inv, "Null inventory");
+    this.invSource = InventorySource.ENTITY;
     this.entity = Objects.requireNonNull(entity, "Null entity");
     this.block = Objects.requireNonNull(block, "Null block");
     if (entity instanceof Player) {
@@ -137,16 +137,6 @@ public class RecipeCraftEvent extends Event implements Cancellable {
   }
 
   /**
-   * Gets the {@link InventorySource}.
-   *
-   * @return {@link InventorySource}
-   */
-  @NotNull
-  public InventorySource getInvSource() {
-    return this.invSource;
-  }
-
-  /**
    * Gets the inventory being used to craft the {@link ModuleRecipe}.
    *
    * @return inventory being used to craft the {@link ModuleRecipe}
@@ -154,6 +144,16 @@ public class RecipeCraftEvent extends Event implements Cancellable {
   @NotNull
   public Inventory getInventory() {
     return this.inv;
+  }
+
+  /**
+   * Gets the {@link InventorySource}.
+   *
+   * @return {@link InventorySource}
+   */
+  @NotNull
+  public InventorySource getInvSource() {
+    return this.invSource;
   }
 
   /**

@@ -1,12 +1,12 @@
 package me.bam6561.aethelcomposite.modules.core.listeners;
 
 import me.bam6561.aethelcomposite.Plugin;
-import me.bam6561.aethelcomposite.modules.core.events.UniqueModuleItemDamageEvent;
+import me.bam6561.aethelcomposite.modules.core.events.FormulaicModuleItemDamageEvent;
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEntityEvent;
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEvent;
+import me.bam6561.aethelcomposite.modules.core.managers.FormulaicModuleItemDamageManager;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractEntityManager;
 import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractManager;
-import me.bam6561.aethelcomposite.modules.core.managers.UniqueModuleItemDamageManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -20,7 +20,7 @@ import org.bukkit.event.Listener;
  * </ul>
  *
  * @author Danny Nguyen
- * @version 1.1.39
+ * @version 1.1.40
  * @since 1.1.29
  */
 public class ModulePlayerListener implements Listener {
@@ -35,9 +35,9 @@ public class ModulePlayerListener implements Listener {
   private final SneakInteractEntityManager sneakInteractEntityManager = Plugin.getSneakInteractEntityManager();
 
   /**
-   * {@link UniqueModuleItemDamageManager}
+   * {@link FormulaicModuleItemDamageManager}
    */
-  private final UniqueModuleItemDamageManager uniqueModuleItemDamageManager = Plugin.getUniqueModuleItemDamageManager();
+  private final FormulaicModuleItemDamageManager formulaicModuleItemDamageManager = Plugin.getFormulaicModuleItemDamageManager();
 
   /**
    * Routes {@link SneakInteractEvent SneakInteractEvents}.
@@ -66,15 +66,16 @@ public class ModulePlayerListener implements Listener {
   }
 
   /**
-   * Routes {@link UniqueModuleItemDamageEvent UniqueModuleItemDamageEvents}.
+   * Routes {@link FormulaicModuleItemDamageEvent FormulaicModuleItemDamageEvents}.
    *
-   * @param event {@link UniqueModuleItemDamageEvent}
+   * @param event {@link FormulaicModuleItemDamageEvent}
    */
   @EventHandler
-  private void onUniqueModuleItemDamage(UniqueModuleItemDamageEvent event) {
+  private void onFormulaicModuleItemDamage(FormulaicModuleItemDamageEvent event) {
     if (event.isCancelled()) {
       return;
     }
-    uniqueModuleItemDamageManager.interpretDamage(event);
+    event.getSource().setCancelled(true);
+    formulaicModuleItemDamageManager.interpretDamage(event);
   }
 }
