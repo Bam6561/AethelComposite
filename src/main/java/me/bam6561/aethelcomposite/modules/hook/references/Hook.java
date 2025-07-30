@@ -136,7 +136,7 @@ public class Hook {
    * Hook items.
    *
    * @author Danny Nguyen
-   * @version 1.1.28
+   * @version 1.1.31
    * @since 1.1.3
    */
   public enum Item implements ItemStackValue {
@@ -144,7 +144,7 @@ public class Hook {
      * Projectile that continuously pulls the user towards the point
      * of impact when loaded into a crossbow or {@link #HOOK_HARNESS}.
      */
-    HOOK_SHOT(ItemUtils.Create.createItem(Material.ARROW, ChatColor.WHITE + "Hook Shot", List.of(Text.Label.ACTION.asColor() + "Hook Shot " + Text.Label.TIP.asColor() + "[Main Hand + Crossbow]", Text.Label.DETAILS.asColor() + "Continuously pulls the user to ", Text.Label.DETAILS.asColor() + "the projectile's point of impact.", Text.Label.DETAILS.asColor() + "{Range: 32}", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Hook Shot"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_shot")),
+    HOOK_SHOT(ItemUtils.Create.createItem(Material.ARROW, ChatColor.WHITE + "Hook Shot", List.of(Text.Label.ACTION.asColor() + "Hook Shot " + Text.Label.TIP.asColor() + "[Main Hand + Crossbow]", Text.Label.DETAILS.asColor() + "Continuously pulls the user to ", Text.Label.DETAILS.asColor() + "the projectile's point of impact.", Text.Label.DETAILS.asColor() + "{Range: 16 + Piercing * 8}", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "Hook Shot"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_shot")),
 
     /**
      * Leggings equipment that stores and fires {@link #HOOK_SHOT hook shots}.

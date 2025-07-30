@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -28,7 +29,7 @@ import java.util.Objects;
  * Hook shots are projectiles that pull the shooter towards their point of impact.
  *
  * @author Danny Nguyen
- * @version 1.1.28
+ * @version 1.1.31
  * @since 1.1.19
  */
 public class HookShotEntity extends ModuleEntity {
@@ -57,12 +58,8 @@ public class HookShotEntity extends ModuleEntity {
     Arrow hookShotEntity = (Arrow) event.getEntity();
     hookShotEntity.getPersistentDataContainer().remove(Namespaced.Key.Core.MODULE.asKey());
     hookShotEntity.getPersistentDataContainer().remove(Namespaced.Key.Entity.ID.asKey());
-    hookShotEntity.setItem(new ItemStack(Material.ARROW));
 
     if (!(hookShotEntity.getShooter() instanceof LivingEntity shooter)) {
-      return;
-    }
-    if (shooter instanceof Player player && player.getInventory().getItemInMainHand().getType() != Material.CROSSBOW) {
       return;
     }
 
@@ -71,7 +68,18 @@ public class HookShotEntity extends ModuleEntity {
     if (impactLoc.getWorld() != shooterLoc.getWorld()) {
       return;
     }
-    if (impactLoc.distance(shooterLoc) > 32) {
+
+    int maxRange = 16;
+
+    if (shooter instanceof Player player) {
+      ItemStack mainHandItem = player.getInventory().getItemInMainHand();
+      if (mainHandItem.getType() != Material.CROSSBOW) {
+        return;
+      }
+      maxRange += mainHandItem.getEnchantments().get(Enchantment.PIERCING) * 8;
+    }
+
+    if (impactLoc.distance(shooterLoc) > maxRange) {
       return;
     }
 
@@ -107,7 +115,7 @@ public class HookShotEntity extends ModuleEntity {
     if (((CrossbowMeta) pInv.getItemInMainHand().getItemMeta()).hasChargedProjectiles()) {
       return;
     }
-    if (block.getType() != block.getLocation().getBlock().getType()) {
+    if (block.getLocation().getBlock().getType() == Material.AIR) {
       return;
     }
 
@@ -135,7 +143,7 @@ public class HookShotEntity extends ModuleEntity {
 
     Location entityLocation = entity.getLocation();
     Location shooterLocation = shooter.getLocation();
-    if (entityLocation.distance(shooterLocation) > 32 || !entity.getWorld().equals(shooter.getWorld()) || entity.isDead()) {
+    if (entityLocation.distance(shooterLocation) > 16 || !entity.getWorld().equals(shooter.getWorld()) || entity.isDead()) {
       return;
     }
 
@@ -157,7 +165,7 @@ public class HookShotEntity extends ModuleEntity {
       return;
     }
 
-    if (block.getType() != block.getLocation().getBlock().getType()) {
+    if (block.getLocation().getBlock().getType() == Material.AIR) {
       return;
     }
 
@@ -182,7 +190,7 @@ public class HookShotEntity extends ModuleEntity {
 
     Location entityLocation = entity.getLocation();
     Location shooterLocation = shooter.getLocation();
-    if (entityLocation.distance(shooterLocation) > 64 || !entity.getWorld().equals(shooter.getWorld()) || entity.isDead()) {
+    if (entityLocation.distance(shooterLocation) > 16 || !entity.getWorld().equals(shooter.getWorld()) || entity.isDead()) {
       return;
     }
 
