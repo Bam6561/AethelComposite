@@ -4,19 +4,19 @@ import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
 import me.bam6561.aethelcomposite.modules.core.references.ModuleName;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
+import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.utils.EntityUtils;
 import me.bam6561.aethelcomposite.modules.core.utils.TextUtils;
 import me.bam6561.aethelcomposite.modules.hook.references.Hook;
-import org.bukkit.Location;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
+import org.bukkit.inventory.meta.Damageable;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -26,7 +26,7 @@ import java.util.Objects;
  * and fire {@link Hook.Item#HOOK_SHOT} ammunition.
  *
  * @author Danny Nguyen
- * @version 1.1.24
+ * @version 1.1.41
  * @since 1.1.21
  */
 public class HookHarnessItem extends ModuleItemStack implements ActiveAbilityItem {
@@ -45,33 +45,21 @@ public class HookHarnessItem extends ModuleItemStack implements ActiveAbilityIte
   /**
    * Fires loaded {@link Hook.Item#HOOK_SHOT} ammunition.
    *
-   * @param event player interact event
+   * @param player interacting player
    */
-  public void fireHookShot(@NotNull PlayerInteractEvent event) {
-    Objects.requireNonNull(event, "Null event");
-    Player player = event.getPlayer();
+  public void fireHookShot(@NotNull Player player) {
+    Objects.requireNonNull(player, "Null player");
+    Damageable damageableMeta = ((Damageable) getItem().getItemMeta());
+    int damage = damageableMeta.getDamage();
+    int maxDamage = damageableMeta.hasMaxDamage() ? damageableMeta.getMaxDamage() : getItem().getType().getMaxDurability();
+    if (damage == maxDamage) {
+      player.sendMessage(Text.Label.DETAILS.asColor() + "H.O.O.K Harness: " + Text.Label.INVALID.asColor() + "Empty ammunition.");
+      return;
+    }
+    damageableMeta.setDamage(damage + 1);
+    getItem().setItemMeta(damageableMeta);
 
-    Location loc = player.getLocation();
-    Vector direction = loc.getDirection();
-
-    Entity projectile = player.launchProjectile(Arrow.class, direction);
-    EntityUtils.Modify.setEntityData(projectile, Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Entity.ID.asKey(), Hook.SpawnableEntity.HOOK_SHOT.asString());
-    projectile.setVelocity(projectile.getVelocity().multiply(3));
-  }
-
-  /**
-   * Fires loaded {@link Hook.Item#HOOK_SHOT} ammunition.
-   *
-   * @param event player interact entity event
-   */
-  public void fireHookShot(@NotNull PlayerInteractEntityEvent event) {
-    Objects.requireNonNull(event, "Null event");
-    Player player = event.getPlayer();
-
-    Location loc = player.getLocation();
-    Vector direction = loc.getDirection();
-
-    Entity projectile = player.launchProjectile(Arrow.class, direction);
+    Entity projectile = player.launchProjectile(Arrow.class, player.getLocation().getDirection());
     EntityUtils.Modify.setEntityData(projectile, Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Entity.ID.asKey(), Hook.SpawnableEntity.HOOK_SHOT.asString());
     projectile.setVelocity(projectile.getVelocity().multiply(3));
   }
@@ -79,16 +67,30 @@ public class HookHarnessItem extends ModuleItemStack implements ActiveAbilityIte
   /**
    * Reloads the Hook Harness with {@link Hook.Item#HOOK_SHOT} ammunition.
    *
-   * @param event player interact event
+   * @param player interacting player
    */
-  public void reload(@NotNull PlayerInteractEvent event) {
-  }
+  public void reload(@NotNull Player player) {
+    Objects.requireNonNull(player, "Null player");
+    Damageable damageableMeta = ((Damageable) getItem().getItemMeta());
+    if (!damageableMeta.hasDamage()) {
+      player.sendMessage(Text.Label.DETAILS.asColor() + "H.O.O.K Harness: " + Text.Label.INVALID.asColor() + "Full ammunition.");
+      return;
+    }
 
-  /**
-   * Reloads the Hook Harness with {@link Hook.Item#HOOK_SHOT} ammunition.
-   *
-   * @param event player interact entity event
-   */
-  public void reload(@NotNull PlayerInteractEntityEvent event) {
+    ItemStack ammunition = player.getInventory().getItemInOffHand();
+    int amount = ammunition.getAmount();
+    if (amount < 2) {
+      player.sendMessage(Text.Label.DETAILS.asColor() + "H.O.O.K Harness: " + Text.Label.INVALID.asColor() + "Reloads with 2 Hook Shots.");
+      return;
+    }
+    ammunition.setAmount(amount - 2);
+
+    int damage = damageableMeta.getDamage() - 15;
+    Map<Enchantment, Integer> enchantments = getItem().getEnchantments();
+    if (enchantments.containsKey(Enchantment.UNBREAKING)) {
+      damage -= enchantments.get(Enchantment.UNBREAKING) * 20;
+    }
+    damageableMeta.setDamage(Math.max(0, damage));
+    getItem().setItemMeta(damageableMeta);
   }
 }

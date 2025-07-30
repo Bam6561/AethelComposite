@@ -7,6 +7,7 @@ import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import me.bam6561.aethelcomposite.modules.hook.objects.items.HookHarnessItem;
 import me.bam6561.aethelcomposite.modules.hook.references.Hook;
 import me.bam6561.aethelcomposite.modules.lasso.objects.items.LassoItem;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -18,7 +19,7 @@ import java.util.Objects;
  * Manages {@link SneakInteractEntityEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.1.24
+ * @version 1.1.41
  * @since 1.0.8
  */
 public class SneakInteractEntityManager {
@@ -67,11 +68,13 @@ public class SneakInteractEntityManager {
     switch (moduleItem.getModuleName()) {
       case HOOK -> {
         HookHarnessItem hookHarnessItem = new HookHarnessItem(item);
-        ItemStack offHandItem = event.getPlayer().getInventory().getItemInOffHand();
+        Player player = event.getPlayer();
+        ItemStack offHandItem = player.getInventory().getItemInOffHand();
+
         if (ItemUtils.Read.isNullOrAir(offHandItem)) {
-          hookHarnessItem.fireHookShot(event);
+          hookHarnessItem.fireHookShot(player);
         } else if (ItemUtils.Read.getItemID(offHandItem).equals(ItemUtils.Read.getItemID(Hook.Item.HOOK_SHOT.asItem()))) {
-          hookHarnessItem.reload(event);
+          hookHarnessItem.reload(player);
         }
       }
     }
