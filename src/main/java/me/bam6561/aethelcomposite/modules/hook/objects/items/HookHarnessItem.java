@@ -22,8 +22,9 @@ import java.util.Objects;
 /**
  * Represents a {@link Hook.Item#HOOK_HARNESS}.
  * <p>
- * Hook harnesses are leggings equipment that store
- * and fire {@link Hook.Item#HOOK_SHOT} ammunition.
+ * Hook Harnesses are leggings equipment that store and fire {@link Hook.Item#HOOK_SHOT} ammunition.
+ * <p>
+ * Remaining ammunition in the harness is represented by its durability bar.
  *
  * @author Danny Nguyen
  * @version 1.1.41

@@ -31,7 +31,7 @@ import java.util.Objects;
  * Hook shots are projectiles that pull the shooter towards their point of impact.
  *
  * @author Danny Nguyen
- * @version 1.1.34
+ * @version 1.1.42
  * @since 1.1.19
  */
 public class HookShotEntity extends ModuleEntity {
@@ -97,18 +97,18 @@ public class HookShotEntity extends ModuleEntity {
 
     if (event.getHitBlock() != null) {
       if (shooter instanceof Player player) {
-        pullTowardsBlock(event.getHitBlock(), player);
+        pullPlayerTowardsBlock(event.getHitBlock(), player);
       } else {
-        pullTowardsBlock(event.getHitBlock(), shooter, 100);
+        pullEntityTowardsBlock(event.getHitBlock(), shooter, 100);
       }
       return;
     }
 
     if (event.getHitEntity() != null) {
       if (shooter instanceof Player player) {
-        pullTowardsEntity(event.getHitEntity(), player);
+        pullPlayerTowardsEntity(event.getHitEntity(), player);
       } else {
-        pullTowardsEntity(event.getHitEntity(), shooter, 100);
+        pullEntityTowardsEntity(event.getHitEntity(), shooter, 100);
       }
     }
   }
@@ -119,7 +119,7 @@ public class HookShotEntity extends ModuleEntity {
    * @param block   interacting block
    * @param shooter projectile shooter
    */
-  private void pullTowardsBlock(Block block, Player shooter) {
+  private void pullPlayerTowardsBlock(Block block, Player shooter) {
     PlayerInventory pInv = shooter.getInventory();
     if (pInv.getItemInMainHand().getType() != Material.CROSSBOW) {
       return;
@@ -135,7 +135,7 @@ public class HookShotEntity extends ModuleEntity {
     Vector pullVector = (blockVector.subtract(shooter.getLocation().toVector())).normalize();
     shooter.setVelocity(pullVector.multiply(0.55));
 
-    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsBlock(block, shooter), 2);
+    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullPlayerTowardsBlock(block, shooter), 2);
   }
 
   /**
@@ -144,7 +144,7 @@ public class HookShotEntity extends ModuleEntity {
    * @param entity  interacting entity
    * @param shooter projectile shooter
    */
-  private void pullTowardsEntity(Entity entity, Player shooter) {
+  private void pullPlayerTowardsEntity(Entity entity, Player shooter) {
     PlayerInventory pInv = shooter.getInventory();
     if (pInv.getItemInMainHand().getType() != Material.CROSSBOW) {
       return;
@@ -162,7 +162,7 @@ public class HookShotEntity extends ModuleEntity {
     Vector pullVector = (entityLocation.toVector().subtract(shooterLocation.toVector())).normalize();
     shooter.setVelocity(pullVector.multiply(0.55));
 
-    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsEntity(entity, shooter), 2);
+    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullPlayerTowardsEntity(entity, shooter), 2);
   }
 
   /**
@@ -172,7 +172,7 @@ public class HookShotEntity extends ModuleEntity {
    * @param shooter projectile shooter
    * @param ticks   duration
    */
-  private void pullTowardsBlock(Block block, LivingEntity shooter, long ticks) {
+  private void pullEntityTowardsBlock(Block block, LivingEntity shooter, long ticks) {
     if (ticks <= 0) {
       return;
     }
@@ -185,7 +185,7 @@ public class HookShotEntity extends ModuleEntity {
     Vector pullVector = (blockVector.subtract(shooter.getLocation().toVector())).normalize();
     shooter.setVelocity(pullVector.multiply(0.55));
 
-    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsBlock(block, shooter, ticks - 2), 2);
+    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullEntityTowardsBlock(block, shooter, ticks - 2), 2);
   }
 
   /**
@@ -195,7 +195,7 @@ public class HookShotEntity extends ModuleEntity {
    * @param shooter projectile shooter
    * @param ticks   duration
    */
-  private void pullTowardsEntity(Entity entity, LivingEntity shooter, long ticks) {
+  private void pullEntityTowardsEntity(Entity entity, LivingEntity shooter, long ticks) {
     if (ticks <= 0) {
       return;
     }
@@ -209,6 +209,6 @@ public class HookShotEntity extends ModuleEntity {
     Vector pullVector = (entityLocation.toVector().subtract(shooterLocation.toVector())).normalize();
     shooter.setVelocity(pullVector.multiply(0.55));
 
-    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullTowardsEntity(entity, shooter, ticks - 2), 2);
+    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> pullEntityTowardsEntity(entity, shooter, ticks - 2), 2);
   }
 }

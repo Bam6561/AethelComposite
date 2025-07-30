@@ -17,7 +17,7 @@ import java.util.Objects;
 /**
  * Represents a {@link Hook.Item#HOOK_SHOT}.
  * <p>
- * Hook shots are loadable crossbow and {@link Hook.Item#HOOK_HARNESS} ammunition
+ * Hook Shots are loadable crossbow and {@link Hook.Item#HOOK_HARNESS} ammunition
  * that continuously pull the user towards the projectile's point of impact.
  *
  * @author Danny Nguyen
@@ -44,7 +44,7 @@ public class HookShotItem extends ModuleItemStack implements ActiveAbilityItem {
    */
   public void modifyProjectile(@NotNull EntityShootBowEvent event) {
     Objects.requireNonNull(event, "Null event");
-    if(event.getBow().containsEnchantment(Enchantment.MULTISHOT)) {
+    if (event.getBow().containsEnchantment(Enchantment.MULTISHOT)) {
       return;
     }
     EntityUtils.Modify.setEntityData(event.getProjectile(), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Entity.ID.asKey(), Hook.SpawnableEntity.HOOK_SHOT.asString());

@@ -136,7 +136,7 @@ public class Hook {
    * Hook items.
    *
    * @author Danny Nguyen
-   * @version 1.1.33
+   * @version 1.1.42
    * @since 1.1.3
    */
   public enum Item implements ItemStackValue {
@@ -188,7 +188,7 @@ public class Hook {
     /**
      * {@link Item#HOOK_SHOT}
      */
-    HOOK_SHOT(new ModuleRecipe(List.of(new ItemStack(Material.ARROW), new ItemStack(Material.CHAIN), new ItemStack(Material.TRIPWIRE_HOOK)), List.of(ItemUtils.Modify.setAmount(Item.HOOK_SHOT.asItem(), 1)))),
+    HOOK_SHOT(new ModuleRecipe(List.of(new ItemStack(Material.ARROW), new ItemStack(Material.CHAIN), new ItemStack(Material.TRIPWIRE_HOOK)), List.of(Item.HOOK_SHOT.asItem()))),
 
     /**
      * {@link Item#HOOK_HARNESS}
