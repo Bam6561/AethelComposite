@@ -114,7 +114,7 @@ public class LassoItem extends ModuleItemStack implements ActiveAbilityItem {
       storeEntityToData(player, inv, entity);
     } else {
       event.setCancelled(true);
-      player.sendMessage(Text.Label.INVALID.asColor() + "Unable to capture " + TextUtils.Format.asTitle(entityType.name()) + ".");
+      player.sendMessage(Text.Label.DETAILS.asColor() + "Lasso: " + Text.Label.INVALID.asColor() + "Unable to capture " + TextUtils.Format.asTitle(entityType.name()) + ".");
     }
   }
 

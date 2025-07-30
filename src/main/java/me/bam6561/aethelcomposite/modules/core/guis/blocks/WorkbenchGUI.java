@@ -158,7 +158,7 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
 
     RecipeCraftOperation recipeCraftOperation = new RecipeCraftOperation(recipe, inv, 1);
     if (!recipeCraftOperation.craft()) {
-      player.sendMessage(Text.Label.INVALID.asColor() + "[!] Insufficient ingredients.");
+      player.sendMessage(Text.Label.DETAILS.asColor() + "Craft: " + Text.Label.INVALID.asColor() + "Not enough ingredients.");
     }
   }
 
