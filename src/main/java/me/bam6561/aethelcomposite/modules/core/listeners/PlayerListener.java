@@ -1,10 +1,7 @@
 package me.bam6561.aethelcomposite.modules.core.listeners;
 
-import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEntityEvent;
 import me.bam6561.aethelcomposite.modules.core.events.player.SneakInteractEvent;
-import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractEntityManager;
-import me.bam6561.aethelcomposite.modules.core.managers.SneakInteractManager;
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.modules.core.utils.ItemUtils;
 import org.bukkit.Bukkit;
