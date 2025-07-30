@@ -60,8 +60,8 @@ public class PlayerListener implements Listener {
       event.setCancelled(true);
     }
     if (player.isSneaking()) {
-      SneakInteractEvent sneakInteractEvent = new SneakInteractEvent(event);
-      Bukkit.getPluginManager().callEvent(sneakInteractEvent);
+      SneakInteractEvent sneakInteract = new SneakInteractEvent(event);
+      Bukkit.getPluginManager().callEvent(sneakInteract);
     }
   }
 
@@ -77,8 +77,8 @@ public class PlayerListener implements Listener {
       event.setCancelled(true);
     }
     if (player.isSneaking()) {
-      SneakInteractEntityEvent sneakInteractEntityEvent = new SneakInteractEntityEvent(event);
-      Bukkit.getPluginManager().callEvent(sneakInteractEntityEvent);
+      SneakInteractEntityEvent sneakInteractEntity = new SneakInteractEntityEvent(event);
+      Bukkit.getPluginManager().callEvent(sneakInteractEntity);
     }
   }
 
@@ -97,8 +97,8 @@ public class PlayerListener implements Listener {
 
     if (uniqueDurabilityItemIDs.contains(item)) {
       event.setCancelled(true);
-      UniqueModuleItemDamageEvent uniqueModuleItemDamageEvent = new UniqueModuleItemDamageEvent(event);
-      Bukkit.getPluginManager().callEvent(uniqueModuleItemDamageEvent);
+      UniqueModuleItemDamageEvent uniqueModuleItemDamage = new UniqueModuleItemDamageEvent(event);
+      Bukkit.getPluginManager().callEvent(uniqueModuleItemDamage);
     }
   }
 

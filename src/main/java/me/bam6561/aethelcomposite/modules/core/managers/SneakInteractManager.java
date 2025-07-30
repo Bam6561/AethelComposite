@@ -132,9 +132,9 @@ public class SneakInteractManager {
     switch (event.getClickedBlock().getType()) {
       case CRAFTING_TABLE -> {
         Player player = event.getPlayer();
-        GUIOpenEvent guiOpenEvent = new GUIOpenEvent(player, GUIOpenEvent.Type.WORKBENCH, GUIOpenEvent.Cause.INTERACTION);
-        Bukkit.getPluginManager().callEvent(guiOpenEvent);
-        if (guiOpenEvent.isCancelled()) {
+        GUIOpenEvent guiOpen = new GUIOpenEvent(player, GUIOpenEvent.Type.WORKBENCH, GUIOpenEvent.Cause.INTERACTION);
+        Bukkit.getPluginManager().callEvent(guiOpen);
+        if (guiOpen.isCancelled()) {
           return;
         }
         event.setCancelled(true);
