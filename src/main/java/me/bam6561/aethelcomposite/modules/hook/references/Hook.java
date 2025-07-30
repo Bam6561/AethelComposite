@@ -136,7 +136,7 @@ public class Hook {
    * Hook items.
    *
    * @author Danny Nguyen
-   * @version 1.1.31
+   * @version 1.1.32
    * @since 1.1.3
    */
   public enum Item implements ItemStackValue {
@@ -149,7 +149,7 @@ public class Hook {
     /**
      * Leggings equipment that stores and fires {@link #HOOK_SHOT hook shots}.
      */
-    HOOK_HARNESS(ItemUtils.Modify.addAttributeModifier(ItemUtils.Create.createItem(Material.LEATHER_LEGGINGS, ChatColor.WHITE + "H.O.O.K Harness", List.of(Text.Label.ACTION.asColor() + "Fire Hook Shot", Text.Label.TIP.asColor() + "[Empty Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Fires a projectile that continuously ", Text.Label.DETAILS.asColor() + "pulls the user to its point of impact.", Text.Label.ACTION.asColor() + "Reload", Text.Label.TIP.asColor() + "[Hook Shot(s) in Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Reloads Hook Shot ammunition.", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "H.O.O.K Harness"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_harness"), Attribute.ARMOR, "H.O.O.K Harness", 0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+    HOOK_HARNESS(ItemUtils.Modify.addAttributeModifier(ItemUtils.Create.createItem(Material.LEATHER_LEGGINGS, ChatColor.WHITE + "H.O.O.K Harness", List.of(Text.Label.ACTION.asColor() + "Fire Hook Shot", Text.Label.TIP.asColor() + "[Empty Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Fires a projectile that continuously ", Text.Label.DETAILS.asColor() + "pulls the user to its point of impact.", Text.Label.DETAILS.asColor() + "{Range: 32}", Text.Label.ACTION.asColor() + "Reload", Text.Label.TIP.asColor() + "[Hook Shot(s) in Off-Hand + Sneak-Interact]", Text.Label.DETAILS.asColor() + "Reloads Hook Shot ammunition.", Text.Label.DETAILS.asColor() + "{1:15 + Unbreaking * 15}", Text.Label.DETAILS.asColor() + "ID: " + ChatColor.WHITE + "H.O.O.K Harness"), Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Item.ID.asKey(), "hook_harness"), Attribute.ARMOR, "H.O.O.K Harness", 0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 
     /**
      * Item.
