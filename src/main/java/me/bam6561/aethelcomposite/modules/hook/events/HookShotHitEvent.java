@@ -1,26 +1,25 @@
-package me.bam6561.aethelcomposite.modules.core.events.player;
+package me.bam6561.aethelcomposite.modules.hook.events;
 
-import me.bam6561.aethelcomposite.Plugin;
+import me.bam6561.aethelcomposite.modules.hook.objects.entities.HookShotEntity;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
 /**
- * Called when a player interacts with an entity while sneaking.
+ * Called before the {@link HookShotEntity HookShotEntity's} shooter is
+ * pulled towards the {@link HookShotEntity HookShotEntity's} point of impact.
  * <p>
- * Cancellation prevents additional {@link Plugin} functionality.
- * <p>
- * May be cancelled without cancelling its source PlayerInteractEntityEvent.
+ * Cancellation prevents the {@link HookShotEntity HookShotEntity's} shooter from being pulled.
  *
  * @author Danny Nguyen
- * @version 1.0.88
- * @since 1.0.5
+ * @version 1.1.34
+ * @since 1.1.34
  */
-public class SneakInteractEntityEvent extends Event implements Cancellable {
+public class HookShotHitEvent extends Event implements Cancellable {
   /**
    * Event handlers.
    */
@@ -34,14 +33,14 @@ public class SneakInteractEntityEvent extends Event implements Cancellable {
   /**
    * Source of the event.
    */
-  private final PlayerInteractEntityEvent source;
+  private ProjectileHitEvent source;
 
   /**
    * Associates the event with its source.
    *
    * @param source source of the event
    */
-  public SneakInteractEntityEvent(@NotNull PlayerInteractEntityEvent source) {
+  public HookShotHitEvent(@NotNull ProjectileHitEvent source) {
     this.source = Objects.requireNonNull(source, "Null source");
   }
 
@@ -50,15 +49,14 @@ public class SneakInteractEntityEvent extends Event implements Cancellable {
    *
    * @return source of the event
    */
-  @NotNull
-  public PlayerInteractEntityEvent getSource() {
+  public ProjectileHitEvent getSource() {
     return this.source;
   }
 
   /**
    * Checks whether the event is cancelled.
    *
-   * @return cancellation state
+   * @return event cancellation state
    */
   @Override
   public boolean isCancelled() {

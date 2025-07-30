@@ -4,6 +4,7 @@ import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.objects.entity.ModuleEntity;
 import me.bam6561.aethelcomposite.modules.core.references.Namespaced;
 import me.bam6561.aethelcomposite.modules.core.utils.TextUtils;
+import me.bam6561.aethelcomposite.modules.hook.events.HookShotHitEvent;
 import me.bam6561.aethelcomposite.modules.hook.references.Hook;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -30,7 +31,7 @@ import java.util.Objects;
  * Hook shots are projectiles that pull the shooter towards their point of impact.
  *
  * @author Danny Nguyen
- * @version 1.1.33
+ * @version 1.1.34
  * @since 1.1.19
  */
 public class HookShotEntity extends ModuleEntity {
@@ -85,6 +86,12 @@ public class HookShotEntity extends ModuleEntity {
     }
 
     if (impactLoc.distance(shooterLoc) > maxRange) {
+      return;
+    }
+
+    HookShotHitEvent hookShotHit = new HookShotHitEvent(event);
+    Bukkit.getPluginManager().callEvent(hookShotHit);
+    if (hookShotHit.isCancelled()) {
       return;
     }
 
