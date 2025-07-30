@@ -33,12 +33,12 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
   /**
    * Inventory slot : {@link ModuleRecipe}
    */
-  private static final Map<Integer, ModuleRecipe> cachedModuleRecipes = new HashMap<>();
+  private static final Map<Integer, ModuleRecipe> CACHED_MODULE_RECIPES = new HashMap<>();
 
   /**
    * {@link CachedInventory}
    */
-  private static final Inventory cachedInventory = initializeCachedInventory();
+  private static final Inventory CACHED_INVENTORY = initializeCachedInventory();
 
   /**
    * No parameter constructor.
@@ -64,7 +64,7 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
 
     for (int invSlot = 0; invSlot < moduleRecipes.size(); invSlot++) {
       ModuleRecipe recipe = moduleRecipes.get(invSlot);
-      cachedModuleRecipes.put(invSlot, new ModuleRecipe(recipe));
+      CACHED_MODULE_RECIPES.put(invSlot, new ModuleRecipe(recipe));
 
       List<ItemStack> results = recipe.getResults();
       List<ItemStack> ingredients = recipe.getIngredients();
@@ -107,7 +107,7 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
    */
   @Override
   protected void addButtons() {
-    getInventory().setContents(cachedInventory.getContents());
+    getInventory().setContents(CACHED_INVENTORY.getContents());
   }
 
   /**
@@ -146,7 +146,7 @@ public class WorkbenchGUI extends GUI implements Workstation, CachedInventory {
       return;
     }
 
-    ModuleRecipe recipe = cachedModuleRecipes.get(event.getSlot());
+    ModuleRecipe recipe = CACHED_MODULE_RECIPES.get(event.getSlot());
     Player player = (Player) event.getWhoClicked();
     Inventory inv = player.getInventory();
 

@@ -48,28 +48,28 @@ public class LassoItem extends ModuleItemStack implements ActiveAbilityItem {
   /**
    * Entity types an {@link Lasso.Item#IRON_LASSO} can capture.
    */
-  private static final Set<EntityType> ironTier = Set.of(EntityType.CHICKEN, EntityType.COW, EntityType.SHEEP, EntityType.PIG);
+  private static final Set<EntityType> IRON_TIER = Set.of(EntityType.CHICKEN, EntityType.COW, EntityType.SHEEP, EntityType.PIG);
 
   /**
    * New entity types an {@link Lasso.Item#GOLDEN_LASSO} can capture.
    * <p>
    * Chain previous tiers together to get a full set of captureable entity types.
    */
-  private static final Set<EntityType> goldenTier = Set.of(EntityType.ALLAY, EntityType.ARMADILLO, EntityType.AXOLOTL, EntityType.BAT, EntityType.BEE, EntityType.CAMEL, EntityType.CAT, EntityType.COD, EntityType.DOLPHIN, EntityType.DONKEY, EntityType.FOX, EntityType.FROG, EntityType.GLOW_SQUID, EntityType.GOAT, EntityType.HAPPY_GHAST, EntityType.HORSE, EntityType.LLAMA, EntityType.MOOSHROOM, EntityType.MULE, EntityType.OCELOT, EntityType.PANDA, EntityType.PARROT, EntityType.POLAR_BEAR, EntityType.PUFFERFISH, EntityType.RABBIT, EntityType.SALMON, EntityType.SHEEP, EntityType.SKELETON_HORSE, EntityType.SNIFFER, EntityType.SNOW_GOLEM, EntityType.SQUID, EntityType.STRIDER, EntityType.TADPOLE, EntityType.TRADER_LLAMA, EntityType.TROPICAL_FISH, EntityType.TURTLE, EntityType.WOLF, EntityType.ZOMBIE_HORSE);
+  private static final Set<EntityType> GOLDEN_TIER = Set.of(EntityType.ALLAY, EntityType.ARMADILLO, EntityType.AXOLOTL, EntityType.BAT, EntityType.BEE, EntityType.CAMEL, EntityType.CAT, EntityType.COD, EntityType.DOLPHIN, EntityType.DONKEY, EntityType.FOX, EntityType.FROG, EntityType.GLOW_SQUID, EntityType.GOAT, EntityType.HAPPY_GHAST, EntityType.HORSE, EntityType.LLAMA, EntityType.MOOSHROOM, EntityType.MULE, EntityType.OCELOT, EntityType.PANDA, EntityType.PARROT, EntityType.POLAR_BEAR, EntityType.PUFFERFISH, EntityType.RABBIT, EntityType.SALMON, EntityType.SHEEP, EntityType.SKELETON_HORSE, EntityType.SNIFFER, EntityType.SNOW_GOLEM, EntityType.SQUID, EntityType.STRIDER, EntityType.TADPOLE, EntityType.TRADER_LLAMA, EntityType.TROPICAL_FISH, EntityType.TURTLE, EntityType.WOLF, EntityType.ZOMBIE_HORSE);
 
   /**
    * New entity types an {@link Lasso.Item#DIAMOND_LASSO} can capture.
    * <p>
    * Chain previous tiers together to get a full set of captureable entity types.
    */
-  private static final Set<EntityType> diamondTier = Set.of(EntityType.BLAZE, EntityType.BOGGED, EntityType.BREEZE, EntityType.CAVE_SPIDER, EntityType.CREAKING, EntityType.CREEPER, EntityType.DROWNED, EntityType.ELDER_GUARDIAN, EntityType.ENDERMAN, EntityType.ENDERMITE, EntityType.EVOKER, EntityType.GHAST, EntityType.GUARDIAN, EntityType.HOGLIN, EntityType.HUSK, EntityType.IRON_GOLEM, EntityType.MAGMA_CUBE, EntityType.PHANTOM, EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.PILLAGER, EntityType.RAVAGER, EntityType.SHULKER, EntityType.SILVERFISH, EntityType.SKELETON, EntityType.SLIME, EntityType.SPIDER, EntityType.STRAY, EntityType.VEX, EntityType.VINDICATOR, EntityType.WITCH, EntityType.WITHER_SKELETON, EntityType.ZOGLIN, EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.ZOMBIFIED_PIGLIN);
+  private static final Set<EntityType> DIAMOND_TIER = Set.of(EntityType.BLAZE, EntityType.BOGGED, EntityType.BREEZE, EntityType.CAVE_SPIDER, EntityType.CREAKING, EntityType.CREEPER, EntityType.DROWNED, EntityType.ELDER_GUARDIAN, EntityType.ENDERMAN, EntityType.ENDERMITE, EntityType.EVOKER, EntityType.GHAST, EntityType.GUARDIAN, EntityType.HOGLIN, EntityType.HUSK, EntityType.IRON_GOLEM, EntityType.MAGMA_CUBE, EntityType.PHANTOM, EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.PILLAGER, EntityType.RAVAGER, EntityType.SHULKER, EntityType.SILVERFISH, EntityType.SKELETON, EntityType.SLIME, EntityType.SPIDER, EntityType.STRAY, EntityType.VEX, EntityType.VINDICATOR, EntityType.WITCH, EntityType.WITHER_SKELETON, EntityType.ZOGLIN, EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.ZOMBIFIED_PIGLIN);
 
   /**
    * New entity types an {@link Lasso.Item#EMERALD_LASSO} can capture.
    * <p>
    * Chain previous tiers together to get a full set of captureable entity types.
    */
-  private static final Set<EntityType> emeraldTier = Set.of(EntityType.VILLAGER, EntityType.WANDERING_TRADER);
+  private static final Set<EntityType> EMERALD_TIER = Set.of(EntityType.VILLAGER, EntityType.WANDERING_TRADER);
 
   /**
    * Associates the LassoItem with its item.
@@ -183,12 +183,12 @@ public class LassoItem extends ModuleItemStack implements ActiveAbilityItem {
    */
   private boolean isCaptureable(Lasso.Item tier, EntityType entityType) {
     return switch (tier) {
-      case IRON_LASSO -> ironTier.contains(entityType);
-      case GOLDEN_LASSO -> (ironTier.contains(entityType) || goldenTier.contains(entityType));
+      case IRON_LASSO -> IRON_TIER.contains(entityType);
+      case GOLDEN_LASSO -> (IRON_TIER.contains(entityType) || GOLDEN_TIER.contains(entityType));
       case DIAMOND_LASSO ->
-          (ironTier.contains(entityType) || goldenTier.contains(entityType) || diamondTier.contains(entityType));
+          (IRON_TIER.contains(entityType) || GOLDEN_TIER.contains(entityType) || DIAMOND_TIER.contains(entityType));
       case EMERALD_LASSO ->
-          (ironTier.contains(entityType) || goldenTier.contains(entityType) || diamondTier.contains(entityType) || emeraldTier.contains(entityType));
+          (IRON_TIER.contains(entityType) || GOLDEN_TIER.contains(entityType) || DIAMOND_TIER.contains(entityType) || EMERALD_TIER.contains(entityType));
     };
   }
 

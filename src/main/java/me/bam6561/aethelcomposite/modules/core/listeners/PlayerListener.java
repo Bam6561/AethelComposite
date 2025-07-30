@@ -34,13 +34,13 @@ public class PlayerListener implements Listener {
    * <p>
    * See {@link #hasDefaultInteractionsDisabled(Player)}
    */
-  private static final Set<Material> disabledMaterials = Set.of(Material.LEAD);
+  private static final Set<Material> DISABLED_MATERIALS = Set.of(Material.LEAD);
 
   /**
    * {@link Namespaced.Key.Item#ID Item IDs} for
    * {@link ModuleItemStack ModuleItemStacks} with unique durability behaviors.
    */
-  private static final Set<String> uniqueDurabilityItemIDs = Set.of(ItemUtils.Read.getItemID(Hook.Item.HOOK_HARNESS.asItem()));
+  private static final Set<String> UNIQUE_DURABILITY_ITEM_IDS = Set.of(ItemUtils.Read.getItemID(Hook.Item.HOOK_HARNESS.asItem()));
 
   /**
    * No parameter constructor.
@@ -95,7 +95,7 @@ public class PlayerListener implements Listener {
       return;
     }
 
-    if (uniqueDurabilityItemIDs.contains(itemID)) {
+    if (UNIQUE_DURABILITY_ITEM_IDS.contains(itemID)) {
       event.setCancelled(true);
       UniqueModuleItemDamageEvent uniqueModuleItemDamage = new UniqueModuleItemDamageEvent(event, new ModuleItemStack(item));
       Bukkit.getPluginManager().callEvent(uniqueModuleItemDamage);
@@ -112,7 +112,7 @@ public class PlayerListener implements Listener {
     PlayerInventory pInv = player.getInventory();
     ItemStack mainHandItem = pInv.getItemInMainHand();
     ItemStack offHandItem = pInv.getItemInOffHand();
-    return (disabledMaterials.contains(mainHandItem.getType()) && ItemUtils.Read.getItemID(mainHandItem) != null) ||
-        (disabledMaterials.contains(offHandItem.getType()) && ItemUtils.Read.getItemID(offHandItem) != null);
+    return (DISABLED_MATERIALS.contains(mainHandItem.getType()) && ItemUtils.Read.getItemID(mainHandItem) != null) ||
+        (DISABLED_MATERIALS.contains(offHandItem.getType()) && ItemUtils.Read.getItemID(offHandItem) != null);
   }
 }
