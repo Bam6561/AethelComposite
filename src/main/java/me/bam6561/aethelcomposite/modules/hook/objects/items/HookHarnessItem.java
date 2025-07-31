@@ -1,5 +1,6 @@
 package me.bam6561.aethelcomposite.modules.hook.objects.items;
 
+import me.bam6561.aethelcomposite.Plugin;
 import me.bam6561.aethelcomposite.modules.core.objects.item.ModuleItemStack;
 import me.bam6561.aethelcomposite.modules.core.objects.item.markers.ActiveAbilityItem;
 import me.bam6561.aethelcomposite.modules.core.references.ModuleName;
@@ -8,6 +9,7 @@ import me.bam6561.aethelcomposite.modules.core.references.Text;
 import me.bam6561.aethelcomposite.modules.core.utils.EntityUtils;
 import me.bam6561.aethelcomposite.modules.core.utils.TextUtils;
 import me.bam6561.aethelcomposite.modules.hook.references.Hook;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -27,7 +29,7 @@ import java.util.Objects;
  * Remaining ammunition in the harness is represented by its durability bar.
  *
  * @author Danny Nguyen
- * @version 1.1.41
+ * @version 1.1.43
  * @since 1.1.21
  */
 public class HookHarnessItem extends ModuleItemStack implements ActiveAbilityItem {
@@ -60,6 +62,12 @@ public class HookHarnessItem extends ModuleItemStack implements ActiveAbilityIte
     damageableMeta.setDamage(damage + 1);
     getItem().setItemMeta(damageableMeta);
 
+    World world = player.getWorld();
+    Location loc = player.getEyeLocation();
+    world.playSound(loc, Sound.ENTITY_BREEZE_WIND_BURST, 0.35f, 0.25f);
+    Bukkit.getScheduler().runTaskLater(Plugin.getInstance(), () -> world.playSound(loc, Sound.ENTITY_BREEZE_DEATH, 0.25f, 0.75f), 1);
+    world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, player.getLocation().add(0, 0.65, 0), 5, 0.1, 0.1, 0.1, 0.0125);
+
     Entity projectile = player.launchProjectile(Arrow.class, player.getLocation().getDirection());
     EntityUtils.Modify.setEntityData(projectile, Namespaced.Key.Core.MODULE.asKey(), ModuleName.HOOK.asString(), Namespaced.Key.Entity.ID.asKey(), Hook.SpawnableEntity.HOOK_SHOT.asString());
     projectile.setVelocity(projectile.getVelocity().multiply(3));
@@ -85,6 +93,8 @@ public class HookHarnessItem extends ModuleItemStack implements ActiveAbilityIte
       return;
     }
     ammunition.setAmount(amount - 2);
+
+    player.getWorld().playSound(player.getEyeLocation(), Sound.ITEM_CROSSBOW_LOADING_MIDDLE, 1, 0.75f);
 
     int damage = damageableMeta.getDamage() - 15;
     Map<Enchantment, Integer> enchantments = getItem().getEnchantments();
