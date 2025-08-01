@@ -19,7 +19,7 @@ import java.util.Objects;
  * Manages {@link SneakInteractEntityEvent} interactions.
  *
  * @author Danny Nguyen
- * @version 1.1.41
+ * @version 1.1.44
  * @since 1.0.8
  */
 public class SneakInteractEntityManager {
@@ -73,7 +73,7 @@ public class SneakInteractEntityManager {
 
         if (ItemUtils.Read.isNullOrAir(offHandItem)) {
           hookHarnessItem.fireHookShot(player);
-        } else if (ItemUtils.Read.getItemID(offHandItem).equals(ItemUtils.Read.getItemID(Hook.Item.HOOK_SHOT.asItem()))) {
+        } else if (ItemUtils.Read.getItemID(offHandItem) != null && ItemUtils.Read.getItemID(offHandItem).equals(ItemUtils.Read.getItemID(Hook.Item.HOOK_SHOT.asItem()))) {
           hookHarnessItem.reload(player);
         }
       }
